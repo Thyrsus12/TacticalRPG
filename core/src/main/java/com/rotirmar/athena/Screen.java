@@ -1,13 +1,17 @@
 package com.rotirmar.athena;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+
+import java.util.ArrayList;
 
 public class Screen extends ScreenAdapter {
 
@@ -33,8 +37,11 @@ public class Screen extends ScreenAdapter {
 
     @Override
     public void show() {
+
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
-        camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 10);
+
+        //what a apaño is this
+        camera.position.set(WORLD_WIDTH / 2 - 2, WORLD_HEIGHT / 2 - 8, 0);
         camera.update();
     }
 
@@ -47,14 +54,31 @@ public class Screen extends ScreenAdapter {
         camera.update();
         batch.begin();
         batch.end();*/
+        handleInput();
+
+        int[] layer1 = {0};
+        int[] layer2 = {1};
 
         mapRenderer.setView(camera);
-        mapRenderer.render();
+        mapRenderer.render(layer1);
+        mapRenderer.render(layer2);
     }
 
     @Override
     public void dispose() {
         batch.dispose();
         super.dispose();
+    }
+
+    private void handleInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            camera.translate(+0.5f, 0, 0);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            camera.translate(+0.5f, 0, 0);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            camera.translate(-0.5f, 0, 0);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            camera.translate(-0.5f, 0, 0);
+        }
     }
 }
