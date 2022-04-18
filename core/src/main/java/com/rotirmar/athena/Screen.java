@@ -16,7 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 public class Screen extends ScreenAdapter {
 
     public static final int WORLD_WIDTH = 20;
-    public static final int WORLD_HEIGHT = 20;
+    public static final int WORLD_HEIGHT = 14;
     private static final float BLOCK_SIZE = 1;
 
 
@@ -45,7 +45,7 @@ public class Screen extends ScreenAdapter {
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
 
         //what a apaño is this
-        camera.position.set(WORLD_WIDTH / 2 - 2, WORLD_HEIGHT / 2 - 8, 0);
+        camera.position.set(WORLD_WIDTH / 2 - 2, WORLD_HEIGHT / 2 - 6, 0);
         camera.update();
 
         TiledMapTileLayer layer0 = (TiledMapTileLayer) tiledMap.getLayers().get(0);
