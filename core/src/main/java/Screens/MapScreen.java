@@ -1,4 +1,4 @@
-package com.rotirmar.athena;
+package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,7 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 
-public class Screen extends ScreenAdapter {
+public class MapScreen extends ScreenAdapter {
 
     public static final int WORLD_WIDTH = 20;
     public static final int WORLD_HEIGHT = 14;
@@ -31,7 +31,7 @@ public class Screen extends ScreenAdapter {
     TiledMapTileLayer.Cell cell;
     TiledMapTile tile;
 
-    public Screen(SpriteBatch batch) {
+    public MapScreen(SpriteBatch batch) {
         this.batch = batch;
 
         tiledMap = new TmxMapLoader().load("testmap.tmx");

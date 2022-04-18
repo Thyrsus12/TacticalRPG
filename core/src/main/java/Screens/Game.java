@@ -1,17 +1,17 @@
-package com.rotirmar.athena;
+package Screens;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends com.badlogic.gdx.Game {
 
     private SpriteBatch batch;
-    private Screen screen;
+    private SplashScreen splashScreen;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        screen = new Screen(batch);
-        setScreen(screen);
+        splashScreen = new SplashScreen(batch);
+        setScreen(splashScreen);
     }
 
     @Override
