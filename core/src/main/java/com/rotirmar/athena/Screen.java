@@ -20,7 +20,6 @@ public class Screen extends ScreenAdapter {
     public static final int WORLD_HEIGHT = 14;
     private static final float BLOCK_SIZE = 1;
 
-
     private SpriteBatch batch;
     private OrthographicCamera camera;
 
