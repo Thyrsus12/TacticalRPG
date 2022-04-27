@@ -54,14 +54,13 @@ public class TileMap {
 
         for (int row = 6; row >=0; row--){
             for (int col = 6; col >=0; col--) {
-                float x = (row - col) * 64/2.0001f;
-                float y = (col +row) * 32 / 2f;
+                float x = (row - col) * 32 / 2.0001f;
+                float y = (col +row) * 16 / 2f;
 
                 if (map[row][col].equals("g")) {
                     layer0.add(new Tile(grass, new Vector2(row, col), new Vector2(x, y)));
                 } else if (map[row][col].equals("w")) {
                     layer0.add(new Tile(water, new Vector2(row, col), new Vector2(x, y)));
-
                 }
             }
         }

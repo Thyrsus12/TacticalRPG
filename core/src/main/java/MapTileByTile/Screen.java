@@ -14,7 +14,7 @@ public class Screen extends ScreenAdapter {
 
     public Screen(SpriteBatch batch) {
         this.batch = batch;
-        this.cam = new OrthographicCamera();
+        this.cam = new OrthographicCamera(1280,720);
         this.map = new TileMap();
     }
 
@@ -41,6 +41,10 @@ public class Screen extends ScreenAdapter {
             cam.position.y -= 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             cam.position.x += 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            cam.zoom += 0.2;
+        }  else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            cam.zoom -= 0.2;
         }
     }
 
