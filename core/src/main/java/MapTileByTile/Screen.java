@@ -47,6 +47,9 @@ public class Screen extends ScreenAdapter {
             cam.zoom += 0.02;
         } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             cam.zoom -= 0.02;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            if (cam.zoom > 0.2)
+                cam.zoom -= 0.02;
         }
     }
 
