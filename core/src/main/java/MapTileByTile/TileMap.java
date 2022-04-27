@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,7 +22,7 @@ public class TileMap {
         grass = new Texture("grass.png");
         water = new Texture("water.png");
         layer0 = new LinkedList<Tile>();
-        map = new String[7][6];
+        map = new String[7][7];
 
         try {
             fillMap();
@@ -38,7 +39,7 @@ public class TileMap {
     }
 
     public void fillMap() throws IOException {
-        FileHandle fh = Gdx.files.local("map.txt");
+        FileHandle fh = Gdx.files.internal("C:\\Users\\Familia\\IdeaProjects\\TacticalRPG\\assets\\map.txt");
         System.out.println("ARCHIVO: " + fh.path());
         BufferedReader br = new BufferedReader(new FileReader(fh.path()));
         String s = "";
@@ -50,5 +51,19 @@ public class TileMap {
             count++;
         }
         br.close();
+
+        for (int row = 6; row >=0; row--){
+            for (int col = 6; col >=0; col--) {
+                float x = (row - col) * 64/2.0001f;
+                float y = (col +row) * 32 / 2f;
+
+                if (map[row][col].equals("g")) {
+                    layer0.add(new Tile(grass, new Vector2(row, col), new Vector2(x, y)));
+                } else if (map[row][col].equals("w")) {
+                    layer0.add(new Tile(water, new Vector2(row, col), new Vector2(x, y)));
+
+                }
+            }
+        }
     }
 }
