@@ -1,15 +1,19 @@
 package com.rotirmar.athena;
 
+import MapTileByTile.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends com.badlogic.gdx.Game {
 
     private SpriteBatch batch;
-    private Screen screen;
+    private ScreenAdapter screen;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
+        /*screen = new Screen(batch);
+        setScreen(screen);*/
         screen = new Screen(batch);
         setScreen(screen);
     }

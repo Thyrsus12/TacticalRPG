@@ -3,6 +3,7 @@ package com.rotirmar.athena;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -72,7 +73,7 @@ public class Screen extends ScreenAdapter {
 
         mapRenderer.setView(camera);
         mapRenderer.render(layer1);
-        mapRenderer.render(layer2);
+        //mapRenderer.render(layer2);
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
