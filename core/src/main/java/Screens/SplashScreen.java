@@ -6,10 +6,10 @@ import com.badlogic.gdx.Screen;
 import Utilies.Image;
 
 public class SplashScreen implements Screen {
-    boolean fadeInTerminated = false, teminated = false;
-    float a = 0;
-    float contTime = 0, timeWait = 5;
-    float contTimeTerminated = 0, timeTerminated = 5;
+    private boolean fadeInTerminated = false, teminated = false;
+    private float a = 0;
+    private float contTime = 0, timeWait = 5;
+    private float contTimeTerminated = 0, timeTerminated = 5;
     Image fund;
     Game game;
 
@@ -21,6 +21,7 @@ public class SplashScreen implements Screen {
     @Override
     public void show() {
         fund = new Image(Resources.FONDOSSPLASH);
+        fund.setPosition(300, 80);
         fund.setTransparent(1);
     }
 

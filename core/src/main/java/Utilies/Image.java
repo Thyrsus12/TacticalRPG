@@ -24,4 +24,8 @@ public class Image {
     public void setSize(int width, int height) {
         s.setSize(width, height);
     }
+
+    public void setPosition(int x, int y) {
+        s.setPosition(x, y);
+    }
 }
