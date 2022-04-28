@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -61,7 +62,10 @@ public class TileMap {
 
     public void fillMap() throws IOException {
         Random r = new Random();
-        FileHandle fh = Gdx.files.internal("/home/maed2/IdeaProjects/TacticalRPG/assets/map.txt");
+        String rute = new File("").getAbsolutePath();
+        //System.out.println(rute);
+        rute += "/assets/map.txt";
+        FileHandle fh = Gdx.files.internal(rute);
         System.out.println("ARCHIVO: " + fh.path());
         BufferedReader br = new BufferedReader(new FileReader(fh.path()));
         String s = "";
