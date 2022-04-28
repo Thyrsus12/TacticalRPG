@@ -1,17 +1,17 @@
 package Screens;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import Utilies.Render;
 
 public class Game extends com.badlogic.gdx.Game {
 
-    private SpriteBatch batch;
     private SplashScreen splashScreen;
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        splashScreen = new SplashScreen(batch);
-        setScreen(splashScreen);
+        Render.batch = new SpriteBatch();
+        this.setScreen(new SplashScreen(this));
+
     }
 
     @Override
@@ -21,7 +21,6 @@ public class Game extends com.badlogic.gdx.Game {
 
     @Override
     public void dispose() {
-        batch.dispose();
-        super.dispose();
+        Render.batch.dispose();
     }
 }

@@ -1,24 +1,27 @@
-package com.rotirmar.athena;
+package Utilies;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Image {
     private Texture t;
     private Sprite s;
-    private SpriteBatch batch;
 
     public Image(String ruta) {
-        this.t = new Texture(ruta);
-        this.s = new Sprite(t);
+        t = new Texture(ruta);
+        s = new Sprite(t);
     }
 
     public void draw() {
-        s.draw(batch);
+        s.draw(Render.batch);
+
     }
 
     public void setTransparent(float a) {
         s.setAlpha(a);
+    }
+
+    public void setSize(int width, int height) {
+        s.setSize(width, height);
     }
 }

@@ -1,41 +1,35 @@
 package Screens;
 
-import com.badlogic.gdx.Gdx;
+import Utilies.Render;
+import Utilies.Resources;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.rotirmar.athena.Image;
+import Utilies.Image;
 
 public class SplashScreen implements Screen {
-    private SpriteBatch batch;
     boolean fadeInTerminated = false, teminated = false;
     float a = 0;
     float contTime = 0, timeWait = 5;
     float contTimeTerminated = 0, timeTerminated = 5;
     Image fund;
+    Game game;
 
-
-    public SplashScreen(SpriteBatch batch) {
-        this.batch = batch;
+    public SplashScreen(Game game) {
+        this.game = game;
     }
+
 
     @Override
     public void show() {
-        fund = new Image("little_owl.png");
-        batch = new SpriteBatch();
+        fund = new Image(Resources.FONDOSSPLASH);
         fund.setTransparent(1);
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
+        Render.limpiarPantalla();
+        Render.batch.begin();
         fund.draw();
-        batch.end();
+        Render.batch.end();
         processFade();
     }
 
@@ -52,6 +46,7 @@ public class SplashScreen implements Screen {
                 a -= 0.01f;
                 if (a < 0) {
                     a = 0;
+                    teminated = true;
                 }
             }
         }
@@ -60,7 +55,7 @@ public class SplashScreen implements Screen {
         if (teminated) {
             contTimeTerminated += 0.1f;
             if (contTimeTerminated > timeTerminated) {
-                System.out.println("Cambio pantalla");
+                game.setScreen(new MenuScreen());
             }
         }
     }
