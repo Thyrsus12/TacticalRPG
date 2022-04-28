@@ -7,7 +7,9 @@ import com.badlogic.gdx.math.Vector2;
 public class Tile {
 
     private Texture t;
+
     private Vector2 tileMapPos;
+
     private Vector2 tileWorldPos;
 
     public Tile(Texture t, Vector2 tileMapPos, Vector2 tileWorldPos) {
@@ -18,5 +20,13 @@ public class Tile {
 
     public void render(SpriteBatch batch) {
         batch.draw(t, tileWorldPos.x, tileWorldPos.y);
+    }
+
+    public Vector2 getTileMapPos() {
+        return tileMapPos;
+    }
+
+    public Vector2 getTileWorldPos() {
+        return tileWorldPos;
     }
 }

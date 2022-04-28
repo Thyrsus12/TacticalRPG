@@ -16,15 +16,15 @@ import java.util.Random;
 public class TileMap {
 
     private LinkedList<Tile> layer0;
-    private LinkedList<Tile> layer1;
+    //private LinkedList<Tile> layer1;
     private Texture grass;
     private Texture water;
     private Texture flowers;
     private Texture lava;
     private Texture selected;
     private String[][] mapLayer0;
-    private String[][] mapLayer1;
-    int[] selector = {5, 3};
+    //private String[][] mapLayer1;
+    public int[] selector  = {6, 6};
 
     public TileMap() {
         grass = new Texture("grass.png");
@@ -33,15 +33,15 @@ public class TileMap {
         lava = new Texture("lava.png");
         selected = new Texture("selected.png");
         layer0 = new LinkedList<Tile>();
-        layer1 = new LinkedList<Tile>();
+        //layer1 = new LinkedList<Tile>();
         mapLayer0 = new String[7][7];
-        mapLayer1 = new String[7][7];
+        //mapLayer1 = new String[7][7];
 
         try {
             fillMap();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("fillMap call failed");
+            System.out.println("FILLMAP CALL FILED");
         }
     }
 
@@ -50,9 +50,10 @@ public class TileMap {
             t.render(batch);
         }
 
-        //for(Tile t : layer1) {
-        //    t.render(batch);
-        //}
+        /*for(Tile t : layer1) {
+            t.render(batch);
+        }*/
+        //render de unique tile in Layer1
         int row = getSelector()[0];
         int col = getSelector()[1];
         Tile selectedTile = new Tile(selected, new Vector2(row, col),
@@ -61,38 +62,37 @@ public class TileMap {
     }
 
     public void fillMap() throws IOException {
-        Random r = new Random();
-        String rute = new File("").getAbsolutePath();
-        //System.out.println(rute);
-        rute += "/assets/map.txt";
+        String rute = new File("").getAbsolutePath() + "/assets/map.txt";
         FileHandle fh = Gdx.files.internal(rute);
-        System.out.println("ARCHIVO: " + fh.path());
-        BufferedReader br = new BufferedReader(new FileReader(fh.path()));
-        String s = "";
-        int count = 0;
+        //System.out.println("ARCHIVO: " + fh.path());
 
+        //String map of Layer0
+        BufferedReader br = new BufferedReader(new FileReader(fh.path()));
+        String s;
+        int count = 0;
         while ((s = br.readLine()) != null) {
-            System.out.println(s);
+            //System.out.println(s);
             mapLayer0[count] = s.split(" ");
             count++;
         }
         br.close();
 
-        for (int i = 0; i < 7; i++) {
+        //String map of Layer1
+        /*for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
                 mapLayer1[i][j] = "nothing";
             }
         }
+        mapLayer1[selector[0]][selector[1]] = "s";*/
 
-        mapLayer1[selector[0]][selector[1]] = "s";
-
-        //Generador de mapa (se ejecuta 1 vez)
+        //position of the map tiles generator (1 time execute)
         for (int row = 6; row >=0; row--){
             for (int col = 6; col >=0; col--) {
                 float x = (row - col) * 32 / 2.0001f;
                 float y = (col +row) * 16 / 2f;
 
                 //Layer0
+                Random r = new Random();
                 if (mapLayer0[row][col].equals("g")) {
                     if (r.nextInt(10)<1){
                         layer0.add(new Tile(flowers, new Vector2(row, col), new Vector2(x, y)));
@@ -104,15 +104,18 @@ public class TileMap {
                 }
 
                 //Layer1
-                //if (mapLayer1[row][col].equals("s")){
-                //    layer1.add(new Tile(selected,  new Vector2(row, col), new Vector2(x, y)));
-                //}
+                /*if (mapLayer1[row][col].equals("s")){
+                    layer1.add(new Tile(selected,  new Vector2(row, col), new Vector2(x, y)));
+                }*/
             }
         }
-    }
 
-    public void selectTile(){
-
+        //each tile position
+        /*int cont = 0;
+        for(Tile t : layer0) {
+            System.out.println("POS_" + cont + ": " + t.getTileMapPos().x + "-" + t.getTileMapPos().y + " " + t.getTileWorldPos().x + "-" + t.getTileWorldPos().y);
+            cont++;
+        }*/
     }
 
     public int[] getSelector() {
