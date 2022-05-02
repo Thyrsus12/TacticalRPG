@@ -1,7 +1,5 @@
 package MapTileByTile;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -46,6 +44,7 @@ public class TileMap {
     }
 
     public void render(SpriteBatch batch) {
+        //render Layer0
         for(Tile t : layer0) {
             t.render(batch);
         }
@@ -53,6 +52,7 @@ public class TileMap {
         /*for(Tile t : layer1) {
             t.render(batch);
         }*/
+
         //render de unique tile in Layer1
         int row = getSelector()[0];
         int col = getSelector()[1];
@@ -63,11 +63,10 @@ public class TileMap {
 
     public void fillMap() throws IOException {
         String rute = new File("").getAbsolutePath() + "/assets/map.txt";
-        FileHandle fh = Gdx.files.internal(rute);
-        //System.out.println("ARCHIVO: " + fh.path());
+        //System.out.println("ARCHIVO: " + rute);
 
         //String map of Layer0
-        BufferedReader br = new BufferedReader(new FileReader(fh.path()));
+        BufferedReader br = new BufferedReader(new FileReader(rute));
         String s;
         int count = 0;
         while ((s = br.readLine()) != null) {
