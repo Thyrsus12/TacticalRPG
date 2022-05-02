@@ -27,6 +27,8 @@ public class Screen extends ScreenAdapter {
         camInput();
         cam.update();
 
+        movementInput(map.getSelector());
+
         batch.begin();
         map.render(batch);
         batch.end();
@@ -44,9 +46,24 @@ public class Screen extends ScreenAdapter {
         } else if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             cam.zoom += 0.02;
         } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            cam.zoom -= 0.02;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (cam.zoom > 0.2)
                 cam.zoom -= 0.02;
         }
     }
 
+    public void movementInput(int[] position) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            position[0]++;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            position[0]--;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            position[1]++;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            position[1]--;
+        }
+
+        map.setSelector(position);
+    }
 }
