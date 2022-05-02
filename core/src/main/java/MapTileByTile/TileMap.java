@@ -48,6 +48,7 @@ public class TileMap {
         for(Tile t : layer0) {
             t.render(batch);
         }
+
         /*for(Tile t : layer1) {
             t.render(batch);
         }*/
