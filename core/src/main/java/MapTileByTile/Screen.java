@@ -6,11 +6,16 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
+
+import java.util.LinkedList;
 
 public class Screen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private TileMap map;
+
+    public int mx, my;
 
     public Screen(SpriteBatch batch) {
         this.batch = batch;
@@ -27,7 +32,8 @@ public class Screen extends ScreenAdapter {
         camInput();
         cam.update();
 
-        movementInput(map.getSelector());
+        //movementInput(map.getSelector());
+        mouseInput();
 
         batch.begin();
         map.render(batch);
@@ -65,5 +71,36 @@ public class Screen extends ScreenAdapter {
         }
 
         map.setSelector(position);
+    }
+
+    public void mouseInput() {
+        if (Gdx.input.justTouched()) {
+            Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            cam.unproject(mousePos);
+
+            //System.out.println("MPosX: " + mousePos.x + " MPosY: " + mousePos.y);
+            float mapx = ((mousePos.x - 16) / TileMap.TILE_WIDTH + (mousePos.y - 16) / TileMap.TILE_HEIGHT);
+            float mapy = ((mousePos.y - 16) / TileMap.TILE_HEIGHT - (mousePos.x - 16) / TileMap.TILE_WIDTH);
+
+            mx = (int) mapx;
+            my = (int) mapy;
+            //System.out.println("-------------------------------------------");
+            //System.out.println("Map X=" + mx + " Map Y=" + my);
+
+            int cont = 0;
+            LinkedList<Tile> linked = map.getLayer0();
+            for (Tile t : linked) {
+                Tile taux = linked.get(cont);
+                //System.out.println("WorldPos -> X=" + t.getTileWorldPos().x + " Y=" + t.getTileWorldPos().y);
+                if (t.getTileMapPos().x == mx && t.getTileMapPos().y == my && !t.isSelected) {
+                    taux.isSelected = true;
+                    linked.set(cont, taux);
+                } else if (t.getTileMapPos().x == mx && t.getTileMapPos().y == my && t.isSelected){
+                    taux.isSelected = false;
+                    linked.set(cont, taux);
+                }
+                cont++;
+            }
+        }
     }
 }

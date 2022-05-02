@@ -1,7 +1,7 @@
 w g g g g g g
-g w g g g g g
+g w w w w g g
 g g w g g g g
 g g g w g g g
-g g g g w g g
-g g g g g w g
+g g g w w g g
+g g g w g w g
 g g g g g g w

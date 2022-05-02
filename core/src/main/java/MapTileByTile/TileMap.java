@@ -3,6 +3,7 @@ package MapTileByTile;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import utilities.RegionGiver;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,7 +14,11 @@ import java.util.Random;
 
 public class TileMap {
 
-    private LinkedList<Tile> layer0;
+    private final int WORLD_MAP_SIZE = 6;
+    public static final int TILE_WIDTH = 32;
+    public static int TILE_HEIGHT = 16;
+
+    public LinkedList<Tile> layer0;
     //private LinkedList<Tile> layer1;
     private Texture grass;
     private Texture water;
@@ -54,11 +59,11 @@ public class TileMap {
         }*/
 
         //render de unique tile in Layer1
-        int row = getSelector()[0];
+        /*int row = getSelector()[0];
         int col = getSelector()[1];
-        Tile selectedTile = new Tile(selected, new Vector2(row, col),
-                new Vector2((row - col) * 32 / 2.0001f, (col +row) * 16 / 2f));
-        selectedTile.render(batch);
+        Tile selectedTile = new Tile(RegionGiver.getRegion(true,"lava"), new Vector2(row, col),
+                new Vector2((row - col) * TILE_WIDTH / 2.0001f, (col +row) * TILE_HEIGHT / 2f));
+        selectedTile.render(batch);*/
     }
 
     public void fillMap() throws IOException {
@@ -85,21 +90,35 @@ public class TileMap {
         mapLayer1[selector[0]][selector[1]] = "s";*/
 
         //position of the map tiles generator (1 time execute)
-        for (int row = 6; row >=0; row--){
-            for (int col = 6; col >=0; col--) {
-                float x = (row - col) * 32 / 2.0001f;
-                float y = (col +row) * 16 / 2f;
+        for (int row = WORLD_MAP_SIZE; row >=0; row--){
+            for (int col = WORLD_MAP_SIZE; col >=0; col--) {
+                float x = (row - col) * TILE_WIDTH / 2.0001f;
+                float y = (col +row) * TILE_HEIGHT / 2f;
 
                 //Layer0
                 Random r = new Random();
                 if (mapLayer0[row][col].equals("g")) {
                     if (r.nextInt(10)<1){
-                        layer0.add(new Tile(flowers, new Vector2(row, col), new Vector2(x, y)));
+                        layer0.add(new Tile(
+                                false,
+                                RegionGiver.getRegion(false,"flowers"),
+                                RegionGiver.getRegion(true,"flowers"),
+                                new Vector2(row, col), new Vector2(x, y)));
+                        //System.out.println("World -> X=" + x + " Y=" + y);
+                        //System.out.println("Map -> X=" + row + " Y=" + col);
                     } else {
-                        layer0.add(new Tile(grass, new Vector2(row, col), new Vector2(x, y)));
+                        layer0.add(new Tile(
+                                false,
+                                RegionGiver.getRegion(false,"grass"),
+                                RegionGiver.getRegion(true,"grass"),
+                                new Vector2(row, col), new Vector2(x, y)));
                     }
                 } else if (mapLayer0[row][col].equals("w")) {
-                    layer0.add(new Tile(water, new Vector2(row, col), new Vector2(x, y)));
+                    layer0.add(new Tile(
+                            false,
+                            RegionGiver.getRegion(false,"water"),
+                            RegionGiver.getRegion(true,"water"),
+                            new Vector2(row, col), new Vector2(x, y)));
                 }
 
                 //Layer1
@@ -110,10 +129,9 @@ public class TileMap {
         }
 
         //each tile position
-        /*int cont = 0;
-        for(Tile t : layer0) {
-            System.out.println("POS_" + cont + ": " + t.getTileMapPos().x + "-" + t.getTileMapPos().y + " " + t.getTileWorldPos().x + "-" + t.getTileWorldPos().y);
-            cont++;
+        /*for(Tile t : layer0) {
+            System.out.println("World -> X=" + t.getTileWorldPos().x + " Y=" + t.getTileWorldPos().y);
+            System.out.println("Map -> X=" + t.getTileMapPos().x + " Y=" + t.getTileMapPos().y);
         }*/
     }
 
@@ -123,5 +141,9 @@ public class TileMap {
 
     public void setSelector(int[] selector) {
         this.selector = selector;
+    }
+
+    public LinkedList<Tile> getLayer0() {
+        return layer0;
     }
 }
