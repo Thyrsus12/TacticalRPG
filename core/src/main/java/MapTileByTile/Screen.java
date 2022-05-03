@@ -59,7 +59,7 @@ public class Screen extends ScreenAdapter {
         }
     }
 
-    public void movementInput(int[] position) {
+    /*public void movementInput(int[] position) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             position[0]++;
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
@@ -69,35 +69,35 @@ public class Screen extends ScreenAdapter {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             position[1]--;
         }
-
         map.setSelector(position);
-    }
+    }*/
 
     public void mouseInput() {
         if (Gdx.input.justTouched()) {
+            /**get mouse coordinates*/
             Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             cam.unproject(mousePos);
-
             //System.out.println("MPosX: " + mousePos.x + " MPosY: " + mousePos.y);
+
+            /**Convert mouse coordinates into map tile (0,0 - 0,1...)*/
             float mapx = ((mousePos.x - 16) / TileMap.TILE_WIDTH + (mousePos.y - 16) / TileMap.TILE_HEIGHT);
             float mapy = ((mousePos.y - 16) / TileMap.TILE_HEIGHT - (mousePos.x - 16) / TileMap.TILE_WIDTH);
-
             mx = (int) mapx;
             my = (int) mapy;
             //System.out.println("-------------------------------------------");
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
+            /**Modify the tile of the array and insert it again*/
             int cont = 0;
             LinkedList<Tile> linked = map.getLayer0();
             for (Tile t : linked) {
-                Tile taux = linked.get(cont);
                 //System.out.println("WorldPos -> X=" + t.getTileWorldPos().x + " Y=" + t.getTileWorldPos().y);
                 if (t.getTileMapPos().x == mx && t.getTileMapPos().y == my && !t.isSelected) {
-                    taux.isSelected = true;
-                    linked.set(cont, taux);
-                } else if (t.getTileMapPos().x == mx && t.getTileMapPos().y == my && t.isSelected){
-                    taux.isSelected = false;
-                    linked.set(cont, taux);
+                    t.isSelected = true;
+                    linked.set(cont, t);
+                } else if (t.getTileMapPos().x == mx && t.getTileMapPos().y == my && t.isSelected) {
+                    t.isSelected = false;
+                    linked.set(cont, t);
                 }
                 cont++;
             }
