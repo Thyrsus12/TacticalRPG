@@ -11,10 +11,13 @@ public class Character {
     private Vector2 charMapPos;
     private Vector2 charWorldPos;
 
-    public Character(TextureRegion t, Vector2 charMapPos) {
-        this.t = t;
-        this.charMapPos = charMapPos;
+    public Character() {
+        this.t = new TextureRegion(new Texture("character2.png"), 32, 32);
+        this.charMapPos = new Vector2(4, 5);
         this.charWorldPos = calculateWorldPos(charMapPos);
+    }
+
+    public void createCharacter() {
     }
 
     public void render(SpriteBatch batch) {
@@ -25,5 +28,9 @@ public class Character {
         float x = (charMapPos.x - charMapPos.y) * Tile.TILE_WIDTH / 2.0001f;
         float y = (charMapPos.y + charMapPos.x) * Tile.TILE_HEIGHT / 2f;
         return new Vector2(x, y);
+    }
+
+    public Vector2 getCharMapPos() {
+        return charMapPos;
     }
 }

@@ -28,8 +28,7 @@ public class Screen extends ScreenAdapter {
         this.batch = batch;
         this.cam = new OrthographicCamera(1280, 720);
         this.map = new TileMap();
-
-        this.character = new Character(new TextureRegion(new Texture("character2.png"), 32, 32), new Vector2(4, 5));
+        this.character = new Character();
     }
 
     public void render(float delta) {
@@ -104,7 +103,7 @@ public class Screen extends ScreenAdapter {
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
             TilesOperations tilesOps = new TilesOperations();
-            tilesOps.modifyTile(map, mx, my);
+            tilesOps.modifyTile(map, mx, my, character);
         }
     }
 }

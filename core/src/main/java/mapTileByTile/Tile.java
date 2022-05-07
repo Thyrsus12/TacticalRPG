@@ -46,4 +46,8 @@ public class Tile {
     public Vector2 getTileWorldPos() {
         return tileWorldPos;
     }
+
+    public void setT(TextureRegion t) {
+        this.t = t;
+    }
 }

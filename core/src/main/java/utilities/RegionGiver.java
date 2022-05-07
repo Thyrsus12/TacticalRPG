@@ -25,6 +25,8 @@ public class RegionGiver {
                 return new TextureRegion(blocks, 192, 160, SIDE_SIZE, SIDE_SIZE);
             case "lava":
                 return new TextureRegion(blocks, 256, 160, SIDE_SIZE, SIDE_SIZE);
+            case "blue":
+                return new TextureRegion(blocks, 256, 192, SIDE_SIZE, SIDE_SIZE);
             default:
                 break;
         }
