@@ -1,0 +1,29 @@
+package characters;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import mapTileByTile.Tile;
+
+public class Character {
+    private TextureRegion t;
+    private Vector2 charMapPos;
+    private Vector2 charWorldPos;
+
+    public Character(TextureRegion t, Vector2 charMapPos) {
+        this.t = t;
+        this.charMapPos = charMapPos;
+        this.charWorldPos = calculateWorldPos(charMapPos);
+    }
+
+    public void render(SpriteBatch batch) {
+        batch.draw(t, charWorldPos.x, charWorldPos.y);
+    }
+
+    private Vector2 calculateWorldPos(Vector2 charMapPos) {
+        float x = (charMapPos.x - charMapPos.y) * Tile.TILE_WIDTH / 2.0001f;
+        float y = (charMapPos.y + charMapPos.x) * Tile.TILE_HEIGHT / 2f;
+        return new Vector2(x, y);
+    }
+}

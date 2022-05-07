@@ -1,4 +1,4 @@
-package MapTileByTile;
+package mapTileByTile;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -14,8 +14,6 @@ import java.util.Random;
 public class TileMap {
 
     private final int WORLD_MAP_SIZE = 7;
-    public static final int TILE_WIDTH = 32;
-    public static int TILE_HEIGHT = 16;
 
     public LinkedList<Tile> layer0;
     //private LinkedList<Tile> layer1;
@@ -81,8 +79,8 @@ public class TileMap {
         /**Position of the map tiles generator (1 time execute)*/
         for (int row = WORLD_MAP_SIZE; row >= 0; row--) {
             for (int col = WORLD_MAP_SIZE; col >= 0; col--) {
-                float x = (row - col) * TILE_WIDTH / 2.0001f;
-                float y = (col + row) * TILE_HEIGHT / 2f;
+                float x = (row - col) * Tile.TILE_WIDTH / 2.0001f;
+                float y = (col + row) * Tile.TILE_HEIGHT / 2f;
 
                 /**Layer0*/
                 Random r = new Random();
@@ -108,7 +106,14 @@ public class TileMap {
                             RegionGiver.getRegion(false, "water"),
                             RegionGiver.getRegion(true, "water"),
                             new Vector2(row, col), new Vector2(x, y)));
+                } else if (mapLayer0[row][col].equals("l")) {
+                    layer0.add(new Tile(
+                            false,
+                            RegionGiver.getRegion(false, "lava"),
+                            RegionGiver.getRegion(true, "lava"),
+                            new Vector2(row, col), new Vector2(x, y)));
                 }
+
 
                 //Layer1
                 /*if (mapLayer1[row][col].equals("s")){

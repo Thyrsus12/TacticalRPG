@@ -1,19 +1,26 @@
-package MapTileByTile;
+package mapTileByTile;
 
+import characters.Character;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-
-import java.util.LinkedList;
+import utilities.RegionGiver;
+import utilities.TilesOperations;
 
 public class Screen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
+
     private TileMap map;
+
+    private Character character;
 
     public int mx, my;
 
@@ -21,6 +28,8 @@ public class Screen extends ScreenAdapter {
         this.batch = batch;
         this.cam = new OrthographicCamera(1280, 720);
         this.map = new TileMap();
+
+        this.character = new Character(new TextureRegion(new Texture("character2.png"), 32, 32), new Vector2(4, 5));
     }
 
     public void render(float delta) {
@@ -37,6 +46,15 @@ public class Screen extends ScreenAdapter {
 
         batch.begin();
         map.render(batch);
+        character.render(batch);
+        /*float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
+        float y = (5 + 4) * Tile.TILE_HEIGHT / 2f;
+        Tile test = new Tile(
+                false,
+                RegionGiver.getRegion(false, "lava"),
+                RegionGiver.getRegion(true, "lava"),
+                new Vector2(4, 5), new Vector2(x, y));
+        test.render(batch);*/
         batch.end();
     }
 
@@ -50,12 +68,10 @@ public class Screen extends ScreenAdapter {
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             cam.position.x += 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            cam.zoom += 0.02;
+            cam.zoom += 0.01;
         } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            cam.zoom -= 0.02;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            if (cam.zoom > 0.2)
-                cam.zoom -= 0.02;
+            if (cam.zoom > 0.1)
+                cam.zoom -= 0.01;
         }
     }
 
@@ -80,27 +96,15 @@ public class Screen extends ScreenAdapter {
             //System.out.println("MPosX: " + mousePos.x + " MPosY: " + mousePos.y);
 
             /**Convert mouse coordinates into map tile (0,0 - 0,1...)*/
-            float mapx = ((mousePos.x - 16) / TileMap.TILE_WIDTH + (mousePos.y - 16) / TileMap.TILE_HEIGHT);
-            float mapy = ((mousePos.y - 16) / TileMap.TILE_HEIGHT - (mousePos.x - 16) / TileMap.TILE_WIDTH);
+            float mapx = ((mousePos.x - 16) / Tile.TILE_WIDTH + (mousePos.y - 16) / Tile.TILE_HEIGHT);
+            float mapy = ((mousePos.y - 16) / Tile.TILE_HEIGHT - (mousePos.x - 16) / Tile.TILE_WIDTH);
             mx = (int) mapx;
             my = (int) mapy;
             //System.out.println("-------------------------------------------");
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
-            /**Modify the tile of the array and insert it again*/
-            int cont = 0;
-            LinkedList<Tile> linked = map.getLayer0();
-            for (Tile t : linked) {
-                //System.out.println("WorldPos -> X=" + t.getTileWorldPos().x + " Y=" + t.getTileWorldPos().y);
-                if (t.getTileMapPos().x == mx && t.getTileMapPos().y == my && !t.isSelected) {
-                    t.isSelected = true;
-                    linked.set(cont, t);
-                } else if (t.getTileMapPos().x == mx && t.getTileMapPos().y == my && t.isSelected) {
-                    t.isSelected = false;
-                    linked.set(cont, t);
-                }
-                cont++;
-            }
+            TilesOperations tilesOps = new TilesOperations();
+            tilesOps.modifyTile(map, mx, my);
         }
     }
 }

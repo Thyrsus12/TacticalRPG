@@ -1,4 +1,4 @@
-package MapTileByTile;
+package mapTileByTile;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -6,11 +6,15 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Tile {
 
+    public static final int TILE_WIDTH = 32;
+    public static int TILE_HEIGHT = 16;
+
     private TextureRegion t;
     private TextureRegion tS;
     private Vector2 tileMapPos;
     private Vector2 tileWorldPos;
-    Boolean isSelected;
+
+    private Boolean isSelected;
 
     public Tile(Boolean isSelected, TextureRegion t, TextureRegion tS, Vector2 tileMapPos, Vector2 tileWorldPos) {
         this.isSelected = isSelected;
@@ -18,7 +22,6 @@ public class Tile {
         this.tS = tS;
         this.tileMapPos = tileMapPos;
         this.tileWorldPos = tileWorldPos;
-
     }
 
     public void render(SpriteBatch batch) {
@@ -26,6 +29,14 @@ public class Tile {
             batch.draw(tS, tileWorldPos.x, tileWorldPos.y);
         else
             batch.draw(t, tileWorldPos.x, tileWorldPos.y);
+    }
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
     }
 
     public Vector2 getTileMapPos() {
