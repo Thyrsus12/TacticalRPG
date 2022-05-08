@@ -8,6 +8,7 @@ import mapTileByTile.Tile;
 
 public class Character {
     private TextureRegion t;
+    private Integer movementCapacity;
     private Vector2 charMapPos;
     private Vector2 charWorldPos;
 
@@ -33,4 +34,13 @@ public class Character {
     public Vector2 getCharMapPos() {
         return charMapPos;
     }
+
+    public Integer getMovementCapacity() {
+        return movementCapacity;
+    }
+
+    public void setMovementCapacity(Integer movementCapacity) {
+        this.movementCapacity = movementCapacity;
+    }
+
 }

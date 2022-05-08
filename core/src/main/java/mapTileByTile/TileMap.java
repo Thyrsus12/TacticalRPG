@@ -8,12 +8,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Random;
 
 public class TileMap {
 
     private final int WORLD_MAP_SIZE = 7;
+
+    public static Map<String, Integer> layer0Map = new HashMap<>();
 
     public LinkedList<Tile> layer0;
     //private LinkedList<Tile> layer1;
@@ -23,6 +27,7 @@ public class TileMap {
 
     public TileMap() {
         layer0 = new LinkedList<Tile>();
+
         //layer1 = new LinkedList<Tile>();
         mapLayer0 = new String[8][8];
         //mapLayer1 = new String[7][7];
@@ -68,13 +73,9 @@ public class TileMap {
         }
         br.close();
 
-        /*/String map of Layer1*
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                mapLayer1[i][j] = "nothing";
-            }
-        }
-        mapLayer1[selector[0]][selector[1]] = "s";*/
+        /**Filling layer0Map*/
+
+        int cont = 0;
 
         /**Position of the map tiles generator (1 time execute)*/
         for (int row = WORLD_MAP_SIZE; row >= 0; row--) {
@@ -84,6 +85,8 @@ public class TileMap {
 
                 /**Layer0*/
                 Random r = new Random();
+                layer0Map.put(row+""+col, cont);
+
                 if (mapLayer0[row][col].equals("g")) {
                     if (r.nextInt(10) < 1) {
                         layer0.add(new Tile(
@@ -113,29 +116,15 @@ public class TileMap {
                             RegionGiver.getRegion(true, "lava"),
                             new Vector2(row, col), new Vector2(x, y)));
                 }
+                cont++;
 
-
-                //Layer1
-                /*if (mapLayer1[row][col].equals("s")){
-                    layer1.add(new Tile(selected,  new Vector2(row, col), new Vector2(x, y)));
-                }*/
             }
         }
 
-        /*/each tile position
-        for(Tile t : layer0) {
-            System.out.println("World -> X=" + t.getTileWorldPos().x + " Y=" + t.getTileWorldPos().y);
-            System.out.println("Map -> X=" + t.getTileMapPos().x + " Y=" + t.getTileMapPos().y);
-        }*/
+
+        layer0Map.forEach((key, value) -> System.out.println(key + ":" + value));
+
     }
-
-    /*public int[] getSelector() {
-        return selector;
-    }*/
-
-    /*public void setSelector(int[] selector) {
-        this.selector = selector;
-    }*/
 
     public LinkedList<Tile> getLayer0() {
         return layer0;

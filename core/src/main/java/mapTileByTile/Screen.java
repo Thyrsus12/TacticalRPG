@@ -29,6 +29,7 @@ public class Screen extends ScreenAdapter {
         this.cam = new OrthographicCamera(1280, 720);
         this.map = new TileMap();
         this.character = new Character();
+        this.character.setMovementCapacity(3); //Habrá q quitar esto
     }
 
     public void render(float delta) {
