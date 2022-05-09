@@ -23,7 +23,6 @@ public class Screen extends ScreenAdapter {
     private Character character;
 
     public int mx, my;
-    TilesOperations tilesOps = new TilesOperations();
 
     public Screen(SpriteBatch batch) {
         this.batch = batch;
@@ -90,7 +89,6 @@ public class Screen extends ScreenAdapter {
     }*/
 
     public void mouseInput() {
-
         if (Gdx.input.justTouched()) {
             /**get mouse coordinates*/
             Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -105,6 +103,7 @@ public class Screen extends ScreenAdapter {
             //System.out.println("-------------------------------------------");
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
+            TilesOperations tilesOps = new TilesOperations();
             tilesOps.modifyTile(map, mx, my, character);
         }
     }
