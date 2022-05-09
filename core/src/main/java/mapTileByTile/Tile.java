@@ -9,6 +9,9 @@ public class Tile {
     public static final int TILE_WIDTH = 32;
     public static int TILE_HEIGHT = 16;
 
+
+
+    private boolean accessible;
     private TextureRegion t;
     private TextureRegion tS;
     private Vector2 tileMapPos;
@@ -16,8 +19,18 @@ public class Tile {
 
     private Boolean isSelected;
 
-    public Tile(Boolean isSelected, TextureRegion t, TextureRegion tS, Vector2 tileMapPos, Vector2 tileWorldPos) {
+    public Tile(Boolean accessible, TextureRegion t, TextureRegion tS, Vector2 tileMapPos, Vector2 tileWorldPos) {
+        this.isSelected = false;
+        this.accessible = accessible;
+        this.t = t;
+        this.tS = tS;
+        this.tileMapPos = tileMapPos;
+        this.tileWorldPos = tileWorldPos;
+    }
+
+    public Tile(Boolean isSelected, Boolean accessible, TextureRegion t, TextureRegion tS, Vector2 tileMapPos, Vector2 tileWorldPos) {
         this.isSelected = isSelected;
+        this.accessible = accessible;
         this.t = t;
         this.tS = tS;
         this.tileMapPos = tileMapPos;
@@ -49,5 +62,13 @@ public class Tile {
 
     public void setT(TextureRegion t) {
         this.t = t;
+    }
+
+    public boolean isAccessible() {
+        return accessible;
+    }
+
+    public void setAccessible(boolean accessible) {
+        this.accessible = accessible;
     }
 }

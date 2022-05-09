@@ -14,7 +14,7 @@ public class Character {
 
     public Character() {
         this.t = new TextureRegion(new Texture("character2.png"), 32, 32);
-        this.charMapPos = new Vector2(4, 5);
+        this.charMapPos = new Vector2(4, 3);
         this.charWorldPos = calculateWorldPos(charMapPos);
     }
 

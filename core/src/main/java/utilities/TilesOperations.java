@@ -9,23 +9,31 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class TilesOperations {
+    int oldPosition;
+    Tile oldTile = null;
+
 
     public void modifyTile(TileMap map, int mapX, int mapY, Character character) {
         /**Modify the tile of the array and insert it again*/
         int cont = 0;
-        Tile oldTile = null;
         LinkedList<Tile> linked = map.getLayer0();
         for (Tile t : linked) {
             //System.out.println("WorldPos -> X=" + t.getTileWorldPos().x + " Y=" + t.getTileWorldPos().y);
             if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected()) {
                 //Quizá podamos deseleccionar una casilla al poner una nueva?
-                if (oldTile != null && oldTile != t) {
+                System.out.println(oldTile);
+                System.out.println(oldPosition);
+
+                if (oldTile != null){
                     oldTile.setSelected(false);
+                    linked.set(oldPosition, oldTile);
                 }
+
+                oldTile = t;
+                oldPosition = cont;
 
                 t.setSelected(true);
                 linked.set(cont, t);
-                oldTile = t;
             } else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && t.getSelected()) {
                 t.setSelected(false);
                 linked.set(cont, t);
@@ -78,8 +86,10 @@ public class TilesOperations {
         TextureRegion blueTexture = RegionGiver.getRegion(false, "blue");
         for (Integer pT: posibleTiles) {
             t = linked.get(pT);
-            t.setT(blueTexture);
-            linked.set(pT,t);
+            if (t.isAccessible()) {
+                t.setT(blueTexture);
+                linked.set(pT, t);
+            }
         }
 
 

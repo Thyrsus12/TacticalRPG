@@ -88,7 +88,7 @@ public class TileMap {
                 if (mapLayer0[row][col].equals("g")) {
                     if (r.nextInt(10) < 1) {
                         layer0.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "flowers"),
                                 RegionGiver.getRegion(true, "flowers"),
                                 new Vector2(row, col), new Vector2(x, y)));
@@ -96,7 +96,7 @@ public class TileMap {
                         //System.out.println("Map -> X=" + row + " Y=" + col);
                     } else {
                         layer0.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "grass"),
                                 RegionGiver.getRegion(true, "grass"),
                                 new Vector2(row, col), new Vector2(x, y)));
