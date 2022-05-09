@@ -20,16 +20,15 @@ public class TileMap {
     public static Map<String, Integer> layer0Map = new HashMap<>();
 
     public LinkedList<Tile> layer0;
-    //private LinkedList<Tile> layer1;
     private String[][] mapLayer0;
+    //private LinkedList<Tile> layer1;
     //private String[][] mapLayer1;
-    public int[] selector = {6, 6};
+    //public int[] selector = {6, 6};
 
     public TileMap() {
         layer0 = new LinkedList<Tile>();
-
-        //layer1 = new LinkedList<Tile>();
         mapLayer0 = new String[8][8];
+        //layer1 = new LinkedList<Tile>();
         //mapLayer1 = new String[7][7];
 
         try {
@@ -83,8 +82,9 @@ public class TileMap {
                 /**Layer0*/
                 Random r = new Random();
                 /**Fill Map(layer0Map) of mapCoords-tileArray equivalences*/
-                layer0Map.put(row+""+col, cont);
+                layer0Map.put(row + "" + col, cont);
 
+                /**Choose the appropriate tile as indicated in map.txt and insert it*/
                 if (mapLayer0[row][col].equals("g")) {
                     if (r.nextInt(10) < 1) {
                         layer0.add(new Tile(

@@ -8,17 +8,15 @@ import mapTileByTile.Tile;
 
 public class Character {
     private TextureRegion t;
-    private Integer movementCapacity;
     private Vector2 charMapPos;
     private Vector2 charWorldPos;
+    private Integer movementCapacity;
 
     public Character() {
         this.t = new TextureRegion(new Texture("character2.png"), 32, 32);
         this.charMapPos = new Vector2(4, 3);
         this.charWorldPos = calculateWorldPos(charMapPos);
-    }
-
-    public void createCharacter() {
+        this.movementCapacity = 2;
     }
 
     public void render(SpriteBatch batch) {

@@ -9,8 +9,6 @@ public class Tile {
     public static final int TILE_WIDTH = 32;
     public static int TILE_HEIGHT = 16;
 
-
-
     private boolean accessible;
     private TextureRegion t;
     private TextureRegion tS;

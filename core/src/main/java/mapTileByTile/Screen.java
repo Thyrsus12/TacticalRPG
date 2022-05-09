@@ -23,13 +23,13 @@ public class Screen extends ScreenAdapter {
     private Character character;
 
     public int mx, my;
+    private TilesOperations tilesOps = new TilesOperations();
 
     public Screen(SpriteBatch batch) {
         this.batch = batch;
         this.cam = new OrthographicCamera(1280, 720);
         this.map = new TileMap();
         this.character = new Character();
-        this.character.setMovementCapacity(2); //Habrá q quitar esto
     }
 
     public void render(float delta) {
@@ -40,14 +40,15 @@ public class Screen extends ScreenAdapter {
 
         camInput();
         cam.update();
-
-        //movementInput(map.getSelector());
         mouseInput();
+        //keyMovementInput(map.getSelector());
 
         batch.begin();
         map.render(batch);
         character.render(batch);
-        /*float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
+
+        /*Draw a lava cube in layer1 for testing
+        float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
         float y = (5 + 4) * Tile.TILE_HEIGHT / 2f;
         Tile test = new Tile(
                 false,
@@ -55,6 +56,7 @@ public class Screen extends ScreenAdapter {
                 RegionGiver.getRegion(true, "lava"),
                 new Vector2(4, 5), new Vector2(x, y));
         test.render(batch);*/
+
         batch.end();
     }
 
@@ -75,19 +77,6 @@ public class Screen extends ScreenAdapter {
         }
     }
 
-    /*public void movementInput(int[] position) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            position[0]++;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            position[0]--;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            position[1]++;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            position[1]--;
-        }
-        map.setSelector(position);
-    }*/
-
     public void mouseInput() {
         if (Gdx.input.justTouched()) {
             /**get mouse coordinates*/
@@ -103,8 +92,21 @@ public class Screen extends ScreenAdapter {
             //System.out.println("-------------------------------------------");
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
-            TilesOperations tilesOps = new TilesOperations();
             tilesOps.modifyTile(map, mx, my, character);
         }
     }
+
+    /*public void keyMovementInput(int[] position) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            position[0]++;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            position[0]--;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            position[1]++;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            position[1]--;
+        }
+        map.setSelector(position);
+    }*/
+
 }
