@@ -73,11 +73,8 @@ public class TileMap {
         }
         br.close();
 
-        /**Filling layer0Map*/
-
-        int cont = 0;
-
         /**Position of the map tiles generator (1 time execute)*/
+        int cont = 0;
         for (int row = WORLD_MAP_SIZE; row >= 0; row--) {
             for (int col = WORLD_MAP_SIZE; col >= 0; col--) {
                 float x = (row - col) * Tile.TILE_WIDTH / 2.0001f;
@@ -85,6 +82,7 @@ public class TileMap {
 
                 /**Layer0*/
                 Random r = new Random();
+                /**Fill Map(layer0Map) of mapCoords-tileArray equivalences*/
                 layer0Map.put(row+""+col, cont);
 
                 if (mapLayer0[row][col].equals("g")) {
@@ -120,10 +118,7 @@ public class TileMap {
 
             }
         }
-
-
-        layer0Map.forEach((key, value) -> System.out.println(key + ":" + value));
-
+        //layer0Map.forEach((key, value) -> System.out.println(key + ":" + value));
     }
 
     public LinkedList<Tile> getLayer0() {
