@@ -28,6 +28,10 @@ public class Text {
         this.y = y;
     }
 
+    public void setColor(Color color) {
+        font.setColor(color);
+    }
+
     public BitmapFont getFont() {
         return font;
     }
