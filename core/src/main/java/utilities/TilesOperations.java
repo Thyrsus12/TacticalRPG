@@ -10,6 +10,7 @@ import java.util.LinkedList;
 
 public class TilesOperations {
     int oldPosition;
+    Boolean characterSelected = false;
     Tile oldTile = null;
 
     public void modifyTile(TileMap map, int mapX, int mapY, Character character) {
@@ -18,7 +19,7 @@ public class TilesOperations {
         LinkedList<Tile> mapLayer0 = map.getLayer0();
         for (Tile t : mapLayer0) {
             //System.out.println("WorldPos -> X=" + t.getTileWorldPos().x + " Y=" + t.getTileWorldPos().y);
-            if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected()) {
+            if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected() && !characterSelected) {
 
                 t.setSelected(true);
                 mapLayer0.set(cont, t);
@@ -33,10 +34,16 @@ public class TilesOperations {
                 oldTile = t;
                 oldPosition = cont;
 
-            } else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && t.getSelected()) {
-                t.setSelected(false);
-                mapLayer0.set(cont, t);
+            }  else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && characterSelected) {
+
+                t.setSelected(true);
             }
+
+            //Vamos a mandar este método al cajón del olvido por el momento
+            //else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && t.getSelected()) {
+                //t.setSelected(false);
+                //mapLayer0.set(cont, t);
+            //}
 
             /**If the tile clicked contains a character calls movementPosibilitiesPainter()*/
             //System.out.println(mapLayer0.get(cont).getTileMapPos().x);
@@ -45,6 +52,7 @@ public class TilesOperations {
             //System.out.println(mx + " " + mapY);
             if (character.getCharMapPos().x == mapX + 1 && character.getCharMapPos().y == mapY + 1) {
                 movementPosibilitiesPainter(mapX, mapY, character.getMovementCapacity(), mapLayer0);
+                characterSelected = true;
             }
             cont++;
         }
