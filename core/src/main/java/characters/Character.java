@@ -41,4 +41,7 @@ public class Character {
         this.movementCapacity = movementCapacity;
     }
 
+    public void setCharMapPos(Vector2 charMapPos) {
+        this.charMapPos = charMapPos;
+    }
 }

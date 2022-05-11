@@ -17,16 +17,16 @@ public class TileMap {
 
     private final int WORLD_MAP_SIZE = 7;
 
-    public static Map<String, Integer> layer0Map = new HashMap<>();
+    public static Map<String, Integer> coordsToIndexEquivalence = new HashMap<>();
 
-    public LinkedList<Tile> layer0;
+    public LinkedList<Tile> tileLinkedList;
     private String[][] mapLayer0;
     //private LinkedList<Tile> layer1;
     //private String[][] mapLayer1;
     //public int[] selector = {6, 6};
 
     public TileMap() {
-        layer0 = new LinkedList<Tile>();
+        tileLinkedList = new LinkedList<Tile>();
         mapLayer0 = new String[8][8];
         //layer1 = new LinkedList<Tile>();
         //mapLayer1 = new String[7][7];
@@ -35,13 +35,13 @@ public class TileMap {
             fillMap();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("FILLMAP CALL FILED");
+            System.out.println("FILLMAP CALL FILLED");
         }
     }
 
     public void render(SpriteBatch batch) {
         /**render Layer0*/
-        for (Tile t : layer0) {
+        for (Tile t : tileLinkedList) {
             t.render(batch);
         }
 
@@ -82,12 +82,12 @@ public class TileMap {
                 /**Layer0*/
                 Random r = new Random();
                 /**Fill Map(layer0Map) of mapCoords-tileArray equivalences*/
-                layer0Map.put(row + "" + col, cont);
+                coordsToIndexEquivalence.put(row + "" + col, cont);
 
                 /**Choose the appropriate tile as indicated in map.txt and insert it*/
                 if (mapLayer0[row][col].equals("g")) {
-                    if (r.nextInt(10) < 1) {
-                        layer0.add(new Tile(
+                    if (r.nextInt(10) < 5) {
+                        tileLinkedList.add(new Tile(
                                 true,
                                 RegionGiver.getRegion(false, "flowers"),
                                 RegionGiver.getRegion(true, "flowers"),
@@ -95,20 +95,20 @@ public class TileMap {
                         //System.out.println("World -> X=" + x + " Y=" + y);
                         //System.out.println("Map -> X=" + row + " Y=" + col);
                     } else {
-                        layer0.add(new Tile(
+                        tileLinkedList.add(new Tile(
                                 true,
                                 RegionGiver.getRegion(false, "grass"),
                                 RegionGiver.getRegion(true, "grass"),
                                 new Vector2(row, col), new Vector2(x, y)));
                     }
                 } else if (mapLayer0[row][col].equals("w")) {
-                    layer0.add(new Tile(
+                    tileLinkedList.add(new Tile(
                             false,
                             RegionGiver.getRegion(false, "water"),
                             RegionGiver.getRegion(true, "water"),
                             new Vector2(row, col), new Vector2(x, y)));
                 } else if (mapLayer0[row][col].equals("l")) {
-                    layer0.add(new Tile(
+                    tileLinkedList.add(new Tile(
                             false,
                             RegionGiver.getRegion(false, "lava"),
                             RegionGiver.getRegion(true, "lava"),
@@ -121,7 +121,7 @@ public class TileMap {
         //layer0Map.forEach((key, value) -> System.out.println(key + ":" + value));
     }
 
-    public LinkedList<Tile> getLayer0() {
-        return layer0;
+    public LinkedList<Tile> getTileLinkedList() {
+        return tileLinkedList;
     }
 }

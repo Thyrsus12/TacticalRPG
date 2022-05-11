@@ -62,6 +62,10 @@ public class Tile {
         this.t = t;
     }
 
+    public TextureRegion getT() {
+        return t;
+    }
+
     public boolean isAccessible() {
         return accessible;
     }
