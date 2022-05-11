@@ -13,7 +13,6 @@ public class TilesOperations {
     int oldPosition;
     Boolean characterSelected = false;
     ArrayList<Integer> posibleTilesToMove = new ArrayList();
-
     ArrayList<TextureRegion> beforeTheBlueTiles = new ArrayList<>();
 
     Tile oldTile = null;
@@ -36,35 +35,30 @@ public class TilesOperations {
                 /**Checking a new Tile unchecks the previous one.*/
                 //System.out.println(oldTile);
                 //System.out.println(oldPosition);
-                if (oldTile != null) {
-                    oldTile.setSelected(false);
-                    tileLinkedList.set(oldPosition, oldTile);
-                }
+                oldTileComprobator(tileLinkedList);
                 oldTile = t;
                 oldPosition = cont;
 
-            }  else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && characterSelected) {
+            } else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected() && characterSelected) {
+                oldTileComprobator(tileLinkedList);
                 String tileSelectedCoords = mapX + "" + mapY;
 
-               if (posibleTilesToMove.contains(TileMap.coordsToIndexEquivalence.get(tileSelectedCoords))){
+                if (posibleTilesToMove.contains(TileMap.coordsToIndexEquivalence.get(tileSelectedCoords))) {
+                    mapX += 1;
+                    mapY += 1;
                     character.setCharMapPos(new Vector2(mapX, mapY));
-                    System.out.println("azulón");
+                    float x = (mapX - mapY) * Tile.TILE_WIDTH / 2.0001f;
+                    float y = (mapY + mapX) * Tile.TILE_HEIGHT / 2f;
+                    character.setCharWorldPos(new Vector2(x, y));
+                    //System.out.println("azulón");
                     //Cambiar posiciones del World
-                } else {
-                    //PROBLEMA
-                    System.out.println("yerba");
-                    Tile tAux;
-
-                    int cont2 = 0;
-
-                    //Pinta el mapa de vuelta (ya no es asul)
-                    for (Integer index : posibleTilesToMove) {
-                        tAux = tileLinkedList.get(index);
-                        tAux.setT(beforeTheBlueTiles.get(cont2));
-                        tileLinkedList.set(index, tAux);
-                        cont2++;
-                    }
                 }
+                //PROBLEMA
+                //System.out.println("yerba");
+                t.setSelected(true);
+                oldTile = t;
+                oldPosition = cont;
+                turnBlueBack(tileLinkedList);
                 characterSelected = false;
             }
 
@@ -78,11 +72,33 @@ public class TilesOperations {
         }
     }
 
+    private void oldTileComprobator(LinkedList<Tile> tileLinkedList) {
+        if (oldTile != null) {
+            oldTile.setSelected(false);
+            tileLinkedList.set(oldPosition, oldTile);
+        }
+    }
+
+    private void turnBlueBack(LinkedList<Tile> tileLinkedList) {
+        Tile tAux;
+        int cont2 = 0;
+
+        //Pinta el mapa de vuelta (ya no es asul)
+        for (Integer index : posibleTilesToMove) {
+            tAux = tileLinkedList.get(index);
+            tAux.setT(beforeTheBlueTiles.get(cont2));
+            tileLinkedList.set(index, tAux);
+            cont2++;
+        }
+    }
+
     /**
      * Calculates the accessible tiles taking into account the character's movement and the accessibility of the tiles
      */
     public void movementPosibilitiesPainter(Integer mapX, Integer mapY, Integer movementCapacity, LinkedList<Tile> mapLayer0) {
         int cont = 0, auxX, auxY;
+        posibleTilesToMove = new ArrayList();
+        beforeTheBlueTiles = new ArrayList<>();
 
         /**Insert the main cross (vertical and horizontal axis)*/
         for (int i = 1; i <= movementCapacity; i++) {
