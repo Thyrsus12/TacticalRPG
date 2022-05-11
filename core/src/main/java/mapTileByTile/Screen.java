@@ -28,6 +28,8 @@ public class Screen extends ScreenAdapter {
     public Screen(SpriteBatch batch) {
         this.batch = batch;
         this.cam = new OrthographicCamera(1280, 720);
+        cam.zoom = 0.25f;
+        cam.position.y += 80;
         this.map = new TileMap();
         this.character = new Character();
     }
