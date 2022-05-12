@@ -27,6 +27,24 @@ public class RegionGiver {
                 return new TextureRegion(blocks, 256, 160, SIDE_SIZE, SIDE_SIZE);
             case "blue":
                 return new TextureRegion(blocks, 256, 192, SIDE_SIZE, SIDE_SIZE);
+            case "darkLava":
+                return new TextureRegion(blocks, 224, 160, SIDE_SIZE, SIDE_SIZE);
+            case "mud":
+                return new TextureRegion(blocks, 160, 96, SIDE_SIZE, SIDE_SIZE);
+            case "mudGrass":
+                return new TextureRegion(blocks, 192, 96, SIDE_SIZE, SIDE_SIZE);
+            case "weedy":
+                return new TextureRegion(blocks, 256, 96, SIDE_SIZE, SIDE_SIZE);
+            case "herbs":
+                return new TextureRegion(blocks, 288, 96, SIDE_SIZE, SIDE_SIZE);
+            case "sand":
+                return new TextureRegion(blocks, 160, 160, SIDE_SIZE, SIDE_SIZE);
+            case "stonePath":
+                return new TextureRegion(blocks, 288, 160, SIDE_SIZE, SIDE_SIZE);
+            case "rocks":
+                return new TextureRegion(blocks, 192, 192, SIDE_SIZE, SIDE_SIZE);
+            case "bricks":
+                return new TextureRegion(blocks, 224, 192, SIDE_SIZE, SIDE_SIZE);
             default:
                 break;
         }
