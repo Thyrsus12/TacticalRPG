@@ -31,8 +31,7 @@ public class Cartographer {
 
     public String writeSnowMap(){
         String snowMap = "";
-        int river = -1;
-        river = r.nextInt(8)-1;
+        int river = r.nextInt(8)-1;
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -43,7 +42,7 @@ public class Cartographer {
                         snowMap = snowMap.concat("i");
                     } else {
                         if (r.nextInt(10)<2) {
-                            snowMap = snowMap.concat("n");
+                            snowMap = snowMap.concat("h");
                         } else {
                             snowMap = snowMap.concat("f");
                         }
