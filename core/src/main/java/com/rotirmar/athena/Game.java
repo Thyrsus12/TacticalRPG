@@ -1,7 +1,6 @@
 package com.rotirmar.athena;
 
 import Screens.MainScreen;
-import mapTileByTile.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

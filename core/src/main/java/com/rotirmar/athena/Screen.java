@@ -1,100 +1,123 @@
 package com.rotirmar.athena;
 
+import characters.Character;
+import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import mapTileByTile.Tile;
+import mapTileByTile.TileMap;
+import utilities.TilesOperations;
+
+import java.util.LinkedList;
 
 public class Screen extends ScreenAdapter {
-
-    public static final int WORLD_WIDTH = 20;
-    public static final int WORLD_HEIGHT = 14;
-    private static final float BLOCK_SIZE = 1;
-
     private SpriteBatch batch;
-    private OrthographicCamera camera;
+    private OrthographicCamera cam;
 
-    private TiledMap tiledMap;
-    private float unitScale;
-    private IsometricTiledMapRenderer mapRenderer;
+    private TileMap map;
 
-    private Texture texture;
-    TiledMapTileLayer.Cell cell;
-    TiledMapTile tile;
+    public int mapX, mapY;
+    private TilesOperations tilesOps = new TilesOperations();
+
+    private CharactersOperations charactersOps;
 
     public Screen(SpriteBatch batch) {
         this.batch = batch;
+        this.cam = new OrthographicCamera(1280, 720);
+        cam.zoom = 0.25f;
+        cam.position.y += 80;
 
-        tiledMap = new TmxMapLoader().load("testmap.tmx");
-        unitScale = BLOCK_SIZE / 32f;
-        mapRenderer = new IsometricTiledMapRenderer(tiledMap, unitScale);
+        this.map = new TileMap();
+
+        this.charactersOps = new CharactersOperations();
+
     }
 
-    @Override
-    public void show() {
-
-        camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
-
-        //what a apaño is this
-        camera.position.set(WORLD_WIDTH / 2 - 2, WORLD_HEIGHT / 2 - 6, 0);
-        camera.update();
-
-        TiledMapTileLayer layer0 = (TiledMapTileLayer) tiledMap.getLayers().get(0);
-        //System.out.println("Layer Width-Height: " + layer0.getWidth() + "-" + layer0.getHeight());
-        //System.out.println("Tile Width-Height: " + layer0.getTileWidth() + "-" + layer0.getTileHeight());
-
-        cell = layer0.getCell(1, 1);
-        tile = cell.getTile();
-        //System.out.println("Tile ID: " + tile.getId());
-        //System.out.println("Pixeles tile: " + tile.getOffsetY());
-
-        texture = new Texture("alex.png");
-    }
-
-    @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        handleInput();
+        batch.setProjectionMatrix(cam.combined);
 
-        int[] layer1 = {0};
-        int[] layer2 = {1};
+        camInput();
+        cam.update();
+        mouseInput();
+        //keyMovementInput(map.getSelector());
 
-        mapRenderer.setView(camera);
-        mapRenderer.render(layer1);
-        //mapRenderer.render(layer2);
-
-        batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(texture, tile.getOffsetX() + 0.32f, tile.getOffsetY() + 0.64f, 0.5f, 0.5f);
+        map.render(batch);
+        for (Character character : charactersOps.getCharacters()) {
+            character.render(batch);
+        }
+        //character.render(batch);
+
+        //Draw a lava cube in layer1 for testing
+        /*float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
+        float y = (5 + 4) * Tile.TILE_HEIGHT / 2f;
+        Tile test = new Tile(
+                false,
+                RegionGiver.getRegion(false, "lava"),
+                RegionGiver.getRegion(true, "lava"),
+                new Vector2(4, 5), new Vector2(x, y));
+        test.render(batch);*/
+
         batch.end();
     }
 
-    @Override
-    public void dispose() {
-        batch.dispose();
-        super.dispose();
-    }
-
-    private void handleInput() {
+    private void camInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            camera.translate(+0.5f, 0, 0);
+            cam.position.x -= 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            camera.translate(+0.5f, 0, 0);
+            cam.position.y += 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            camera.translate(-0.5f, 0, 0);
+            cam.position.y -= 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            camera.translate(-0.5f, 0, 0);
+            cam.position.x += 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            cam.zoom += 0.01;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            if (cam.zoom > 0.1)
+                cam.zoom -= 0.01;
         }
     }
+
+    public void mouseInput() {
+        if (Gdx.input.justTouched()) {
+            /**get mouse coordinates*/
+            Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            cam.unproject(mousePos);
+            //System.out.println("MPosX: " + mousePos.x + " MPosY: " + mousePos.y);
+
+            /**Convert mouse coordinates into map tile (0,0 - 0,1...)*/
+            float mapx = ((mousePos.x - 16) / Tile.TILE_WIDTH + (mousePos.y - 16) / Tile.TILE_HEIGHT);
+            float mapy = ((mousePos.y - 16) / Tile.TILE_HEIGHT - (mousePos.x - 16) / Tile.TILE_WIDTH);
+            mapX = (int) mapx;
+            mapY = (int) mapy;
+            //System.out.println("-------------------------------------------");
+            //System.out.println("Map X=" + mx + " Map Y=" + my);
+
+            tilesOps.modifyTile(map, mapX, mapY, charactersOps.getCharacters().get(0));
+        }
+    }
+
+    /*public void keyMovementInput(int[] position) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            position[0]++;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            position[0]--;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            position[1]++;
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            position[1]--;
+        }
+        map.setSelector(position);
+    }*/
+
 }
