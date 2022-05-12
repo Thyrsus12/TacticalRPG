@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import sprites.AnimationSprite;
 import utilities.RegionGiver;
 import utilities.TilesOperations;
 
@@ -47,6 +48,7 @@ public class Screen extends ScreenAdapter {
 
         batch.begin();
         map.render(batch);
+        AnimationSprite.load();
         character.render(batch);
 
         /*Draw a lava cube in layer1 for testing
