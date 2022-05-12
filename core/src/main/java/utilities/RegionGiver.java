@@ -45,6 +45,10 @@ public class RegionGiver {
                 return new TextureRegion(blocks, 192, 192, SIDE_SIZE, SIDE_SIZE);
             case "bricks":
                 return new TextureRegion(blocks, 224, 192, SIDE_SIZE, SIDE_SIZE);
+            case "snow":
+                return new TextureRegion(blocks, 160, 128, SIDE_SIZE, SIDE_SIZE);
+            case "snowMud":
+                return new TextureRegion(blocks, 128, 128, SIDE_SIZE, SIDE_SIZE);
             default:
                 break;
         }

@@ -128,65 +128,79 @@ public class TileMap {
                         break;
                     case "y":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "darkLava"),
                                 RegionGiver.getRegion(true, "darkLava"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "m":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "mud"),
                                 RegionGiver.getRegion(true, "mud"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "n":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "mudGrass"),
                                 RegionGiver.getRegion(true, "mudGrass"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "h":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "herbs"),
                                 RegionGiver.getRegion(true, "herbs"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "v":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "weedy"),
                                 RegionGiver.getRegion(true, "weedy"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "s":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "sand"),
                                 RegionGiver.getRegion(true, "sand"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "p":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "stonePath"),
                                 RegionGiver.getRegion(true, "stonePath"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "r":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "rocks"),
                                 RegionGiver.getRegion(true, "rocks"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                     case "b":
                         tileLinkedList.add(new Tile(
-                                false,
+                                true,
                                 RegionGiver.getRegion(false, "bricks"),
                                 RegionGiver.getRegion(true, "bricks"),
+                                new Vector2(row, col), new Vector2(x, y)));
+                        break;
+                    case "f":
+                        tileLinkedList.add(new Tile(
+                                true,
+                                RegionGiver.getRegion(false, "snow"),
+                                RegionGiver.getRegion(true, "snow"),
+                                new Vector2(row, col), new Vector2(x, y)));
+                        break;
+                    case "i":
+                        tileLinkedList.add(new Tile(
+                                true,
+                                RegionGiver.getRegion(false, "snowMud"),
+                                RegionGiver.getRegion(true, "snowMud"),
                                 new Vector2(row, col), new Vector2(x, y)));
                         break;
                 }
