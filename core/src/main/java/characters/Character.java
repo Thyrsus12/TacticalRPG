@@ -1,27 +1,33 @@
 package characters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 
 public class Character {
-    private TextureRegion t;
-    private Vector2 charMapPos;
+    private Texture t;
+    private TextureRegion[] regionMovement;
+    private Animation animation;
+    private float time = 0f;
+    private TextureRegion currentFrame;
 
+
+    private Vector2 charMapPos;
     private Vector2 charWorldPos;
+
     private Integer movementCapacity;
 
-    public Character() {
-        this.t = new TextureRegion(new Texture("character2.png"), 32, 32);
-        this.charMapPos = new Vector2(4, 3);
+    public Character(Texture t, Vector2 charMapPos) {
+        this.t = t;
+        this.charMapPos = charMapPos;
         this.charWorldPos = calculateWorldPos(charMapPos);
         this.movementCapacity = 2;
-    }
 
-    public void render(SpriteBatch batch) {
-        batch.draw(t, charWorldPos.x, charWorldPos.y);
+        makeAnimation(t);
     }
 
     private Vector2 calculateWorldPos(Vector2 charMapPos) {
@@ -30,16 +36,28 @@ public class Character {
         return new Vector2(x, y);
     }
 
+    private void makeAnimation(Texture t) {
+        TextureRegion[][] tmp = TextureRegion.split(t, t.getWidth() / 3, t.getHeight());
+        regionMovement = new TextureRegion[3];
+        for (int i = 0; i < 3; i++) {
+            regionMovement[i] = tmp[0][i];
+        }
+
+        animation = new Animation(0.5f, regionMovement);
+    }
+
+    public void render(SpriteBatch batch) {
+        time += Gdx.graphics.getDeltaTime(); // Es el tiempo que paso desde el ultimo render
+        currentFrame = (TextureRegion) animation.getKeyFrame(time, true);
+        batch.draw(currentFrame, charWorldPos.x, charWorldPos.y);
+    }
+
     public Vector2 getCharMapPos() {
         return charMapPos;
     }
 
     public Integer getMovementCapacity() {
         return movementCapacity;
-    }
-
-    public void setMovementCapacity(Integer movementCapacity) {
-        this.movementCapacity = movementCapacity;
     }
 
     public void setCharMapPos(Vector2 charMapPos) {

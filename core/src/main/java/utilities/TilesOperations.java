@@ -1,13 +1,15 @@
 package utilities;
 
 import characters.Character;
+import characters.CharactersOperations;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
-import sprites.Hoplite;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class TilesOperations {
@@ -25,15 +27,15 @@ public class TilesOperations {
         this.oldTile = null;
     }
 
-    public void modifyTile(TileMap map, int mapX, int mapY, Hoplite hoplite) {
+    public void modifyTile(TileMap map, int mapX, int mapY, Character character) {
         /**Modify the tile of the tileLinkedList list and insert it again to select or unselect it*/
         int cont = 0;
         LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
 
         for (Tile t : tileLinkedList) {
-            /**Check if tile clicked contains a hoplite*/
-            if (hoplite.getCharMapPos().x == mapX + 1 && hoplite.getCharMapPos().y == mapY + 1 && !characterSelected) {
-                movementPossibilitiesPainter(mapX, mapY, hoplite.getMovementCapacity(), tileLinkedList);
+            /**Check if tile clicked contains a character*/
+            if (character.getCharMapPos().x == mapX + 1 && character.getCharMapPos().y == mapY + 1 && !characterSelected) {
+                movementPossibilitiesPainter(mapX, mapY, character.getMovementCapacity(), tileLinkedList);
                 characterSelected = true;
             }
 
@@ -53,15 +55,15 @@ public class TilesOperations {
                 /**If characterSelected*/
             } else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected() && characterSelected) {
 
-                /**Move the hoplite if click in blue tile*/
+                /**Move the character if click in blue tile*/
                 String tileSelectedCoords = mapX + "" + mapY;
                 if (possibleTilesToMove.contains(TileMap.coordsToIndexEquivalence.get(tileSelectedCoords))) {
                     mapX += 1;
                     mapY += 1;
-                    hoplite.setCharMapPos(new Vector2(mapX, mapY));
+                    character.setCharMapPos(new Vector2(mapX, mapY));
                     float x = (mapX - mapY) * Tile.TILE_WIDTH / 2.0001f;
                     float y = (mapY + mapX) * Tile.TILE_HEIGHT / 2f;
-                    hoplite.setCharWorldPos(new Vector2(x, y));
+                    character.setCharWorldPos(new Vector2(x, y));
                 }
 
                 /**Set true isSelected to tile clicked*/
@@ -73,7 +75,7 @@ public class TilesOperations {
                 /**Fill with the current tile*/
                 oldTileFiller(t, cont);
 
-                /**Eliminate the blue tiles because you have unchecked the hoplite's tile.*/
+                /**Eliminate the blue tiles because you have unchecked the character's tile.*/
                 turnBlueBack(tileLinkedList);
                 characterSelected = false;
             }
@@ -188,7 +190,7 @@ public class TilesOperations {
 
     public boolean coordValidator(int x, int y, int min, int max) {
         boolean isValid = false;
-        if  (x>=min && x<=max && y>=min && y<=max){
+        if (x >= min && x <= max && y >= min && y <= max) {
             isValid = true;
         }
         return isValid;

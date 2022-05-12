@@ -1,15 +1,19 @@
 package mapTileByTile;
 
 import characters.Character;
+import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import sprites.Hoplite;
 import utilities.TilesOperations;
+
+import java.util.LinkedList;
 
 public class Screen extends ScreenAdapter {
     private SpriteBatch batch;
@@ -17,20 +21,21 @@ public class Screen extends ScreenAdapter {
 
     private TileMap map;
 
-    private Character character;
-    private Hoplite hoplite;
-
-    public int mx, my;
+    public int mapX, mapY;
     private TilesOperations tilesOps = new TilesOperations();
+
+    private CharactersOperations charactersOps;
 
     public Screen(SpriteBatch batch) {
         this.batch = batch;
         this.cam = new OrthographicCamera(1280, 720);
         cam.zoom = 0.25f;
         cam.position.y += 80;
+
         this.map = new TileMap();
-        this.character = new Character();
-        this.hoplite = new Hoplite();
+
+        this.charactersOps = new CharactersOperations();
+
     }
 
     public void render(float delta) {
@@ -46,11 +51,13 @@ public class Screen extends ScreenAdapter {
 
         batch.begin();
         map.render(batch);
-        hoplite.render(batch);
+        for (Character character : charactersOps.getCharacters()) {
+            character.render(batch);
+        }
         //character.render(batch);
 
-        /*Draw a lava cube in layer1 for testing
-        float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
+        //Draw a lava cube in layer1 for testing
+        /*float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
         float y = (5 + 4) * Tile.TILE_HEIGHT / 2f;
         Tile test = new Tile(
                 false,
@@ -89,12 +96,12 @@ public class Screen extends ScreenAdapter {
             /**Convert mouse coordinates into map tile (0,0 - 0,1...)*/
             float mapx = ((mousePos.x - 16) / Tile.TILE_WIDTH + (mousePos.y - 16) / Tile.TILE_HEIGHT);
             float mapy = ((mousePos.y - 16) / Tile.TILE_HEIGHT - (mousePos.x - 16) / Tile.TILE_WIDTH);
-            mx = (int) mapx;
-            my = (int) mapy;
+            mapX = (int) mapx;
+            mapY = (int) mapy;
             //System.out.println("-------------------------------------------");
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
-            tilesOps.modifyTile(map, mx, my, hoplite);
+            tilesOps.modifyTile(map, mapX, mapY, charactersOps.getCharacters().get(0));
         }
     }
 
