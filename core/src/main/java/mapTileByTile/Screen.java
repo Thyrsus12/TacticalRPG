@@ -6,13 +6,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import mapGenerator.Cartographer;
 import utilities.RegionGiver;
+import sprites.Hoplite;
 import utilities.TilesOperations;
 
 public class Screen extends ScreenAdapter {
@@ -25,6 +23,7 @@ public class Screen extends ScreenAdapter {
 
 
     private Character character;
+    private Hoplite hoplite;
 
     public int mx, my;
     private TilesOperations tilesOps = new TilesOperations();
@@ -36,6 +35,7 @@ public class Screen extends ScreenAdapter {
         cam.position.y += 80;
         this.map = new TileMap();
         this.character = new Character();
+        this.hoplite = new Hoplite();
     }
 
     public void render(float delta) {
@@ -51,7 +51,8 @@ public class Screen extends ScreenAdapter {
 
         batch.begin();
         map.render(batch);
-        character.render(batch);
+        hoplite.render(batch);
+        //character.render(batch);
 
         /*Draw a lava cube in layer1 for testing
         float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
@@ -98,7 +99,7 @@ public class Screen extends ScreenAdapter {
             //System.out.println("-------------------------------------------");
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
-            tilesOps.modifyTile(map, mx, my, character);
+            tilesOps.modifyTile(map, mx, my, hoplite);
         }
     }
 
