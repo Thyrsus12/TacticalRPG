@@ -17,7 +17,7 @@ public class Game extends com.badlogic.gdx.Game {
         setScreen(screen);*/
         screen = new Screen(batch);
         MainScreen mainScreen = new MainScreen(batch);
-        setScreen(mainScreen);
+        setScreen(screen);
     }
 
     @Override
