@@ -115,20 +115,28 @@ public class TilesOperations {
         for (int i = 1; i <= movementCapacity; i++) {
             /**Right*/
             auxX = mapX + i;
-            if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY)).isAccessible())
-                possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
+            if (coordValidator(auxX, mapY, 0, 7)) {
+                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY)).isAccessible())
+                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
+            }
             /**Left*/
             auxX = mapX - i;
-            if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY)).isAccessible())
-                possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
+            if (coordValidator(auxX, mapY, 0, 7)) {
+                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY)).isAccessible())
+                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
+            }
             /**Up*/
             auxY = mapY + i;
-            if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY)).isAccessible())
-                possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
+            if (coordValidator(mapX, auxY, 0, 7)) {
+                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY)).isAccessible())
+                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
+            }
             /**Down*/
             auxY = mapY - i;
-            if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY)).isAccessible())
-                possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
+            if (coordValidator(mapX, auxY, 0, 7)) {
+                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY)).isAccessible())
+                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
+            }
         }
 
         /**Insert the intermediate tiles os each axis*/
@@ -138,23 +146,31 @@ public class TilesOperations {
                 /**Down-Left*/
                 auxX = mapX - x;
                 auxY = mapY - cont;
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
-                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                if (coordValidator(auxX, auxY, 0, 7)) {
+                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                        possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                }
                 /**Down-Right*/
                 auxX = mapX + x;
                 auxY = mapY - cont;
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
-                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                if (coordValidator(auxX, auxY, 0, 7)) {
+                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                        possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                }
                 /**Up-Left*/
                 auxX = mapX - x;
                 auxY = mapY + cont;
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
-                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                if (coordValidator(auxX, auxY, 0, 7)) {
+                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                        possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                }
                 /**Up-Right*/
                 auxX = mapX + x;
                 auxY = mapY + cont;
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
-                    possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                if (coordValidator(auxX, auxY, 0, 7)) {
+                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                        possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                }
             }
         }
 
@@ -169,28 +185,12 @@ public class TilesOperations {
         }
     }
 
-    /**
-     * Whitout HasMap tactic. VERY SLOWLYYYY!!!
-     */
-    /*public void movementPosibilities(int mx, int my, LinkedList<Tile> linked) {
-        mx -= 1;
-        my -= 1;
-        int cont2 = 0;
-        //System.out.println("MX y MY: " +  mx + " " + my);
-        for (int i = mx; i < mx + 3; i++) {
-            for (int j = my; j < my + 3; j++) {
-                int cont = 0;
-                for (Tile t : linked) {
-                    //System.out.println(t.getTileMapPos().x + " " + t.getTileMapPos().y);
-                    if (t.getTileMapPos().x == i && t.getTileMapPos().y == j) {
-                        cont2++;
-                        t.setT(RegionGiver.getRegion(false, "blue"));
-                        linked.set(cont, t);
-                    }
-                    cont++;
-                }
-            }
+    public boolean coordValidator(int x, int y, int min, int max) {
+        boolean isValid = false;
+        if  (x>=min && x<=max && y>=min && y<=max){
+            isValid = true;
         }
-        System.out.println(cont2);
-    }*/
+        return isValid;
+    }
+
 }
