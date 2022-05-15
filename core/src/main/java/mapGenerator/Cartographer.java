@@ -18,16 +18,6 @@ public class Cartographer {
         }
     }
 
-    public String writeMapString(){
-        return map = "w g g g g g g w\n" +
-                "m w w w w g g w\n" +
-                "m g w g g g g w\n" +
-                "m g g w l g g w\n" +
-                "m g g w w g g w\n" +
-                "m g g w g w g w\n" +
-                "m g g g g g w w\n" +
-                "m g g f i g w w";
-    }
 
     public String generateRandomMap() {
         switch (r.nextInt(4)){
@@ -158,4 +148,23 @@ public class Cartographer {
         }
         return desertMap;
     }
+
+    public String writeMockMap(){
+        String mockMap = "";
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (r.nextInt(10)<5){
+                    mockMap = mockMap.concat("s");
+                } else {
+                    mockMap = mockMap.concat("w");
+                }
+                if (j<7)
+                    mockMap = mockMap.concat(" ");
+            }
+            if (i<7)
+                mockMap = mockMap.concat("\n");
+        }
+        return mockMap;
+    }
+
 }

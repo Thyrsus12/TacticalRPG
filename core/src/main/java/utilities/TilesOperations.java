@@ -15,6 +15,7 @@ public class TilesOperations {
     private TileMap map;
 
     private Boolean characterSelected;
+    private Boolean oldTileWasInaccessible = false;
     private ArrayList<Integer> possibleTilesToMove;
     private ArrayList<TextureRegion> beforeTheBlueTiles;
 
@@ -81,6 +82,11 @@ public class TilesOperations {
 
                     /**Move the character and make it tile inaccessible*/
                     charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
+
+                    if (!t.isAccessible()){
+                        oldTileWasInaccessible = true;
+                    }
+
                     t.setAccessible(false);
 
                     /**Update characters HasMap*/
@@ -90,7 +96,10 @@ public class TilesOperations {
                     /**Make the previous occupied tile accessible*/
                     int oldOccupiedTileIndex = TileMap.coordsToIndexEquivalence.get(StartTilePos);
                     Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
-                    oldOccupiedTile.setAccessible(true);
+
+                    if(oldTileWasInaccessible){
+                        oldOccupiedTile.setAccessible(true);
+                    }
                 }
 
                 /**Set true isSelected to tile clicked*/
