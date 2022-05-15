@@ -17,7 +17,10 @@ public class Tile {
 
     private Boolean isSelected;
 
+    private Boolean occupied;
+
     public Tile(Boolean accessible, TextureRegion t, TextureRegion tS, Vector2 tileMapPos, Vector2 tileWorldPos) {
+        this.occupied = false;
         this.isSelected = false;
         this.accessible = accessible;
         this.t = t;
@@ -27,6 +30,7 @@ public class Tile {
     }
 
     public Tile(Boolean isSelected, Boolean accessible, TextureRegion t, TextureRegion tS, Vector2 tileMapPos, Vector2 tileWorldPos) {
+        this.occupied = false;
         this.isSelected = isSelected;
         this.accessible = accessible;
         this.t = t;
@@ -72,5 +76,13 @@ public class Tile {
 
     public void setAccessible(boolean accessible) {
         this.accessible = accessible;
+    }
+
+    public Boolean getOccupied() {
+        return occupied;
+    }
+
+    public void setOccupied(Boolean occupied) {
+        this.occupied = occupied;
     }
 }
