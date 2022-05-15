@@ -3,7 +3,6 @@ package utilities;
 import characters.Character;
 import characters.CharactersOperations;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 
@@ -27,8 +26,8 @@ public class TilesOperations {
     private HashMap<String, Integer> equivalences;
 
     private Character c;
-    private String StartCharPos;
-    private String StartTilePos;
+    private String startCharPos;
+    private String startTilePos;
     private int charArrayIndex;
 
     public TilesOperations(TileMap map, CharactersOperations charactersOps) {
@@ -53,12 +52,13 @@ public class TilesOperations {
             /**Check if tile clicked contains a character*/
             String stringPos = (mapX + 1) + "" + (mapY + 1);
             if (equivalences.containsKey(stringPos) && !characterSelected) {
-                StartCharPos = stringPos;
-                StartTilePos = mapX + "" + mapY;
-                charArrayIndex = equivalences.get(StartCharPos);
+                startCharPos = stringPos;
+                startTilePos = mapX + "" + mapY;
+                charArrayIndex = equivalences.get(startCharPos);
                 c = characters.get(charArrayIndex);
                 movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
                 characterSelected = true;
+
             }
 
             /**If !characterSelected*/
@@ -83,23 +83,18 @@ public class TilesOperations {
                     /**Move the character and make it tile inaccessible*/
                     charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
 
-                    if (!t.isAccessible()){
-                        oldTileWasInaccessible = true;
-                    }
-
                     t.setAccessible(false);
 
                     /**Update characters HasMap*/
                     String targetPos = mapX + "" + mapY;
-                    charactersOps.updateHashMap(StartCharPos, targetPos, charArrayIndex);
+                    charactersOps.updateHashMap(startCharPos, targetPos, charArrayIndex);
 
                     /**Make the previous occupied tile accessible*/
-                    int oldOccupiedTileIndex = TileMap.coordsToIndexEquivalence.get(StartTilePos);
+                    int oldOccupiedTileIndex = TileMap.coordsToIndexEquivalence.get(startTilePos);
                     Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
 
-                    if(oldTileWasInaccessible){
-                        oldOccupiedTile.setAccessible(true);
-                    }
+                    oldOccupiedTile.setAccessible(true);
+
                 }
 
                 /**Set true isSelected to tile clicked*/
