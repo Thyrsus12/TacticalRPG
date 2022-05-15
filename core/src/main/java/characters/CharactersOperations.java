@@ -17,6 +17,8 @@ public class CharactersOperations {
         characters = new LinkedList<>();
         characters.add(new Character(new Texture("bluehoplite.png"), new Vector2(3, 1)));
         characters.add(new Character(new Texture("redhoplite.png"), new Vector2(5, 1)));
+        characters.add(new Character(new Texture("bluemague.png"), new Vector2(7, 1)));
+        characters.add(new Character(new Texture("redmague.png"), new Vector2(5, 4)));
 
         this.characterPosEquivalence = new HashMap<>();
         fillEquivalences();
