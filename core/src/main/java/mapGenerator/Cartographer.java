@@ -11,7 +11,7 @@ public class Cartographer {
             String ruta = new File("").getAbsolutePath() + "/assets/map.txt";
             FileWriter fileWriter = new FileWriter(ruta);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(writeMockMap());
+            bufferedWriter.write(generateRandomMap());
             bufferedWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
