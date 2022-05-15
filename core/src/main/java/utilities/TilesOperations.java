@@ -163,6 +163,7 @@ public class TilesOperations {
         possibleTilesToMove = new ArrayList<>();
         beforeTheBlueTiles = new ArrayList<>();
 
+        Tile tile;
         /**Insert the main cross (vertical and horizontal axis)*/
         for (int i = 1; i <= movementCapacity; i++) {
             /**Right*/
