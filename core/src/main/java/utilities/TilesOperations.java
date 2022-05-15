@@ -83,8 +83,7 @@ public class TilesOperations {
 
                     /**Move the character and make it tile inaccessible*/
                     charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
-
-                    t.setAccessible(false);
+                    t.setOccupied(true);
 
                     /**Update characters HasMap*/
                     String targetPos = mapX + "" + mapY;
@@ -93,9 +92,7 @@ public class TilesOperations {
                     /**Make the previous occupied tile accessible*/
                     int oldOccupiedTileIndex = TileMap.coordsToIndexEquivalence.get(startTilePos);
                     Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
-
-                    oldOccupiedTile.setAccessible(true);
-
+                    oldOccupiedTile.setOccupied(false);
                 }
 
                 /**Set true isSelected to tile clicked*/
@@ -151,7 +148,7 @@ public class TilesOperations {
             //Search and modify the tile
             int tileArrayPos = TileMap.coordsToIndexEquivalence.get(mapX + "" + mapY);
             LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
-            tileLinkedList.get(tileArrayPos).setAccessible(false);
+            tileLinkedList.get(tileArrayPos).setOccupied(true);
         }
     }
 
@@ -169,25 +166,29 @@ public class TilesOperations {
             /**Right*/
             auxX = mapX + i;
             if (coordValidator(auxX, mapY, 0, 7)) {
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY)).isAccessible())
+                tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
             }
             /**Left*/
             auxX = mapX - i;
             if (coordValidator(auxX, mapY, 0, 7)) {
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY)).isAccessible())
+                tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
             }
             /**Up*/
             auxY = mapY + i;
             if (coordValidator(mapX, auxY, 0, 7)) {
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY)).isAccessible())
+                tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
             }
             /**Down*/
             auxY = mapY - i;
             if (coordValidator(mapX, auxY, 0, 7)) {
-                if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY)).isAccessible())
+                tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
             }
         }
@@ -200,28 +201,32 @@ public class TilesOperations {
                 auxX = mapX - x;
                 auxY = mapY - cont;
                 if (coordValidator(auxX, auxY, 0, 7)) {
-                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                    tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                 }
                 /**Down-Right*/
                 auxX = mapX + x;
                 auxY = mapY - cont;
                 if (coordValidator(auxX, auxY, 0, 7)) {
-                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                    tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                 }
                 /**Up-Left*/
                 auxX = mapX - x;
                 auxY = mapY + cont;
                 if (coordValidator(auxX, auxY, 0, 7)) {
-                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                    tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                 }
                 /**Up-Right*/
                 auxX = mapX + x;
                 auxY = mapY + cont;
                 if (coordValidator(auxX, auxY, 0, 7)) {
-                    if (tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY)).isAccessible())
+                    tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                 }
             }
