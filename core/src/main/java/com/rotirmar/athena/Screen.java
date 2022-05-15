@@ -24,9 +24,10 @@ public class Screen extends ScreenAdapter {
     private TileMap map;
 
     public int mapX, mapY;
-    private TilesOperations tilesOps = new TilesOperations();
 
     private CharactersOperations charactersOps;
+
+    private TilesOperations tilesOps;
 
     public Screen(SpriteBatch batch) {
         this.batch = batch;
@@ -37,6 +38,7 @@ public class Screen extends ScreenAdapter {
         this.map = new TileMap();
 
         this.charactersOps = new CharactersOperations();
+        this.tilesOps = new TilesOperations(map, charactersOps);
 
     }
 
@@ -103,7 +105,7 @@ public class Screen extends ScreenAdapter {
             //System.out.println("-------------------------------------------");
             //System.out.println("Map X=" + mx + " Map Y=" + my);
 
-            tilesOps.modifyTile(map, mapX, mapY, charactersOps.getCharacters().get(0));
+            tilesOps.modifyTile(mapX, mapY);
         }
     }
 

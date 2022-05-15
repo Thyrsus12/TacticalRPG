@@ -2,6 +2,7 @@ package characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import mapTileByTile.Tile;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,6 +30,18 @@ public class CharactersOperations {
             characterPosEquivalence.put(mapX + "" + mapY, cont);
             cont++;
         }
+    }
+
+    public void moveCharacter(int mapX, int mapY, Character c) {
+        c.setCharMapPos(new Vector2(mapX, mapY));
+        float x = (mapX - mapY) * Tile.TILE_WIDTH / 2.0001f;
+        float y = (mapY + mapX) * Tile.TILE_HEIGHT / 2f;
+        c.setCharWorldPos(new Vector2(x, y));
+    }
+
+    public void updateHashMap(String charPos, String targetPos, int charArrayPos) {
+        characterPosEquivalence.remove(charPos);
+        characterPosEquivalence.put(targetPos, charArrayPos);
     }
 
     public LinkedList<Character> getCharacters() {

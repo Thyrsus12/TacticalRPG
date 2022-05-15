@@ -7,12 +7,13 @@ import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class TilesOperations {
+    private TileMap map;
+
     private Boolean characterSelected;
     private ArrayList<Integer> possibleTilesToMove;
     private ArrayList<TextureRegion> beforeTheBlueTiles;
@@ -20,22 +21,42 @@ public class TilesOperations {
     private int oldPosition;
     private Tile oldTile;
 
-    public TilesOperations() {
+    private CharactersOperations charactersOps;
+    private LinkedList<Character> characters;
+    private HashMap<String, Integer> equivalences;
+
+    private Character c;
+    private String StartCharPos;
+    private String StartTilePos;
+    private int charArrayIndex;
+
+    public TilesOperations(TileMap map, CharactersOperations charactersOps) {
+        this.map = map;
         this.characterSelected = false;
         this.possibleTilesToMove = new ArrayList<>();
         this.beforeTheBlueTiles = new ArrayList<>();
         this.oldTile = null;
+
+        this.charactersOps = charactersOps;
+        this.characters = charactersOps.getCharacters();
+        this.equivalences = charactersOps.getCharacterPosEquivalence();
+        setInaccessibleInitialTiles();
     }
 
-    public void modifyTile(TileMap map, int mapX, int mapY, Character character) {
+    public void modifyTile(int mapX, int mapY) {
         /**Modify the tile of the tileLinkedList list and insert it again to select or unselect it*/
         int cont = 0;
         LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
 
         for (Tile t : tileLinkedList) {
             /**Check if tile clicked contains a character*/
-            if (character.getCharMapPos().x == mapX + 1 && character.getCharMapPos().y == mapY + 1 && !characterSelected) {
-                movementPossibilitiesPainter(mapX, mapY, character.getMovementCapacity(), tileLinkedList);
+            String stringPos = (mapX + 1) + "" + (mapY + 1);
+            if (equivalences.containsKey(stringPos) && !characterSelected) {
+                StartCharPos = stringPos;
+                StartTilePos = mapX + "" + mapY;
+                charArrayIndex = equivalences.get(StartCharPos);
+                c = characters.get(charArrayIndex);
+                movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
                 characterSelected = true;
             }
 
@@ -55,15 +76,21 @@ public class TilesOperations {
                 /**If characterSelected*/
             } else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected() && characterSelected) {
 
-                /**Move the character if click in blue tile*/
-                String tileSelectedCoords = mapX + "" + mapY;
-                if (possibleTilesToMove.contains(TileMap.coordsToIndexEquivalence.get(tileSelectedCoords))) {
-                    mapX += 1;
-                    mapY += 1;
-                    character.setCharMapPos(new Vector2(mapX, mapY));
-                    float x = (mapX - mapY) * Tile.TILE_WIDTH / 2.0001f;
-                    float y = (mapY + mapX) * Tile.TILE_HEIGHT / 2f;
-                    character.setCharWorldPos(new Vector2(x, y));
+                /**If click in blue tile*/
+                if (possibleTilesToMove.contains(TileMap.coordsToIndexEquivalence.get(mapX + "" + mapY))) {
+
+                    /**Move the character and make it tile inaccessible*/
+                    charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
+                    t.setAccessible(false);
+
+                    /**Update characters HasMap*/
+                    String targetPos = mapX + "" + mapY;
+                    charactersOps.updateHashMap(StartCharPos, targetPos, charArrayIndex);
+
+                    /**Make the previous occupied tile accessible*/
+                    int oldOccupiedTileIndex = TileMap.coordsToIndexEquivalence.get(StartTilePos);
+                    Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
+                    oldOccupiedTile.setAccessible(true);
                 }
 
                 /**Set true isSelected to tile clicked*/
@@ -103,6 +130,23 @@ public class TilesOperations {
             t.setT(beforeTheBlueTiles.get(cont));
             //tileLinkedList.set(index, t);
             cont++;
+        }
+    }
+
+    /**
+     * Only at startup does the program traverse the character array and set its tiles as inaccessible.
+     */
+    private void setInaccessibleInitialTiles() {
+        int mapX, mapY;
+        // Get the character pos
+        for (Character c : characters) {
+            //Transform it to tile pos
+            mapX = (int) c.getCharMapPos().x - 1;
+            mapY = (int) c.getCharMapPos().y - 1;
+            //Search and modify the tile
+            int tileArrayPos = TileMap.coordsToIndexEquivalence.get(mapX + "" + mapY);
+            LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
+            tileLinkedList.get(tileArrayPos).setAccessible(false);
         }
     }
 
