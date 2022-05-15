@@ -43,6 +43,7 @@ public class TilesOperations {
         setInaccessibleInitialTiles();
     }
 
+    //master no quiere pillar los cambios
     public void modifyTile(int mapX, int mapY) {
         /**Modify the tile of the tileLinkedList list and insert it again to select or unselect it*/
         int cont = 0;
