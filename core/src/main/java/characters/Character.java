@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 
+import java.io.FileReader;
+
 public class Character {
     private Texture t;
     private TextureRegion[] regionMovement;
@@ -37,9 +39,10 @@ public class Character {
     }
 
     private void makeAnimation(Texture t) {
-        TextureRegion[][] tmp = TextureRegion.split(t, t.getWidth() / 3, t.getHeight());
-        regionMovement = new TextureRegion[3];
-        for (int i = 0; i < 3; i++) {
+        int frames = t.getWidth() / 32;
+        TextureRegion[][] tmp = TextureRegion.split(t, t.getWidth() / frames, t.getHeight());
+        regionMovement = new TextureRegion[frames];
+        for (int i = 0; i < frames; i++) {
             regionMovement[i] = tmp[0][i];
         }
 
