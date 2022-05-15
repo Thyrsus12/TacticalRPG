@@ -3,6 +3,7 @@ package utilities;
 import characters.Character;
 import characters.CharactersOperations;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 
@@ -14,7 +15,6 @@ public class TilesOperations {
     private TileMap map;
 
     private Boolean characterSelected;
-    private Boolean oldTileWasInaccessible = false;
     private ArrayList<Integer> possibleTilesToMove;
     private ArrayList<TextureRegion> beforeTheBlueTiles;
 
@@ -59,7 +59,6 @@ public class TilesOperations {
                 c = characters.get(charArrayIndex);
                 movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
                 characterSelected = true;
-
             }
 
             /**If !characterSelected*/
@@ -163,6 +162,7 @@ public class TilesOperations {
         possibleTilesToMove = new ArrayList<>();
         beforeTheBlueTiles = new ArrayList<>();
 
+        Tile tile;
         /**Insert the main cross (vertical and horizontal axis)*/
         for (int i = 1; i <= movementCapacity; i++) {
             /**Right*/
