@@ -5,21 +5,20 @@ import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
 
-import java.util.LinkedList;
-
 public class Screen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
+    private Music music;
 
     private TileMap map;
 
@@ -39,7 +38,13 @@ public class Screen extends ScreenAdapter {
 
         this.charactersOps = new CharactersOperations();
         this.tilesOps = new TilesOperations(map, charactersOps);
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/time_cave.ogg"));
 
+    }
+
+    @Override
+    public void show() {
+        music.play();
     }
 
     public void render(float delta) {
@@ -72,6 +77,27 @@ public class Screen extends ScreenAdapter {
 
         batch.end();
     }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
 
     private void camInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
