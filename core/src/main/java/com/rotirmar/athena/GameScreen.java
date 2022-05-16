@@ -7,17 +7,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
 
-import java.util.LinkedList;
-
-public class Screen extends ScreenAdapter {
+public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
 
@@ -29,7 +25,7 @@ public class Screen extends ScreenAdapter {
 
     private TilesOperations tilesOps;
 
-    public Screen(SpriteBatch batch) {
+    public GameScreen(SpriteBatch batch) {
         this.batch = batch;
         this.cam = new OrthographicCamera(1280, 720);
         cam.zoom = 0.25f;
