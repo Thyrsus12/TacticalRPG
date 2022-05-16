@@ -34,6 +34,7 @@ public class MenuScreen implements Screen {
         batch.draw(play, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         batch.draw(exit, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 - 110, BUTTON_WIDTH, BUTTON_HEIGHT);
         batch.end();
+
         mouseInput();
     }
 
@@ -50,9 +51,6 @@ public class MenuScreen implements Screen {
                     game.dispose();
                 }
             }
-            //System.out.println("X: " +  + " Y: " + Gdx.input.getY());
-            /*game.setScreen(new GameScreen(batch));
-            this.dispose();*/
         }
     }
 

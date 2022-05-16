@@ -1,8 +1,8 @@
-g v g g g v g h
-g v v g g g v g
-v h n g g n n v
-v w g g h v g g
-g v v h v h g v
-n g g v g n v g
-g n n v v v g v
-g v g g v h v g
+g g v g h v v h
+v g v g h n v g
+w w w w g w n g
+h v g v g g v g
+g v v g n g v v
+g v g v v v v g
+g v g g h g v n
+v n g v v n v g
