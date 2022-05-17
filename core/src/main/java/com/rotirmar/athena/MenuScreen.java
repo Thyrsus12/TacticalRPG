@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import utilities.MenuJFrame;
 
-public class MenuScreen implements Screen {
+import javax.swing.*;
+
+public class MenuScreen extends JFrame implements Screen {
 
     private final int BUTTON_HEIGHT = 100;
     private final int BUTTON_WIDTH = 300;
@@ -14,11 +17,13 @@ public class MenuScreen implements Screen {
     private Game game;
     private Texture play;
     private Texture exit;
+    private MenuJFrame menu;
 
 
     public MenuScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
         this.game = game;
+        menu = new MenuJFrame();
         play = new Texture("playButtonTexture.png");
         exit = new Texture("exitButtonTexture.png");
     }
@@ -44,10 +49,12 @@ public class MenuScreen implements Screen {
         if (Gdx.input.justTouched()) {
             if (clickX > 467 && clickX < 747) {
                 if (clickY > 260 && clickY < 355) {
-                    game.setScreen(new GameScreen(batch));
-                    this.dispose();
-                } else if (clickY > 370 && clickY < 467){
-                    game.dispose();
+                    menu.setVisible(true);
+                    menu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    //game.setScreen(new GameScreen(batch));
+                    //this.dispose();
+                } else if (clickY > 370 && clickY < 467) {
+                    Gdx.app.exit();
                 }
             }
             //System.out.println("X: " +  + " Y: " + Gdx.input.getY());
