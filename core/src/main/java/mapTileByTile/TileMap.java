@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class TileMap {
-
-    private final int WORLD_MAP_SIZE = 7;
+    public static Integer mapSize = 8;
+    private final int WORLD_MAP_SIZE = mapSize-1;
 
     public static Map<String, Integer> coordsToIndexEquivalence = new HashMap<>();
 
@@ -30,9 +30,10 @@ public class TileMap {
 
     public TileMap() {
         tileLinkedList = new LinkedList<Tile>();
-        mapLayer0 = new String[8][8];
+        mapLayer0 = new String[mapSize][mapSize];
         //layer1 = new LinkedList<Tile>();
         //mapLayer1 = new String[7][7];
+
 
         try {
             fillMap();
