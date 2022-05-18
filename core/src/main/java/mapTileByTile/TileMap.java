@@ -15,10 +15,10 @@ import java.util.Map;
 import java.util.Random;
 
 public class TileMap {
-    public static Integer mapSize = 8;
+    public static Integer mapSize = 24;
     private final int WORLD_MAP_SIZE = mapSize-1;
 
-    public static Map<String, Integer> coordsToIndexEquivalence = new HashMap<>();
+    public static HashMap<String, Integer> coordsToIndexEquivalence = new HashMap<>();
 
     private Cartographer cartographer = new Cartographer();
 

@@ -165,28 +165,28 @@ public class TilesOperations {
         for (int i = 1; i <= movementCapacity; i++) {
             /**Right*/
             auxX = mapX + i;
-            if (coordValidator(auxX, mapY, 0, 7)) {
+            if (coordValidator(auxX, mapY, 0, TileMap.mapSize-1)) {
                 tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
             }
             /**Left*/
             auxX = mapX - i;
-            if (coordValidator(auxX, mapY, 0, 7)) {
+            if (coordValidator(auxX, mapY, 0, TileMap.mapSize-1)) {
                 tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + mapY));
             }
             /**Up*/
             auxY = mapY + i;
-            if (coordValidator(mapX, auxY, 0, 7)) {
+            if (coordValidator(mapX, auxY, 0, TileMap.mapSize-1)) {
                 tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
             }
             /**Down*/
             auxY = mapY - i;
-            if (coordValidator(mapX, auxY, 0, 7)) {
+            if (coordValidator(mapX, auxY, 0, TileMap.mapSize-1)) {
                 tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(mapX + "" + auxY));
@@ -200,7 +200,7 @@ public class TilesOperations {
                 /**Down-Left*/
                 auxX = mapX - x;
                 auxY = mapY - cont;
-                if (coordValidator(auxX, auxY, 0, 7)) {
+                if (coordValidator(auxX, auxY, 0, TileMap.mapSize-1)) {
                     tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
@@ -208,7 +208,7 @@ public class TilesOperations {
                 /**Down-Right*/
                 auxX = mapX + x;
                 auxY = mapY - cont;
-                if (coordValidator(auxX, auxY, 0, 7)) {
+                if (coordValidator(auxX, auxY, 0, TileMap.mapSize-1)) {
                     tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
@@ -216,7 +216,7 @@ public class TilesOperations {
                 /**Up-Left*/
                 auxX = mapX - x;
                 auxY = mapY + cont;
-                if (coordValidator(auxX, auxY, 0, 7)) {
+                if (coordValidator(auxX, auxY, 0, TileMap.mapSize-1)) {
                     tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
@@ -224,7 +224,7 @@ public class TilesOperations {
                 /**Up-Right*/
                 auxX = mapX + x;
                 auxY = mapY + cont;
-                if (coordValidator(auxX, auxY, 0, 7)) {
+                if (coordValidator(auxX, auxY, 0, TileMap.mapSize-1)) {
                     tile = tileLinkedList.get(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(TileMap.coordsToIndexEquivalence.get(auxX + "" + auxY));
