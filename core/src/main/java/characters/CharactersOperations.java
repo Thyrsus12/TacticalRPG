@@ -15,12 +15,12 @@ public class CharactersOperations {
 
     public CharactersOperations() {
         characters = new LinkedList<>();
-        characters.add(new Character(new Texture("bluehoplite.png"), new Vector2(3, 1)));
-        characters.add(new Character(new Texture("redhoplite.png"), new Vector2(5, 1)));
-        characters.add(new Character(new Texture("bluemague.png"), new Vector2(4, 1)));
-        characters.add(new Character(new Texture("redmague.png"), new Vector2(5, 4)));
-        characters.add(new Character(new Texture("bluearcher.png"), new Vector2(2, 4)));
-        characters.add(new Character(new Texture("redarcher.png"), new Vector2(1, 4)));
+        characters.add(new Character(new Texture("blueHoplite.png"), new Vector2(3, 1), 2));
+        characters.add(new Character(new Texture("redHoplite.png"), new Vector2(5, 1), 2));
+        characters.add(new Character(new Texture("blueMagician.png"), new Vector2(4, 1), 2));
+        characters.add(new Character(new Texture("redMagician.png"), new Vector2(5, 4), 2));
+        characters.add(new Character(new Texture("blueArcher.png"), new Vector2(2, 4), 2));
+        characters.add(new Character(new Texture("redArcher.png"), new Vector2(1, 4), 2));
 
         this.characterPosEquivalence = new HashMap<>();
         fillEquivalences();
