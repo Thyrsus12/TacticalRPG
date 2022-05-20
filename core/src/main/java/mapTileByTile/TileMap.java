@@ -94,7 +94,7 @@ public class TileMap {
                 /**Layer0*/
                 Random r = new Random();
                 /**Fill Map(layer0Map) of mapCoords-tileArray equivalences*/
-                coordsToIndexEquivalence.put(row + "" + col, cont);
+                coordsToIndexEquivalence.put(row + "," + col, cont);
 
                 /**Choose the appropriate tile as indicated in map.txt and insert it*/
                 switch (mapLayer0[row][col]) {

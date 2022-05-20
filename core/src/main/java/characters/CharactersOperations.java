@@ -31,7 +31,7 @@ public class CharactersOperations {
         for (Character character : characters) {
             mapX = (int) character.getCharMapPos().x;
             mapY = (int) character.getCharMapPos().y;
-            characterPosEquivalence.put(mapX + "" + mapY, cont);
+            characterPosEquivalence.put(mapX + "," + mapY, cont);
             cont++;
         }
     }
