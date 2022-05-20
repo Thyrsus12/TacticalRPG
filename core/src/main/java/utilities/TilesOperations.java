@@ -163,39 +163,35 @@ public class TilesOperations {
         for (int i = 1; i <= movementCapacity; i++) {
             //Right
             auxX = mapX + i;
-            if (coordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
-                if (tile.isAccessible() && !tile.getOccupied()) {
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
-                }
             }
             //Left
             auxX = mapX - i;
-            if (coordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
-                if (tile.isAccessible() && !tile.getOccupied()) {
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
-                }
             }
             //Up
             auxY = mapY + i;
-            if (coordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
-                if (tile.isAccessible() && !tile.getOccupied()) {
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
-                }
             }
             //Down
             auxY = mapY - i;
-            if (coordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
-                if (tile.isAccessible() && !tile.getOccupied()){
+                if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
-                }
             }
         }
 
@@ -203,61 +199,55 @@ public class TilesOperations {
         for (int y = movementCapacity - 1; y > 0; y--) {
             cont++;
             for (int x = y; x > 0; x--) {
-                /**Down-Left*/
+                //Down-Left
                 auxX = mapX - x;
                 auxY = mapY - cont;
-                if (coordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
-                    if (tile.isAccessible() && !tile.getOccupied()) {
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
-                    }
                 }
-                /**Down-Right*/
+                //Down-Right
                 auxX = mapX + x;
                 auxY = mapY - cont;
-                if (coordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
-                    if (tile.isAccessible() && !tile.getOccupied()) {
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
-                    }
                 }
-                /**Up-Left*/
+                //Up-Left
                 auxX = mapX - x;
                 auxY = mapY + cont;
-                if (coordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
-                    if (tile.isAccessible() && !tile.getOccupied()) {
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
-                    }
                 }
-                /**Up-Right*/
+                //Up-Right
                 auxX = mapX + x;
                 auxY = mapY + cont;
-                if (coordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
-                    if (tile.isAccessible() && !tile.getOccupied()) {
+                    if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
-                    }
                 }
             }
         }
 
         /**Change to blue the tile that can be movement options and fill beforeTheBlueTiles */
-        Tile t;
         TextureRegion blueTexture = RegionGiver.getRegion(false, "blue");
         for (Integer tI : possibleTilesToMove) {
-            t = tileLinkedList.get(tI);
-            beforeTheBlueTiles.add(t.getT());
-            t.setT(blueTexture);
-            //tileLinkedList.set(tI, t);
+            tile = tileLinkedList.get(tI);
+            beforeTheBlueTiles.add(tile.getT());
+            tile.setT(blueTexture);
         }
     }
 
-    public boolean coordValidator(int x, int y, int min, int max) {
+    public boolean cordValidator(int x, int y, int min, int max) {
         boolean isValid = false;
         if (x >= min && x <= max && y >= min && y <= max) {
             isValid = true;
