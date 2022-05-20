@@ -37,8 +37,6 @@ public class TileMap {
 
         try {
             fillMap();
-            System.out.println(coordsToIndexEquivalence);
-            System.out.println(coordsToIndexEquivalence.size());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("FILLMAP CALL FILLED");
