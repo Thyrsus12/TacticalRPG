@@ -167,7 +167,6 @@ public class TilesOperations {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied()) {
-                    System.out.print(TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY) + "-");
                     possibleTilesToMove.add(tileIndex);
                 }
             }
@@ -177,7 +176,6 @@ public class TilesOperations {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied()) {
-                    System.out.print(TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY) + "-");
                     possibleTilesToMove.add(tileIndex);
                 }
             }
@@ -187,7 +185,6 @@ public class TilesOperations {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied()) {
-                    System.out.print(TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY) + "-");
                     possibleTilesToMove.add(tileIndex);
                 }
             }
@@ -197,7 +194,6 @@ public class TilesOperations {
                 tileIndex = TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied()){
-                    System.out.print(TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY) + "-");
                     possibleTilesToMove.add(tileIndex);
                 }
             }
@@ -214,7 +210,6 @@ public class TilesOperations {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied()) {
-                        System.out.print(TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY) + "-");
                         possibleTilesToMove.add(tileIndex);
                     }
                 }
@@ -225,7 +220,6 @@ public class TilesOperations {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied()) {
-                        System.out.print(TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY) + "-");
                         possibleTilesToMove.add(tileIndex);
                     }
                 }
@@ -236,7 +230,6 @@ public class TilesOperations {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied()) {
-                        System.out.print(TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY) + "-");
                         possibleTilesToMove.add(tileIndex);
                     }
                 }
@@ -247,7 +240,6 @@ public class TilesOperations {
                     tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied()) {
-                        System.out.println(TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY));
                         possibleTilesToMove.add(tileIndex);
                     }
                 }
