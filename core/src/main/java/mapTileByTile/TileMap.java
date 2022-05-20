@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class TileMap {
-    public static Integer mapSize = 24;
-    private final int WORLD_MAP_SIZE = mapSize-1;
+    public static int mapSize = 15;
+    public static final int WORLD_MAP_SIZE = mapSize-1;
 
     public static HashMap<String, Integer> coordsToIndexEquivalence = new HashMap<>();
 
@@ -37,6 +37,8 @@ public class TileMap {
 
         try {
             fillMap();
+            System.out.println(coordsToIndexEquivalence);
+            System.out.println(coordsToIndexEquivalence.size());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("FILLMAP CALL FILLED");
