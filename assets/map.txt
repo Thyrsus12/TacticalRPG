@@ -1,8 +1,15 @@
-g v g g g v g h
-g v v g g g v g
-v h n g g n n v
-v w g g h v g g
-g v v h v h g v
-n g g v g n v g
-g n n v v v g v
-g v g g v h v g
+s s s s m s s s m s s s m s s
+m s s s s m s s s s s s s s m
+s s m s m m m s s s s m s s s
+s s m m s s s m s m s s s s s
+s s s s s m s s s s m m m s s
+s s s m s s m s s s s s s s s
+s s s s s s m s m s s s s s m
+m s s m s s s s s m s s s s s
+s s s m m s s s s s s s s s s
+s s s m m s m m s s s s s s s
+s s s m s s s s s m s s s s s
+s s s s s s s s s s s s s s s
+m s s s s s m s s s s s s s m
+w s s s s w w w s s w s s s w
+s m s s m s s m s m s s s s s

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Game extends com.badlogic.gdx.Game {
 
     private SpriteBatch batch;
-    private ScreenAdapter screen;
 
     @Override
     public void create() {

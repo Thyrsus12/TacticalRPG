@@ -1,11 +1,14 @@
 package mapGenerator;
 
+import mapTileByTile.TileMap;
+
 import java.io.*;
 import java.util.Random;
 
 public class Cartographer {
     Random r = new Random();
     String map;
+    Integer mapSize = TileMap.mapSize;
     public void writeMap(){
         try {
             String ruta = new File("").getAbsolutePath() + "/assets/map.txt";
@@ -35,10 +38,10 @@ public class Cartographer {
 
     public String writeSnowMap(){
         String snowMap = "";
-        int river = r.nextInt(8)-1;
+        int river = r.nextInt(mapSize)-1;
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
                 if (river==i && r.nextInt(10)<4){
                     snowMap = snowMap.concat("w");
                 } else {
@@ -52,10 +55,10 @@ public class Cartographer {
                         }
                     }
                 }
-                if (j<7)
+                if (j<mapSize-1)
                     snowMap = snowMap.concat(" ");
             }
-            if (i<7)
+            if (i<mapSize-1)
                 snowMap = snowMap.concat("\n");
         }
         return snowMap;
@@ -63,10 +66,10 @@ public class Cartographer {
 
     public String writeLavaMap(){
         String lavaMap = "";
-        int river = r.nextInt(8)-1;
+        int river = r.nextInt(mapSize)-1;
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
                 if (river==i && r.nextInt(10)<4){
                     lavaMap = lavaMap.concat("l");
                 } else {
@@ -80,10 +83,10 @@ public class Cartographer {
                         }
                     }
                 }
-                if (j<7)
+                if (j<mapSize-1)
                     lavaMap = lavaMap.concat(" ");
             }
-            if (i<7)
+            if (i<mapSize-1)
                 lavaMap = lavaMap.concat("\n");
         }
         return lavaMap;
@@ -91,10 +94,10 @@ public class Cartographer {
 
     public String writeGrassMap(){
         String grassMap = "";
-        int river = r.nextInt(8)-1;
+        int river = r.nextInt(mapSize)-1;
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
                 if (river==i && r.nextInt(10)<4){
                     grassMap = grassMap.concat("w");
                 } else {
@@ -112,10 +115,10 @@ public class Cartographer {
                         }
                     }
                 }
-                if (j<7)
+                if (j<mapSize-1)
                     grassMap = grassMap.concat(" ");
             }
-            if (i<7)
+            if (i<mapSize-1)
                 grassMap = grassMap.concat("\n");
         }
         return grassMap;
@@ -123,10 +126,10 @@ public class Cartographer {
 
     public String writeDesertMap(){
         String desertMap = "";
-        int river = r.nextInt(8)-1;
+        int river = r.nextInt(mapSize)-1;
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
                 if (river==i && r.nextInt(10)<4){
                     if (r.nextInt(10)<2){
                         desertMap = desertMap.concat("n");
@@ -140,10 +143,10 @@ public class Cartographer {
                         desertMap = desertMap.concat("s");
                         }
                     }
-                if (j<7)
+                if (j<mapSize-1)
                     desertMap = desertMap.concat(" ");
             }
-            if (i<7)
+            if (i<mapSize-1)
                 desertMap = desertMap.concat("\n");
         }
         return desertMap;
@@ -151,17 +154,17 @@ public class Cartographer {
 
     public String writeMockMap(){
         String mockMap = "";
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
                 if (r.nextInt(10)<5){
                     mockMap = mockMap.concat("s");
                 } else {
                     mockMap = mockMap.concat("w");
                 }
-                if (j<7)
+                if (j<mapSize-1)
                     mockMap = mockMap.concat(" ");
             }
-            if (i<7)
+            if (i<mapSize-1)
                 mockMap = mockMap.concat("\n");
         }
         return mockMap;

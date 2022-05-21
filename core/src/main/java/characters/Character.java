@@ -8,14 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 
-import java.io.FileReader;
-
 public class Character {
-    private Texture t;
+    private final Texture t;
     private TextureRegion[] regionMovement;
     private Animation animation;
     private float time = 0f;
-    private TextureRegion currentFrame;
 
 
     private Vector2 charMapPos;
@@ -23,11 +20,11 @@ public class Character {
 
     private Integer movementCapacity;
 
-    public Character(Texture t, Vector2 charMapPos) {
+    public Character(Texture t, Vector2 charMapPos, int movementCapacity) {
         this.t = t;
         this.charMapPos = charMapPos;
         this.charWorldPos = calculateWorldPos(charMapPos);
-        this.movementCapacity = 2;
+        this.movementCapacity = movementCapacity;
 
         makeAnimation(t);
     }
@@ -50,8 +47,8 @@ public class Character {
     }
 
     public void render(SpriteBatch batch) {
-        time += Gdx.graphics.getDeltaTime(); // Es el tiempo que paso desde el ultimo render
-        currentFrame = (TextureRegion) animation.getKeyFrame(time, true);
+        time += Gdx.graphics.getDeltaTime(); //Time until the last render
+        TextureRegion currentFrame = (TextureRegion) animation.getKeyFrame(time, true);
         batch.draw(currentFrame, charWorldPos.x, charWorldPos.y);
     }
 
