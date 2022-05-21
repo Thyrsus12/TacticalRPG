@@ -238,7 +238,7 @@ public class TilesOperations {
             }
         }
 
-        /**Change to blue the tile that can be movement options and fill beforeTheBlueTiles */
+        //Change to blue the tile that can be movement options and fill beforeTheBlueTiles
         TextureRegion blueTexture = RegionGiver.getRegion(false, "blue");
         for (Integer tI : possibleTilesToMove) {
             tile = tileLinkedList.get(tI);
