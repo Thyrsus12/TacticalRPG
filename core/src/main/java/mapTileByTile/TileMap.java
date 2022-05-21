@@ -14,12 +14,13 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class TileMap {
-    public static int mapSize = 15;
+
+    public static int mapSize;
     public static final int WORLD_MAP_SIZE = mapSize - 1;
 
     public static HashMap<String, Integer> cordsToIndexEquivalence = new HashMap<>();
 
-    private final Cartographer cartographer = new Cartographer();
+    private final Cartographer cartographer;
 
     public LinkedList<Tile> tileLinkedList;
     private final String[][] mapLayer0;
@@ -27,12 +28,15 @@ public class TileMap {
     //private String[][] mapLayer1;
     //public int[] selector = {6, 6};
 
-    public TileMap() {
+
+    public TileMap(int mapSize, String mapType) {
+        this.mapSize = mapSize;
+        System.out.println(mapSize + "tileMap");
+        cartographer = new Cartographer();
         tileLinkedList = new LinkedList<>();
         mapLayer0 = new String[mapSize][mapSize];
         //layer1 = new LinkedList<Tile>();
         //mapLayer1 = new String[7][7];
-
 
         try {
             fillMap();
@@ -208,4 +212,5 @@ public class TileMap {
     public LinkedList<Tile> getTileLinkedList() {
         return tileLinkedList;
     }
+
 }

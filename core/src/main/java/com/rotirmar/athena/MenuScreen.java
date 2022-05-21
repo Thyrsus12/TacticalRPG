@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import jFrame.Marco;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
 
@@ -17,7 +19,7 @@ public class MenuScreen implements Screen {
     private Game game;
     private Texture play;
     private Texture exit;
-    private Marco menu = new Marco();
+    private Marco menu;
 
 
     public MenuScreen(SpriteBatch batch, Game game) {
@@ -25,7 +27,7 @@ public class MenuScreen implements Screen {
         this.game = game;
         play = new Texture("playButtonTexture.png");
         exit = new Texture("exitButtonTexture.png");
-
+        menu = new Marco();
     }
 
     @Override
@@ -41,6 +43,14 @@ public class MenuScreen implements Screen {
         batch.end();
 
         mouseInput();
+
+        if (!menu.getVisible()) {
+            ArrayList<Integer> numCharacters = menu.getNumCharacters();
+            int mapSize = menu.getSizeMap();
+            String mapType = menu.getTypeMap();
+            System.out.println(mapSize);
+            game.setScreen(new GameScreen(batch, numCharacters, mapSize, mapType));
+        }
     }
 
     private void mouseInput() {
@@ -52,12 +62,13 @@ public class MenuScreen implements Screen {
                 if (clickY > 260 && clickY < 355) {
                     menu.setVisible(true);
                     menu.setResizable(false);
-                    menu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    //game.setScreen(new GameScreen(batch));
-                    //this.dispose();
-                } else if (clickY > 370 && clickY < 467) {
-                    Gdx.app.exit();
+                    menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 }
+                //game.setScreen(new GameScreen(batch));
+                //this.dispose();
+            } else if (clickY > 370 && clickY < 467) {
+                System.out.println(menu.getNumCharacters());
+                Gdx.app.exit();
             }
         }
     }

@@ -25,9 +25,16 @@ public class LaminateCharacters extends JPanel {
 
     public ArrayList<Integer> giveSelectionCharacter() {
         ArrayList<Integer> numCharacters = new ArrayList<>();
+        int totalCharacters = 0;
         for (int i = 0; i < spinner.size(); i++) {
             numCharacters.add((int) spinner.get(i).getValue());
+            totalCharacters += (int) spinner.get(i).getValue();
         }
-        return numCharacters;
+        if (totalCharacters <= 10) {
+            return numCharacters;
+        } else {
+            JOptionPane.showMessageDialog(null, "El numero maximo de personajes es 10");
+            return null;
+        }
     }
 }
