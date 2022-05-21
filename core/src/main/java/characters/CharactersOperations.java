@@ -21,6 +21,9 @@ public class CharactersOperations {
         characters.add(new Character(new Texture("redMagician.png"), new Vector2(5, 4), 2));
         characters.add(new Character(new Texture("blueArcher.png"), new Vector2(2, 4), 2));
         characters.add(new Character(new Texture("redArcher.png"), new Vector2(1, 4), 2));
+        characters.add(new Character(new Texture("medusa.png"), new Vector2(6, 5), 2));
+        characters.add(new Character(new Texture("hydra.png"), new Vector2(5, 5), 2));
+        characters.add(new Character(new Texture("chimera.png"), new Vector2(6, 2), 2));
 
         this.characterPosEquivalence = new HashMap<>();
         fillEquivalences();
