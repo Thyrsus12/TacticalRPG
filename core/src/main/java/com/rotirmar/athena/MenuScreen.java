@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import utilities.MenuJFrame;
+import jFrame.Marco;
 
 import javax.swing.*;
 
-public class MenuScreen extends JFrame implements Screen {
+public class MenuScreen implements Screen {
 
     private final int BUTTON_HEIGHT = 100;
     private final int BUTTON_WIDTH = 300;
@@ -17,15 +17,15 @@ public class MenuScreen extends JFrame implements Screen {
     private Game game;
     private Texture play;
     private Texture exit;
-    private MenuJFrame menu;
+    private Marco menu = new Marco();
 
 
     public MenuScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
         this.game = game;
-        menu = new MenuJFrame();
         play = new Texture("playButtonTexture.png");
         exit = new Texture("exitButtonTexture.png");
+
     }
 
     @Override
@@ -51,6 +51,7 @@ public class MenuScreen extends JFrame implements Screen {
             if (clickX > 467 && clickX < 747) {
                 if (clickY > 260 && clickY < 355) {
                     menu.setVisible(true);
+                    menu.setResizable(false);
                     menu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     //game.setScreen(new GameScreen(batch));
                     //this.dispose();
