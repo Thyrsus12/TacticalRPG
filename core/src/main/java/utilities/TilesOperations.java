@@ -77,7 +77,7 @@ public class TilesOperations {
             } else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected() && characterSelected) {
 
                 //If click in blue tile
-                if (possibleTilesToMove.contains(TileMap.coordsToIndexEquivalence.get(mapX + "," + mapY))) {
+                if (possibleTilesToMove.contains(TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY))) {
 
                     //Move the character and make it tile inaccessible
                     charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
@@ -88,7 +88,7 @@ public class TilesOperations {
                     charactersOps.updateHashMap(startCharPos, targetPos, charArrayIndex);
 
                     //Make the previous occupied tile accessible
-                    int oldOccupiedTileIndex = TileMap.coordsToIndexEquivalence.get(startTilePos);
+                    int oldOccupiedTileIndex = TileMap.cordsToIndexEquivalence.get(startTilePos);
                     Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
                     oldOccupiedTile.setOccupied(false);
                 }
@@ -127,7 +127,7 @@ public class TilesOperations {
         int cont = 0;
         for (Integer index : possibleTilesToMove) {
             t = tileLinkedList.get(index);
-            t.setT(beforeTheBlueTiles.get(cont));
+            t.setTexture(beforeTheBlueTiles.get(cont));
             cont++;
         }
     }
@@ -143,7 +143,7 @@ public class TilesOperations {
             mapX = (int) c.getCharMapPos().x - 1;
             mapY = (int) c.getCharMapPos().y - 1;
             //Search and modify the tile
-            int tileArrayPos = TileMap.coordsToIndexEquivalence.get(mapX + "," + mapY);
+            int tileArrayPos = TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY);
             LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
             tileLinkedList.get(tileArrayPos).setOccupied(true);
         }
@@ -164,7 +164,7 @@ public class TilesOperations {
             //Right
             auxX = mapX + i;
             if (cordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
-                tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY);
+                tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
@@ -172,7 +172,7 @@ public class TilesOperations {
             //Left
             auxX = mapX - i;
             if (cordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
-                tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + mapY);
+                tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
@@ -180,7 +180,7 @@ public class TilesOperations {
             //Up
             auxY = mapY + i;
             if (cordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
-                tileIndex = TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY);
+                tileIndex = TileMap.cordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
@@ -188,7 +188,7 @@ public class TilesOperations {
             //Down
             auxY = mapY - i;
             if (cordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
-                tileIndex = TileMap.coordsToIndexEquivalence.get(mapX + "," + auxY);
+                tileIndex = TileMap.cordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
                     possibleTilesToMove.add(tileIndex);
@@ -203,7 +203,7 @@ public class TilesOperations {
                 auxX = mapX - x;
                 auxY = mapY - cont;
                 if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
-                    tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
+                    tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
@@ -212,7 +212,7 @@ public class TilesOperations {
                 auxX = mapX + x;
                 auxY = mapY - cont;
                 if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
-                    tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
+                    tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
@@ -221,7 +221,7 @@ public class TilesOperations {
                 auxX = mapX - x;
                 auxY = mapY + cont;
                 if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
-                    tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
+                    tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
@@ -230,7 +230,7 @@ public class TilesOperations {
                 auxX = mapX + x;
                 auxY = mapY + cont;
                 if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
-                    tileIndex = TileMap.coordsToIndexEquivalence.get(auxX + "," + auxY);
+                    tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
                         possibleTilesToMove.add(tileIndex);
@@ -242,8 +242,8 @@ public class TilesOperations {
         TextureRegion blueTexture = RegionGiver.getRegion(false, "blue");
         for (Integer tI : possibleTilesToMove) {
             tile = tileLinkedList.get(tI);
-            beforeTheBlueTiles.add(tile.getT());
-            tile.setT(blueTexture);
+            beforeTheBlueTiles.add(tile.getTexture());
+            tile.setTexture(blueTexture);
         }
     }
 

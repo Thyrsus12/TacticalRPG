@@ -11,25 +11,24 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Random;
 
 public class TileMap {
     public static int mapSize = 15;
-    public static final int WORLD_MAP_SIZE = mapSize-1;
+    public static final int WORLD_MAP_SIZE = mapSize - 1;
 
-    public static HashMap<String, Integer> coordsToIndexEquivalence = new HashMap<>();
+    public static HashMap<String, Integer> cordsToIndexEquivalence = new HashMap<>();
 
-    private Cartographer cartographer = new Cartographer();
+    private final Cartographer cartographer = new Cartographer();
 
     public LinkedList<Tile> tileLinkedList;
-    private String[][] mapLayer0;
+    private final String[][] mapLayer0;
     //private LinkedList<Tile> layer1;
     //private String[][] mapLayer1;
     //public int[] selector = {6, 6};
 
     public TileMap() {
-        tileLinkedList = new LinkedList<Tile>();
+        tileLinkedList = new LinkedList<>();
         mapLayer0 = new String[mapSize][mapSize];
         //layer1 = new LinkedList<Tile>();
         //mapLayer1 = new String[7][7];
@@ -39,12 +38,12 @@ public class TileMap {
             fillMap();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("FILLMAP CALL FILLED");
+            System.out.println("FILL MAP FILLED");
         }
     }
 
     public void render(SpriteBatch batch) {
-        /**render Layer0*/
+        //render Layer0
         for (Tile t : tileLinkedList) {
             t.render(batch);
         }
@@ -53,7 +52,7 @@ public class TileMap {
             t.render(batch);
         }*/
 
-        /**render de unique tile in Layer1*/
+        //render de unique tile in Layer1
         /*int row = getSelector()[0];
         int col = getSelector()[1];
         Tile selectedTile = new Tile(RegionGiver.getRegion(true,"lava"), new Vector2(row, col),
@@ -61,28 +60,22 @@ public class TileMap {
         selectedTile.render(batch);*/
     }
 
-    public void prepareMap(){
-        cartographer.writeMap();
-    }
-
     public void fillMap() throws IOException {
         prepareMap();
 
         String rute = new File("").getAbsolutePath() + "/assets/map.txt";
-        //System.out.println("ARCHIVO: " + rute);
 
-        /**String map of Layer0*/
+        //String map of Layer0
         BufferedReader br = new BufferedReader(new FileReader(rute));
         String s;
         int count = 0;
         while ((s = br.readLine()) != null) {
-            //System.out.println(s);
             mapLayer0[count] = s.split(" ");
             count++;
         }
         br.close();
 
-        /**Position of the map tiles generator (1 time execute)*/
+        //Position of the map tiles generator (1 time execute)
         int cont = 0;
         for (int row = WORLD_MAP_SIZE; row >= 0; row--) {
             for (int col = WORLD_MAP_SIZE; col >= 0; col--) {
@@ -91,10 +84,10 @@ public class TileMap {
 
                 /**Layer0*/
                 Random r = new Random();
-                /**Fill Map(layer0Map) of mapCoords-tileArray equivalences*/
-                coordsToIndexEquivalence.put(row + "," + col, cont);
+                //Fill map(cordsToIndexEquivalence) of mapCords-tileArray equivalences
+                cordsToIndexEquivalence.put(row + "," + col, cont);
 
-                /**Choose the appropriate tile as indicated in map.txt and insert it*/
+                //Choose the appropriate tile as indicated in map.txt and insert it
                 switch (mapLayer0[row][col]) {
                     case "g":
                         if (r.nextInt(10) < 5) {
@@ -103,8 +96,6 @@ public class TileMap {
                                     RegionGiver.getRegion(false, "flowers"),
                                     RegionGiver.getRegion(true, "flowers"),
                                     new Vector2(row, col), new Vector2(x, y)));
-                            //System.out.println("World -> X=" + x + " Y=" + y);
-                            //System.out.println("Map -> X=" + row + " Y=" + col);
                         } else {
                             tileLinkedList.add(new Tile(
                                     true,
@@ -206,10 +197,12 @@ public class TileMap {
                         break;
                 }
                 cont++;
-
             }
         }
-        //layer0Map.forEach((key, value) -> System.out.println(key + ":" + value));
+    }
+
+    public void prepareMap() {
+        cartographer.writeMap();
     }
 
     public LinkedList<Tile> getTileLinkedList() {
