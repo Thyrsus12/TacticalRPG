@@ -24,24 +24,16 @@ public class GameScreen extends ScreenAdapter {
     private CharactersOperations charactersOps;
     private TilesOperations tilesOps;
 
-    private ArrayList<Integer> numCharacters;
-    private int mapSize;
-    private String mapType;
-
     public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType) {
         this.batch = batch;
         this.cam = new OrthographicCamera(1280, 720);
         cam.zoom = 0.25f;
         cam.position.y += 80;
 
-        this.mapSize = mapSize;
-        this.mapType = mapType;
         this.map = new TileMap(mapSize, mapType);
 
-        this.charactersOps = new CharactersOperations();
+        this.charactersOps = new CharactersOperations(numCharacters);
         this.tilesOps = new TilesOperations(map, charactersOps);
-
-        this.numCharacters = numCharacters;
 
 
     }

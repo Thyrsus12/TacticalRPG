@@ -16,9 +16,9 @@ import java.util.Random;
 public class TileMap {
 
     public static int mapSize;
-    public static final int WORLD_MAP_SIZE = mapSize - 1;
+    public static int world_map_size;
 
-    public static HashMap<String, Integer> cordsToIndexEquivalence = new HashMap<>();
+    public static HashMap<String, Integer> cordsToIndexEquivalence;
 
     private final Cartographer cartographer;
 
@@ -30,15 +30,17 @@ public class TileMap {
 
 
     public TileMap(int mapSize, String mapType) {
-        this.mapSize = mapSize;
-        System.out.println(mapSize + "tileMap");
+        TileMap.mapSize = mapSize;
+        world_map_size = mapSize - 1;
+        cordsToIndexEquivalence = new HashMap<>();
         cartographer = new Cartographer();
         tileLinkedList = new LinkedList<>();
-        mapLayer0 = new String[mapSize][mapSize];
+        mapLayer0 = new String[this.mapSize][this.mapSize];
         //layer1 = new LinkedList<Tile>();
         //mapLayer1 = new String[7][7];
 
         try {
+            cartographer.writeMap(mapType);
             fillMap();
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,8 +67,6 @@ public class TileMap {
     }
 
     public void fillMap() throws IOException {
-        prepareMap();
-
         String rute = new File("").getAbsolutePath() + "/assets/map.txt";
 
         //String map of Layer0
@@ -81,8 +81,8 @@ public class TileMap {
 
         //Position of the map tiles generator (1 time execute)
         int cont = 0;
-        for (int row = WORLD_MAP_SIZE; row >= 0; row--) {
-            for (int col = WORLD_MAP_SIZE; col >= 0; col--) {
+        for (int row = world_map_size; row >= 0; row--) {
+            for (int col = world_map_size; col >= 0; col--) {
                 float x = (row - col) * Tile.TILE_WIDTH / 2.0001f;
                 float y = (col + row) * Tile.TILE_HEIGHT / 2f;
 
@@ -203,10 +203,6 @@ public class TileMap {
                 cont++;
             }
         }
-    }
-
-    public void prepareMap() {
-        cartographer.writeMap();
     }
 
     public LinkedList<Tile> getTileLinkedList() {

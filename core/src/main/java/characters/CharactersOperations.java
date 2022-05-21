@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -13,20 +14,47 @@ public class CharactersOperations {
 
     private HashMap<String, Integer> characterPosEquivalence;
 
-    public CharactersOperations() {
+    public CharactersOperations(ArrayList<Integer> numCharacters) {
         characters = new LinkedList<>();
-        characters.add(new Character(new Texture("blueHoplite.png"), new Vector2(3, 1), 2));
-        characters.add(new Character(new Texture("redHoplite.png"), new Vector2(5, 1), 2));
-        characters.add(new Character(new Texture("blueMagician.png"), new Vector2(4, 1), 2));
-        characters.add(new Character(new Texture("redMagician.png"), new Vector2(5, 4), 2));
-        characters.add(new Character(new Texture("blueArcher.png"), new Vector2(2, 4), 2));
-        characters.add(new Character(new Texture("redArcher.png"), new Vector2(1, 4), 2));
-        characters.add(new Character(new Texture("medusa.png"), new Vector2(6, 5), 2));
-        characters.add(new Character(new Texture("hydra.png"), new Vector2(5, 5), 2));
-        characters.add(new Character(new Texture("chimera.png"), new Vector2(6, 2), 2));
-
+        fillCharacters(numCharacters);
         this.characterPosEquivalence = new HashMap<>();
         fillEquivalences();
+    }
+
+    private void  fillCharacters(ArrayList<Integer> numCharacters) {
+        int cont = 0;
+        int spawnPos = 1;
+        for (int i : numCharacters) {
+            for (int j = 0; j < i; j++) {
+                switch (cont) {
+                    case 0:
+                        characters.add(new Character(new Texture("blueMagician.png"), new Vector2(1, spawnPos), 2));
+                        spawnPos ++;
+                        break;
+                    case 1:
+                        characters.add(new Character(new Texture("blueArcher.png"), new Vector2(1, spawnPos), 2));
+                        spawnPos ++;
+                        break;
+                    case 2:
+                        characters.add(new Character(new Texture("blueHoplite.png"), new Vector2(1, spawnPos), 2));
+                        spawnPos ++;
+                        break;
+                    case 3:
+                        characters.add(new Character(new Texture("medusa.png"), new Vector2(1, spawnPos), 2));
+                        spawnPos ++;
+                        break;
+                    case 4:
+                        characters.add(new Character(new Texture("chimera.png"), new Vector2(1, spawnPos), 2));
+                        spawnPos ++;
+                        break;
+                    case 5:
+                        characters.add(new Character(new Texture("hydra.png"), new Vector2(1, spawnPos), 2));
+                        spawnPos ++;
+                        break;
+                }
+            }
+            cont ++;
+        }
     }
 
     private void fillEquivalences() {

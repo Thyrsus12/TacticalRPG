@@ -10,13 +10,12 @@ public class Cartographer {
     String map;
     Integer mapSize = TileMap.mapSize;
 
-    public void writeMap() {
-        System.out.println(mapSize);
+    public void writeMap(String mapType) {
         try {
             String ruta = new File("").getAbsolutePath() + "/assets/map.txt";
             FileWriter fileWriter = new FileWriter(ruta);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(generateRandomMap());
+            selectType(mapType, bufferedWriter);
             bufferedWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -152,6 +151,30 @@ public class Cartographer {
                 desertMap = desertMap.concat("\n");
         }
         return desertMap;
+    }
+
+    private void selectType(String mapType, BufferedWriter bufferedWriter) {
+        try {
+            switch (mapType) {
+                case "Aleatorio":
+                    bufferedWriter.write(generateRandomMap());
+                    break;
+                case "Pradera":
+                    bufferedWriter.write(writeGrassMap());
+                    break;
+                case "Lava":
+                    bufferedWriter.write(writeLavaMap());
+                    break;
+                case "Nieve":
+                    bufferedWriter.write(writeSnowMap());
+                    break;
+                case "Desierto":
+                    bufferedWriter.write(writeDesertMap());
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String writeMockMap() {

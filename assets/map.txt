@@ -1,10 +1,12 @@
-h v g v v v v v g n
-v v g v v g g g g h
-v n g v g g g g v v
-n v g g g v g g n g
-v v g g g n v v n g
-v v n n g g g h v v
-g v v g g h v v n v
-v g g g g g v g h h
-w h g v n v g v w w
-v g n g g h v h g n
+s s m s m s m s s m s m
+s s s s s m m s s s s s
+s s s s s s s s s s s s
+s s s s s s m s s s s s
+m s s s s s m s s s m s
+s s m s m s s s m m s s
+s s s s s s s s s s s s
+s m s s s s s m s s s m
+s s s s s s s s m s s s
+w w w s s w s m w m s s
+s m s s s s s s s s s s
+s s s s s s s s s s s s

@@ -163,7 +163,7 @@ public class TilesOperations {
         for (int i = 1; i <= movementCapacity; i++) {
             //Right
             auxX = mapX + i;
-            if (cordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(auxX, mapY, 0, TileMap.world_map_size)) {
                 tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
@@ -171,7 +171,7 @@ public class TilesOperations {
             }
             //Left
             auxX = mapX - i;
-            if (cordValidator(auxX, mapY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(auxX, mapY, 0, TileMap.world_map_size)) {
                 tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + mapY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
@@ -179,7 +179,7 @@ public class TilesOperations {
             }
             //Up
             auxY = mapY + i;
-            if (cordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(mapX, auxY, 0, TileMap.world_map_size)) {
                 tileIndex = TileMap.cordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
@@ -187,7 +187,7 @@ public class TilesOperations {
             }
             //Down
             auxY = mapY - i;
-            if (cordValidator(mapX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+            if (cordValidator(mapX, auxY, 0, TileMap.world_map_size)) {
                 tileIndex = TileMap.cordsToIndexEquivalence.get(mapX + "," + auxY);
                 tile = tileLinkedList.get(tileIndex);
                 if (tile.isAccessible() && !tile.getOccupied())
@@ -202,7 +202,7 @@ public class TilesOperations {
                 //Down-Left
                 auxX = mapX - x;
                 auxY = mapY - cont;
-                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.world_map_size)) {
                     tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
@@ -211,7 +211,7 @@ public class TilesOperations {
                 //Down-Right
                 auxX = mapX + x;
                 auxY = mapY - cont;
-                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.world_map_size)) {
                     tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
@@ -220,7 +220,7 @@ public class TilesOperations {
                 //Up-Left
                 auxX = mapX - x;
                 auxY = mapY + cont;
-                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.world_map_size)) {
                     tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
@@ -229,7 +229,7 @@ public class TilesOperations {
                 //Up-Right
                 auxX = mapX + x;
                 auxY = mapY + cont;
-                if (cordValidator(auxX, auxY, 0, TileMap.WORLD_MAP_SIZE)) {
+                if (cordValidator(auxX, auxY, 0, TileMap.world_map_size)) {
                     tileIndex = TileMap.cordsToIndexEquivalence.get(auxX + "," + auxY);
                     tile = tileLinkedList.get(tileIndex);
                     if (tile.isAccessible() && !tile.getOccupied())
