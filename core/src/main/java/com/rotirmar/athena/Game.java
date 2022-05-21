@@ -6,14 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Game extends com.badlogic.gdx.Game {
 
     private SpriteBatch batch;
-    private ScreenAdapter screen;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        /*screen = new Screen(batch);
-        setScreen(screen);*/
-        screen = new Screen(batch);
+        ScreenAdapter screen = new Screen(batch);
         setScreen(screen);
     }
 

@@ -7,26 +7,19 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
 
-import java.util.LinkedList;
-
 public class Screen extends ScreenAdapter {
-    private SpriteBatch batch;
-    private OrthographicCamera cam;
+    private final SpriteBatch batch;
+    private final OrthographicCamera cam;
 
     private TileMap map;
 
-    public int mapX, mapY;
-
     private CharactersOperations charactersOps;
-
     private TilesOperations tilesOps;
 
     public Screen(SpriteBatch batch) {
@@ -51,24 +44,12 @@ public class Screen extends ScreenAdapter {
         camInput();
         cam.update();
         mouseInput();
-        //keyMovementInput(map.getSelector());
 
         batch.begin();
         map.render(batch);
         for (Character character : charactersOps.getCharacters()) {
             character.render(batch);
         }
-        //character.render(batch);
-
-        //Draw a lava cube in layer1 for testing
-        /*float x = (4 - 5) * Tile.TILE_WIDTH / 2.0001f;
-        float y = (5 + 4) * Tile.TILE_HEIGHT / 2f;
-        Tile test = new Tile(
-                false,
-                RegionGiver.getRegion(false, "lava"),
-                RegionGiver.getRegion(true, "lava"),
-                new Vector2(4, 5), new Vector2(x, y));
-        test.render(batch);*/
 
         batch.end();
     }
@@ -92,34 +73,15 @@ public class Screen extends ScreenAdapter {
 
     public void mouseInput() {
         if (Gdx.input.justTouched()) {
-            /**get mouse coordinates*/
+            //Get mouse coordinates
             Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             cam.unproject(mousePos);
-            //System.out.println("MPosX: " + mousePos.x + " MPosY: " + mousePos.y);
 
-            /**Convert mouse coordinates into map tile (0,0 - 0,1...)*/
-            float mapx = ((mousePos.x - 16) / Tile.TILE_WIDTH + (mousePos.y - 16) / Tile.TILE_HEIGHT);
-            float mapy = ((mousePos.y - 16) / Tile.TILE_HEIGHT - (mousePos.x - 16) / Tile.TILE_WIDTH);
-            mapX = (int) mapx;
-            mapY = (int) mapy;
-            //System.out.println("-------------------------------------------");
-            //System.out.println("Map X=" + mx + " Map Y=" + my);
+            //Convert mouse coordinates into map tile (0,0 - 0,1...)
+            int mapX = (int) ((mousePos.x - 16) / Tile.TILE_WIDTH + (mousePos.y - 16) / Tile.TILE_HEIGHT);
+            int mapY = (int) ((mousePos.y - 16) / Tile.TILE_HEIGHT - (mousePos.x - 16) / Tile.TILE_WIDTH);
 
             tilesOps.modifyTile(mapX, mapY);
         }
     }
-
-    /*public void keyMovementInput(int[] position) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            position[0]++;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            position[0]--;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            position[1]++;
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            position[1]--;
-        }
-        map.setSelector(position);
-    }*/
-
 }
