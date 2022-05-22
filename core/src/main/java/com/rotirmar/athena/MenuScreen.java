@@ -3,7 +3,10 @@ package com.rotirmar.athena;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import jFrame.Marco;
 
 import javax.swing.*;
@@ -12,22 +15,34 @@ import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
 
-    private final int BUTTON_HEIGHT = 100;
-    private final int BUTTON_WIDTH = 300;
+    private final int BUTTON_HEIGHT = (75 / 3) * 2;
+    private final int BUTTON_WIDTH = (643 / 3) * 2;
 
     private SpriteBatch batch;
     private Game game;
-    private Texture play;
-    private Texture exit;
+    private Texture newMap;
+    private Texture continu;
     private Marco menu;
+    private Texture backImage;
+    private Sprite s;
+    private Animation animation;
+    private float time = 0f;
 
 
     public MenuScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
         this.game = game;
-        play = new Texture("playButtonTexture.png");
-        exit = new Texture("exitButtonTexture.png");
+        newMap = new Texture("b1.png");
+        continu = new Texture("b2.png");
         menu = new Marco();
+        Toolkit miPantalla = Toolkit.getDefaultToolkit();
+        Dimension screenSize = miPantalla.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+        backImage = new Texture("centro.png");
+        s = new Sprite(backImage);
+        s.setSize((screenWidth / 3) * 2, (screenHeight / 3) * 2);
+        makeAnimation(backImage);
     }
 
     @Override
@@ -37,9 +52,17 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Toolkit miPantalla = Toolkit.getDefaultToolkit();
+        Dimension screenSize = miPantalla.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+        time += Gdx.graphics.getDeltaTime(); //Time until the last render
+        TextureRegion currentFrame = (TextureRegion) animation.getKeyFrame(time, true);
         batch.begin();
-        batch.draw(play, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(exit, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 - 110, BUTTON_WIDTH, BUTTON_HEIGHT);
+        batch.draw(currentFrame, 0, 0, (screenWidth / 3) * 2, (screenHeight / 3) * 2);
+        //s.draw(batch);
+        batch.draw(newMap, screenWidth / 4.5f, screenHeight / 2.3f, BUTTON_WIDTH, BUTTON_HEIGHT);
+        batch.draw(continu, Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 - 110, BUTTON_WIDTH, BUTTON_HEIGHT);
         batch.end();
 
         mouseInput();
@@ -62,7 +85,7 @@ public class MenuScreen implements Screen {
                 if (clickY > 260 && clickY < 355) {
                     menu.setVisible(true);
                     menu.setResizable(false);
-                    menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 }
                 //game.setScreen(new GameScreen(batch));
                 //this.dispose();
@@ -71,6 +94,17 @@ public class MenuScreen implements Screen {
                 Gdx.app.exit();
             }
         }
+    }
+
+    private void makeAnimation(Texture t) {
+        System.out.println(t.getWidth());
+        int frames = t.getWidth() / 1920;
+        TextureRegion[][] tmp = TextureRegion.split(t, t.getWidth() / frames, t.getHeight());
+        TextureRegion[] regionMovement = new TextureRegion[frames];
+        for (int i = 0; i < frames; i++) {
+            regionMovement[i] = tmp[0][i];
+        }
+        animation = new Animation(0.3f, regionMovement);
     }
 
     @Override

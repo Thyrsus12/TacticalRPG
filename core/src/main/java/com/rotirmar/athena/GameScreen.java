@@ -31,9 +31,10 @@ public class GameScreen extends ScreenAdapter {
         Dimension screenSize = miPantalla.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-        this.cam = new OrthographicCamera(screenWidth / 2, screenHeight / 2);
-        cam.zoom = 0.25f;
-        cam.position.y += 80;
+        this.cam = new OrthographicCamera((screenWidth / 3) * 2, (screenHeight / 3) * 2);
+        cam.zoom = 0.3f;
+        cam.position.y += 85;
+        cam.position.x += 10;
 
         this.map = new TileMap(mapSize, mapType);
 

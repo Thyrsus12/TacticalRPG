@@ -31,7 +31,7 @@ public class Lwjgl3Launcher {
         Dimension screenSize = miPantalla.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-        configuration.setWindowedMode(screenWidth / 2, screenHeight / 2);
+        configuration.setWindowedMode((screenWidth / 3) * 2, (screenHeight / 3) * 2);
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         return configuration;
     }
