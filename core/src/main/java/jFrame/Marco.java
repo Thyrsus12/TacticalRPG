@@ -22,7 +22,7 @@ public class Marco extends JFrame {
 
     public Marco() throws HeadlessException {
         setTitle("Arcadia");
-        setBounds(500,  300,600, 330);
+        setBounds(500, 300, 600, 330);
         //Construccion de lamina central
         JPanel backgroundSheet = new JPanel();
         backgroundSheet.setLayout(new GridLayout(1, 1));
@@ -66,12 +66,16 @@ public class Marco extends JFrame {
         public void actionPerformed(ActionEvent e) {
             typeMap = laminateTypeMap.giveSelectionMap();
             sizeMap = laminateSizeMap.giveSelectionMap();
-            numCharacters = laminateCharacters.giveSelectionCharacter();
-            if (visible) {
-                marco.setVisible(false);
-                visible = false;
+            if (laminateCharacters.checkNumCharacters()) {
+                numCharacters = laminateCharacters.giveSelectionCharacter();
+                if (visible) {
+                    marco.setVisible(false);
+                    visible = false;
+                }
+                marco.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Máximo de personajes 10");
             }
-            marco.dispose();
         }
     }
 

@@ -12,26 +12,20 @@ import com.badlogic.gdx.math.Vector3;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class GameScreen extends ScreenAdapter {
-    private SpriteBatch batch;
-    private OrthographicCamera cam;
+    private final SpriteBatch batch;
+    private final OrthographicCamera cam;
 
     private TileMap map;
 
     private CharactersOperations charactersOps;
     private TilesOperations tilesOps;
 
-    public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType) {
+    public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
         this.batch = batch;
-        Toolkit miPantalla = Toolkit.getDefaultToolkit();
-        Dimension screenSize = miPantalla.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
-        this.cam = new OrthographicCamera((screenWidth / 3) * 2, (screenHeight / 3) * 2);
+        this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
         cam.zoom = 0.3f;
         cam.position.y += 85;
         cam.position.x += 10;
@@ -40,8 +34,6 @@ public class GameScreen extends ScreenAdapter {
 
         this.charactersOps = new CharactersOperations(numCharacters);
         this.tilesOps = new TilesOperations(map, charactersOps);
-
-
     }
 
     public void render(float delta) {

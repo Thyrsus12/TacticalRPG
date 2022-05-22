@@ -5,16 +5,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import javax.swing.*;
-
 public class CreditsScreen implements Screen {
     private final SpriteBatch batch;
     private final Texture credits;
     private final Texture button;
     private final int screenWidthThird;
     private final int screenHeightThird;
-    private Game game;
-    private MenuScreen menuScreen;
+    private final Game game;
+    private final MenuScreen menuScreen;
 
     public CreditsScreen(SpriteBatch batch, int screenWidthThird, int screenHeightThird, Game game, MenuScreen menuScreen) {
         this.batch = batch;
@@ -23,19 +21,14 @@ public class CreditsScreen implements Screen {
         this.game = game;
         this.menuScreen = menuScreen;
         credits = new Texture("credits.png");
-        button = new Texture("salir.png");
-    }
-
-    @Override
-    public void show() {
-
+        button = new Texture("return-menu.png");
     }
 
     @Override
     public void render(float delta) {
         batch.begin();
         batch.draw(credits, 0, 0, screenWidthThird, screenHeightThird);
-        batch.draw(button, screenWidthThird / 3f, screenHeightThird / 25f, MenuScreen.BUTTON_WIDTH, MenuScreen.BUTTON_HEIGHT);
+        batch.draw(button, screenWidthThird / 3f, screenHeightThird / 25f, MenuScreen.buttonWidth, MenuScreen.buttonHeight);
         batch.end();
 
         mouseInput();
@@ -45,12 +38,17 @@ public class CreditsScreen implements Screen {
         int clickX = Gdx.input.getX();
         int clickY = Gdx.input.getY();
         if (Gdx.input.justTouched()) {
-            if (clickX > screenWidthThird / 3f && clickX < screenWidthThird / 3f + MenuScreen.BUTTON_WIDTH) {
-                if (clickY > (screenHeightThird - (screenHeightThird / 25f + MenuScreen.BUTTON_HEIGHT)) && clickY < (screenHeightThird - (screenHeightThird / 25f))) {
+            if (clickX > screenWidthThird / 3f && clickX < screenWidthThird / 3f + MenuScreen.buttonWidth) {
+                if (clickY > (screenHeightThird - (screenHeightThird / 25f + MenuScreen.buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 25f))) {
                     game.setScreen(menuScreen);
                 }
             }
         }
+    }
+
+    @Override
+    public void show() {
+
     }
 
     @Override
