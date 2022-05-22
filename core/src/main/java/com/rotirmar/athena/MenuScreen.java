@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
 
-    private final int BUTTON_HEIGHT = (75 / 3) * 2;
-    private final int BUTTON_WIDTH = (643 / 3) * 2;
+    private int BUTTON_HEIGHT;
+    private int BUTTON_WIDTH;
 
     private SpriteBatch batch;
     private Game game;
@@ -39,6 +39,10 @@ public class MenuScreen implements Screen {
         Dimension screenSize = miPantalla.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
+
+        BUTTON_HEIGHT = (int) (((screenHeight / 3) * 2) * 0.068f);
+        BUTTON_WIDTH = (int) (((screenWidth / 3) * 2) * 0.334f);
+
         backImage = new Texture("centro.png");
         s = new Sprite(backImage);
         s.setSize((screenWidth / 3) * 2, (screenHeight / 3) * 2);
