@@ -98,11 +98,11 @@ public class MenuScreen implements Screen {
         clickX = Gdx.input.getX();
         clickY = Gdx.input.getY();
         if (Gdx.input.justTouched()) {
-            System.out.println(screenHeightThird + " altura pantalla");
-            System.out.println(clickY + "coordenadas del raton");
+            //Las coordenadas del eje X del boton empieza en su izquierda y termina en su izquiera mas la anchura del boton
             if (clickX > screenWidthThird / 3f && clickX < screenWidthThird / 3f + BUTTON_WIDTH) {
-                System.out.println((screenHeightThird - (screenHeightThird / 1.55f)));
-                if (clickY > (screenHeightThird - (screenHeightThird / 1.55f)) && clickY < (screenHeightThird - (screenHeightThird / 1.55f + BUTTON_HEIGHT))) {
+                /*Como las posiciones son las que se utilizan para pintar empiezan abajo-izquierda y las del raton empiezan arriba-izquierda
+                * para recoger clicks hayq ue invertirlas restando al total(altura pantalla) donde las quieres poner (posicion donde se pintan)*/
+                if (clickY > (screenHeightThird - (screenHeightThird / 1.55f + BUTTON_HEIGHT)) && clickY < (screenHeightThird - (screenHeightThird / 1.55f))) {
                     menu.setVisible(true);
                     menu.setResizable(false);
                     menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
