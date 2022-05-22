@@ -1,12 +1,8 @@
-s s m s m s m s s m s m
-s s s s s m m s s s s s
-s s s s s s s s s s s s
-s s s s s s m s s s s s
-m s s s s s m s s s m s
-s s m s m s s s m m s s
-s s s s s s s s s s s s
-s m s s s s s m s s s m
-s s s s s s s s m s s s
-w w w s s w s m w m s s
-s m s s s s s s s s s s
-s s s s s s s s s s s s
+s s m s s s s s
+s s m s m m s s
+s s s s s s s s
+s s s s s m s s
+s s s s s s s m
+s s s s s s s m
+w w n n n w s s
+s s s m s m m s
