@@ -13,6 +13,7 @@ import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GameScreen extends ScreenAdapter {
@@ -26,7 +27,11 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType) {
         this.batch = batch;
-        this.cam = new OrthographicCamera(1280, 720);
+        Toolkit miPantalla = Toolkit.getDefaultToolkit();
+        Dimension screenSize = miPantalla.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+        this.cam = new OrthographicCamera(screenWidth / 2, screenHeight / 2);
         cam.zoom = 0.25f;
         cam.position.y += 80;
 

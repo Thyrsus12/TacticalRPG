@@ -4,6 +4,8 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.rotirmar.athena.Game;
 
+import java.awt.*;
+
 /**
  * Launches the desktop (LWJGL3) application.
  */
@@ -25,7 +27,11 @@ public class Lwjgl3Launcher {
         //// If you remove the above line and set Vsync to false, you can get unlimited FPS, which can be
         //// useful for testing performance, but can also be very stressful to some hardware.
         //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
-        configuration.setWindowedMode(1280, 720);
+        Toolkit miPantalla = Toolkit.getDefaultToolkit();
+        Dimension screenSize = miPantalla.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+        configuration.setWindowedMode(screenWidth / 2, screenHeight / 2);
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         return configuration;
     }
