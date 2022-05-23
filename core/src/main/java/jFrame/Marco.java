@@ -1,10 +1,5 @@
 package jFrame;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.rotirmar.athena.Game;
-import com.rotirmar.athena.GameScreen;
-import com.rotirmar.athena.MenuScreen;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,6 +18,7 @@ public class Marco extends JFrame {
     public Marco() throws HeadlessException {
         setTitle("Arcadia");
         setBounds(500, 300, 600, 330);
+        setVisible(true);
         //Construccion de lamina central
         JPanel backgroundSheet = new JPanel();
         backgroundSheet.setLayout(new GridLayout(1, 1));
