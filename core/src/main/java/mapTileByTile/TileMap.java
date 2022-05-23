@@ -59,10 +59,14 @@ public class TileMap {
         }*/
 
         //render de unique tile in Layer1
-        /*int row = getSelector()[0];
-        int col = getSelector()[1];
-        Tile selectedTile = new Tile(RegionGiver.getRegion(true,"lava"), new Vector2(row, col),
-                new Vector2((row - col) * TILE_WIDTH / 2.0001f, (col +row) * TILE_HEIGHT / 2f));
+        /*int row = 5;
+        int col = 5;
+        Tile selectedTile = new Tile(
+                false,
+                RegionGiver.getRegion(false,"lava"),
+                RegionGiver.getRegion(true,"lava"),
+                new Vector2(row, col),
+                new Vector2((row - col) * Tile.TILE_WIDTH / 2.0001f, (col +row) * Tile.TILE_HEIGHT / 2f));
         selectedTile.render(batch);*/
     }
 
