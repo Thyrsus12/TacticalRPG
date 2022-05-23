@@ -18,7 +18,6 @@ public class Marco extends JFrame {
     public Marco() throws HeadlessException {
         setTitle("Arcadia");
         setBounds(500, 300, 600, 330);
-        setVisible(true);
         //Construccion de lamina central
         JPanel backgroundSheet = new JPanel();
         backgroundSheet.setLayout(new GridLayout(1, 1));
