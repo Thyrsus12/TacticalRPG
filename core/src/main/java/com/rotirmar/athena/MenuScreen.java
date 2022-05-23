@@ -125,7 +125,7 @@ public class MenuScreen implements Screen {
         for (int i = 0; i < frames; i++) {
             regionMovement[i] = tmp[0][i];
         }
-        animation = new Animation(0.3f, regionMovement);
+        animation = new Animation(0.8f, regionMovement);
     }
 
     @Override
