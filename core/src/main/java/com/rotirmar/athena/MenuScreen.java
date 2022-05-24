@@ -30,7 +30,6 @@ public class MenuScreen implements Screen {
     private int screenWidthThird;
     private int screenHeightThird;
 
-
     public MenuScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
         this.game = game;
