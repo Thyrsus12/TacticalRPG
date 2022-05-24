@@ -7,9 +7,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import jFrame.FrameworkBackMenu;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
@@ -25,6 +25,8 @@ public class GameScreen extends ScreenAdapter {
     private CharactersOperations charactersOps;
     private TilesOperations tilesOps;
 
+    private FrameworkBackMenu frameworkBackMenu;
+
     public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
         this.batch = batch;
         this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
@@ -36,6 +38,8 @@ public class GameScreen extends ScreenAdapter {
 
         this.charactersOps = new CharactersOperations(numCharacters);
         this.tilesOps = new TilesOperations(map, charactersOps);
+
+        frameworkBackMenu = new FrameworkBackMenu();
     }
 
     public void render(float delta) {
@@ -44,7 +48,7 @@ public class GameScreen extends ScreenAdapter {
 
         batch.setProjectionMatrix(cam.combined);
 
-        camInput();
+        keyboardInput();
         cam.update();
         mouseInput();
 
@@ -56,7 +60,7 @@ public class GameScreen extends ScreenAdapter {
         batch.end();
     }
 
-    private void camInput() {
+    private void keyboardInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             cam.position.x -= 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -70,6 +74,8 @@ public class GameScreen extends ScreenAdapter {
         } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            frameworkBackMenu.setVisible(true);
         }
     }
 
