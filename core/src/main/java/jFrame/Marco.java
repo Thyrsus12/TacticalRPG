@@ -9,10 +9,11 @@ import java.util.ArrayList;
 public class Marco extends JFrame {
     private LaminateMapType laminateTypeMap;
     private LaminateMapSize laminateSizeMap;
-    private LaminateCharacters laminateCharacters;
+    private LaminateCharacters laminateCharacters1;
+    private LaminateCharacters laminateCharacters2;
     private String typeMap;
     private int sizeMap;
-    private ArrayList<Integer> numCharacters;
+    private ArrayList<Integer> numCharacters, numCharacters2;
     private Boolean visible = true;
 
     public Marco() throws HeadlessException {
@@ -26,13 +27,15 @@ public class Marco extends JFrame {
         String characters[] = {"Mago", "Arquero", "Hoplita", "Medusa", "Quimera", "Hidra"};
         laminateTypeMap = new LaminateMapType("Tipo mapa", typeMap);
         laminateSizeMap = new LaminateMapSize("Tamaño mapa", sizeMap);
-        laminateCharacters = new LaminateCharacters("Personajes", characters);
+        laminateCharacters1 = new LaminateCharacters("Equipo1", characters);
+        laminateCharacters2 = new LaminateCharacters("Equipo2", characters);
 
         setLayout(new BorderLayout());
 
         backgroundSheet.add(laminateTypeMap);
         backgroundSheet.add(laminateSizeMap);
-        backgroundSheet.add(laminateCharacters);
+        backgroundSheet.add(laminateCharacters1);
+        backgroundSheet.add(laminateCharacters2);
         //backgroundSheet.add(laminateMonster);
 
         //Contruccion de lamina inferior
@@ -61,13 +64,15 @@ public class Marco extends JFrame {
         public void actionPerformed(ActionEvent e) {
             typeMap = laminateTypeMap.giveSelectionMap();
             sizeMap = laminateSizeMap.giveSelectionMap();
-            if (laminateCharacters.checkNumCharacters()) {
-                numCharacters = laminateCharacters.giveSelectionCharacter();
+            if (laminateCharacters1.checkNumCharacters()) {
+                numCharacters = laminateCharacters1.giveSelectionCharacter();
+                numCharacters2 = laminateCharacters2.giveSelectionCharacter();
                 if (visible) {
                     marco.setVisible(false);
                     visible = false;
                 }
                 marco.dispose();
+                System.out.println(numCharacters2);
             } else {
                 JOptionPane.showMessageDialog(null, "Máximo de personajes 10");
             }
@@ -88,6 +93,10 @@ public class Marco extends JFrame {
 
     public ArrayList<Integer> getNumCharacters() {
         return numCharacters;
+    }
+
+    public ArrayList<Integer> getNumCharacters2() {
+        return numCharacters2;
     }
 }
 
