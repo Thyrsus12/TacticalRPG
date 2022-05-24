@@ -11,20 +11,25 @@ public class Marco extends JFrame {
     private LaminateMapSize laminateSizeMap;
     private LaminateCharacters laminateCharacters1;
     private LaminateCharacters laminateCharacters2;
+
     private String typeMap;
     private int sizeMap;
+
     private ArrayList<Integer> numCharacters, numCharacters2;
+
     private Boolean visible = true;
 
     public Marco() throws HeadlessException {
         setTitle("Arcadia");
         setBounds(500, 300, 600, 330);
-        //Construccion de lamina central
+        //Construction of central sheeting
         JPanel backgroundSheet = new JPanel();
         backgroundSheet.setLayout(new GridLayout(1, 1));
+
         String typeMap[] = {"Aleatorio", "Pradera", "Lava", "Nieve", "Desierto"};
         String sizeMap[] = {"8", "16", "24"};
         String characters[] = {"Mago", "Arquero", "Hoplita", "Medusa", "Quimera", "Hidra"};
+
         laminateTypeMap = new LaminateMapType("Tipo mapa", typeMap);
         laminateSizeMap = new LaminateMapSize("Tamaño mapa", sizeMap);
         laminateCharacters1 = new LaminateCharacters("Equipo1", characters);
@@ -36,9 +41,8 @@ public class Marco extends JFrame {
         backgroundSheet.add(laminateSizeMap);
         backgroundSheet.add(laminateCharacters1);
         backgroundSheet.add(laminateCharacters2);
-        //backgroundSheet.add(laminateMonster);
 
-        //Contruccion de lamina inferior
+        //Construction of bottom plate
         JPanel generateMapSheet = new JPanel();
 
         JButton buttonGenerate = new JButton("Generate");
@@ -64,6 +68,7 @@ public class Marco extends JFrame {
         public void actionPerformed(ActionEvent e) {
             typeMap = laminateTypeMap.giveSelectionMap();
             sizeMap = laminateSizeMap.giveSelectionMap();
+
             if (laminateCharacters1.checkNumCharacters()) {
                 numCharacters = laminateCharacters1.giveSelectionCharacter();
                 numCharacters2 = laminateCharacters2.giveSelectionCharacter();

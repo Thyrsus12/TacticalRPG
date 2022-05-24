@@ -20,7 +20,6 @@ public class Cartographer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public String generateRandomMap() {
@@ -194,5 +193,4 @@ public class Cartographer {
         }
         return mockMap;
     }
-
 }

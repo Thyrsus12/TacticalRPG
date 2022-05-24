@@ -10,6 +10,14 @@ public class LaminateMapType extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        generateRadioButton(options);
+    }
+
+    public String giveSelectionMap() {
+        return group.getSelection().getActionCommand();
+    }
+
+    public void generateRadioButton(String[] options) {
         group = new ButtonGroup();
 
         for (int i = 0; i < options.length; i++) {
@@ -19,9 +27,5 @@ public class LaminateMapType extends JPanel {
             group.add(radioButton);
             radioButton.setSelected(i == 0);
         }
-    }
-
-    public String giveSelectionMap() {
-        return group.getSelection().getActionCommand();
     }
 }
