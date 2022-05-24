@@ -20,7 +20,7 @@ public class CreditsScreen implements Screen {
         this.screenHeightThird = screenHeightThird;
         this.game = game;
         this.menuScreen = menuScreen;
-        credits = new Texture("credits.png");
+        credits = new Texture("creditos-cani-blue.png");
         button = new Texture("b4.png");
     }
 
@@ -28,7 +28,7 @@ public class CreditsScreen implements Screen {
     public void render(float delta) {
         batch.begin();
         batch.draw(credits, 0, 0, screenWidthThird, screenHeightThird);
-        batch.draw(button, screenWidthThird / 3f, screenHeightThird / 25f, MenuScreen.buttonWidth, MenuScreen.buttonHeight);
+        batch.draw(button, screenWidthThird / 3f, screenHeightThird / 70f, MenuScreen.buttonWidth, MenuScreen.buttonHeight);
         batch.end();
 
         mouseInput();
@@ -39,7 +39,7 @@ public class CreditsScreen implements Screen {
         int clickY = Gdx.input.getY();
         if (Gdx.input.justTouched()) {
             if (clickX > screenWidthThird / 3f && clickX < screenWidthThird / 3f + MenuScreen.buttonWidth) {
-                if (clickY > (screenHeightThird - (screenHeightThird / 25f + MenuScreen.buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 25f))) {
+                if (clickY > (screenHeightThird - (screenHeightThird / 70f + MenuScreen.buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 70f))) {
                     game.setScreen(menuScreen);
                 }
             }
