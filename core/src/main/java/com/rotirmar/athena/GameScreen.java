@@ -7,11 +7,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
+
 import java.util.ArrayList;
 
 public class GameScreen extends ScreenAdapter {
@@ -51,7 +53,6 @@ public class GameScreen extends ScreenAdapter {
         for (Character character : charactersOps.getCharacters()) {
             character.render(batch);
         }
-
         batch.end();
     }
 

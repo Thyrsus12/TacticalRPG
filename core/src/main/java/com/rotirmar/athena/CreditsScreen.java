@@ -21,7 +21,7 @@ public class CreditsScreen implements Screen {
         this.game = game;
         this.menuScreen = menuScreen;
         credits = new Texture("credits.png");
-        button = new Texture("return-menu.png");
+        button = new Texture("b4.png");
     }
 
     @Override
