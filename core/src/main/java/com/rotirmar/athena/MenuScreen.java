@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import jFrame.Marco;
+import jFrame.FrameworkMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class MenuScreen implements Screen {
     public static int buttonWidth;
     public static int buttonHeight;
 
-    private Marco paramWindow;
+    private FrameworkMenu paramWindow;
 
     private Animation animation;
     private float time = 0f;
@@ -45,7 +45,7 @@ public class MenuScreen implements Screen {
         buttonHeight = (int) (screenHeightThird * 0.068f);
         buttonWidth = (int) (screenWidthThird * 0.334f);
 
-        paramWindow = new Marco();
+        paramWindow = new FrameworkMenu();
 
         Texture backImage = new Texture("menu-background.png");
         makeAnimation(backImage);
