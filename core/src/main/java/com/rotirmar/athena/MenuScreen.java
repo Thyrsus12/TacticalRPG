@@ -45,7 +45,7 @@ public class MenuScreen implements Screen {
         buttonHeight = (int) (screenHeightThird * 0.068f);
         buttonWidth = (int) (screenWidthThird * 0.334f);
 
-        frameworkMenu = new FrameworkMenu();
+        frameworkMenu = new FrameworkMenu(screenWidthThird / 2 * 3, screenHeightThird / 2 * 3);
 
         Texture backImage = new Texture("menu/menu-background.png");
         makeAnimation(backImage);

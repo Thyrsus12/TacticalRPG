@@ -19,10 +19,12 @@ public class FrameworkMenu extends JFrame {
 
     public static Boolean generated = false;
 
-    public FrameworkMenu() throws HeadlessException {
+    public FrameworkMenu(int screenWidth, int screenHeight) throws HeadlessException {
         setTitle("Arcadia");
         setAlwaysOnTop(true);
-        setBounds(500, 300, 600, 330);
+        int width = (int) (screenWidth / 1.9);
+        int height = (int) (screenHeight / 1.9);
+        setBounds(screenWidth / 4, screenHeight / 4, width, height);
         //Construction of central sheeting
         JPanel backgroundSheet = new JPanel();
         backgroundSheet.setLayout(new GridLayout(1, 1));
@@ -77,7 +79,8 @@ public class FrameworkMenu extends JFrame {
                 generated = true;
                 marco.dispose();
             } else {
-                JOptionPane.showMessageDialog(marco,"Máximo de personajes 10");}
+                JOptionPane.showMessageDialog(marco, "Máximo de personajes 10");
+            }
         }
     }
 
