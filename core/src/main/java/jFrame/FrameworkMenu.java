@@ -17,11 +17,14 @@ public class FrameworkMenu extends JFrame {
 
     private ArrayList<Integer> numCharacters, numCharacters2;
 
-    private Boolean visible = true;
+    public static Boolean generated = false;
 
-    public FrameworkMenu() throws HeadlessException {
+    public FrameworkMenu(int screenWidth, int screenHeight) throws HeadlessException {
         setTitle("Arcadia");
-        setBounds(500, 300, 600, 330);
+        setAlwaysOnTop(true);
+        int width = (int) (screenWidth / 1.9);
+        int height = (int) (screenHeight / 1.9);
+        setBounds(screenWidth / 4, screenHeight / 4, width, height);
         //Construction of central sheeting
         JPanel backgroundSheet = new JPanel();
         backgroundSheet.setLayout(new GridLayout(1, 1));
@@ -69,16 +72,14 @@ public class FrameworkMenu extends JFrame {
             typeMap = laminateTypeMap.giveSelectionMap();
             sizeMap = laminateSizeMap.giveSelectionMap();
 
-            if (laminateCharacters1.checkNumCharacters()) {
+            if (laminateCharacters1.checkNumCharacters() && laminateCharacters2.checkNumCharacters()) {
                 numCharacters = laminateCharacters1.giveSelectionCharacter();
                 numCharacters2 = laminateCharacters2.giveSelectionCharacter();
-                if (visible) {
-                    marco.setVisible(false);
-                    visible = false;
-                }
+                marco.setVisible(false);
+                generated = true;
                 marco.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Máximo de personajes 10");
+                JOptionPane.showMessageDialog(marco, "Máximo de personajes 10");
             }
         }
     }
@@ -87,8 +88,12 @@ public class FrameworkMenu extends JFrame {
         return typeMap;
     }
 
-    public Boolean getVisible() {
-        return visible;
+    public Boolean getGenerated() {
+        return generated;
+    }
+
+    public void setGenerated(Boolean jFrameVisible) {
+        this.generated = jFrameVisible;
     }
 
     public int getSizeMap() {

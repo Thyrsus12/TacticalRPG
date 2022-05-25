@@ -4,20 +4,23 @@ import characters.Character;
 import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import jFrame.FrameworkBackMenu;
+import jFrame.FrameworkMenu;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
 
 import java.util.ArrayList;
 
-public class GameScreen extends ScreenAdapter {
+public class GameScreen implements Screen {
     private final SpriteBatch batch;
+    private final Game game;
     private final OrthographicCamera cam;
 
     private TileMap map;
@@ -27,7 +30,8 @@ public class GameScreen extends ScreenAdapter {
 
     private FrameworkBackMenu frameworkBackMenu;
 
-    public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
+    public GameScreen(SpriteBatch batch, Game game, ArrayList<Integer> numCharacters, ArrayList<Integer> numCharacters2, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
+        this.game = game;
         this.batch = batch;
         this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
         cam.zoom = 0.3f;
@@ -36,10 +40,8 @@ public class GameScreen extends ScreenAdapter {
 
         this.map = new TileMap(mapSize, mapType);
 
-        this.charactersOps = new CharactersOperations(numCharacters);
+        this.charactersOps = new CharactersOperations(numCharacters, numCharacters2, mapSize);
         this.tilesOps = new TilesOperations(map, charactersOps);
-
-        frameworkBackMenu = new FrameworkBackMenu();
     }
 
     public void render(float delta) {
@@ -75,7 +77,7 @@ public class GameScreen extends ScreenAdapter {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
         } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            frameworkBackMenu.setVisible(true);
+            //TODO
         }
     }
 
@@ -92,4 +94,34 @@ public class GameScreen extends ScreenAdapter {
             tilesOps.modifyTile(mapX, mapY);
         }
     }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void show() {
+
+    }
+
 }

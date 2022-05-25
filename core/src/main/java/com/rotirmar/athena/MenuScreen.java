@@ -26,7 +26,7 @@ public class MenuScreen implements Screen {
     public static int buttonWidth;
     public static int buttonHeight;
 
-    private FrameworkMenu paramWindow;
+    private FrameworkMenu frameworkMenu;
 
     private Animation animation;
     private float time = 0f;
@@ -38,16 +38,16 @@ public class MenuScreen implements Screen {
         screenWidthThird = getWindowSize("width");
         screenHeightThird = getWindowSize("height");
 
-        btnNewMap = new Texture("b1.png");
-        btnResume = new Texture("b2.png");
-        btnCredits = new Texture("b3.png");
+        btnNewMap = new Texture("menu/b1.png");
+        btnResume = new Texture("menu/b2.png");
+        btnCredits = new Texture("menu/b3.png");
         //Each button occupies 6.8% of the screen height and 33.4% of the screen width. A rule of three is made to calculate its size according to the actual screen size
         buttonHeight = (int) (screenHeightThird * 0.068f);
         buttonWidth = (int) (screenWidthThird * 0.334f);
 
-        paramWindow = new FrameworkMenu();
+        frameworkMenu = new FrameworkMenu(screenWidthThird / 2 * 3, screenHeightThird / 2 * 3);
 
-        Texture backImage = new Texture("menu-background.png");
+        Texture backImage = new Texture("menu/menu-background.png");
         makeAnimation(backImage);
     }
 
@@ -88,11 +88,13 @@ public class MenuScreen implements Screen {
     }
 
     private void checkJFrame() {
-        if (!paramWindow.getVisible()) {
-            ArrayList<Integer> numCharacters = paramWindow.getNumCharacters();
-            int mapSize = paramWindow.getSizeMap();
-            String mapType = paramWindow.getTypeMap();
-            game.setScreen(new GameScreen(batch, numCharacters, mapSize, mapType, screenWidthThird, screenHeightThird));
+        if (frameworkMenu.getGenerated()) {
+            ArrayList<Integer> numCharacters = frameworkMenu.getNumCharacters();
+            ArrayList<Integer> numCharacters2 = frameworkMenu.getNumCharacters2();
+            int mapSize = frameworkMenu.getSizeMap();
+            String mapType = frameworkMenu.getTypeMap();
+            frameworkMenu.setGenerated(false);
+            game.setScreen(new GameScreen(batch, game, numCharacters, numCharacters2, mapSize, mapType, screenWidthThird, screenHeightThird));
         }
     }
 
@@ -106,9 +108,9 @@ public class MenuScreen implements Screen {
                 /*As the positions are the ones used for painting, they start at the bottom-left and the mouse positions start at the top-left
                 to collect clicks you have to invert them subtracting to the total (screen height) where you want to put them (position where they are painted)*/
                 if (clickY > (screenHeightThird - (screenHeightThird / 1.55f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 1.55f))) {
-                    paramWindow.setVisible(true);
-                    paramWindow.setResizable(false);
-                    paramWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frameworkMenu.setVisible(true);
+                    frameworkMenu.setResizable(false);
+                    frameworkMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 } else if (clickY > (screenHeightThird - (screenHeightThird / 1.8f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 1.8f))) {
 
                 } else if (clickY > (screenHeightThird - (screenHeightThird / 2.15f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 2.15f))) {
@@ -129,6 +131,11 @@ public class MenuScreen implements Screen {
     }
 
     @Override
+    public void dispose() {
+        batch.dispose();
+    }
+
+    @Override
     public void show() {
     }
 
@@ -146,9 +153,5 @@ public class MenuScreen implements Screen {
 
     @Override
     public void hide() {
-    }
-
-    @Override
-    public void dispose() {
     }
 }
