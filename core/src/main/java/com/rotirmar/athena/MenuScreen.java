@@ -38,16 +38,16 @@ public class MenuScreen implements Screen {
         screenWidthThird = getWindowSize("width");
         screenHeightThird = getWindowSize("height");
 
-        btnNewMap = new Texture("b1.png");
-        btnResume = new Texture("b2.png");
-        btnCredits = new Texture("b3.png");
+        btnNewMap = new Texture("menu/b1.png");
+        btnResume = new Texture("menu/b2.png");
+        btnCredits = new Texture("menu/b3.png");
         //Each button occupies 6.8% of the screen height and 33.4% of the screen width. A rule of three is made to calculate its size according to the actual screen size
         buttonHeight = (int) (screenHeightThird * 0.068f);
         buttonWidth = (int) (screenWidthThird * 0.334f);
 
         frameworkMenu = new FrameworkMenu();
 
-        Texture backImage = new Texture("menu-background.png");
+        Texture backImage = new Texture("menu/menu-background.png");
         makeAnimation(backImage);
     }
 

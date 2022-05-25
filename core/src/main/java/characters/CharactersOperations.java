@@ -38,30 +38,31 @@ public class CharactersOperations {
             for (int j = 0; j < i; j++) {
                 switch (cont) {
                     case 0:
-                        characters.add(new Character(new Texture(team + "Magician.png"), new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character(new Texture("characters/" + team + "Magician.png"), new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                     case 1:
-                        characters.add(new Character(new Texture(team + "Archer.png"), new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character(new Texture("characters/" + team + "Archer.png"), new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                     case 2:
-                        characters.add(new Character(new Texture(team + "Hoplite.png"), new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character(new Texture("characters/" + team + "Hoplite.png"), new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                     case 3:
-                        characters.add(new Character(new Texture("medusa.png"), new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character(new Texture("characters/medusa.png"), new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                     case 4:
-                        characters.add(new Character(new Texture("chimera.png"), new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character(new Texture("characters/chimera.png"), new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                     case 5:
-                        characters.add(new Character(new Texture("hydra.png"), new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character(new Texture("characters/hydra.png"), new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                 }
+
                 if (spawnPosY >= mapSize) {
                     spawnPosY = 1;
                     if (team.equals("blue"))
