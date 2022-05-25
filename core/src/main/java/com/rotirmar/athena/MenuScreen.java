@@ -88,11 +88,13 @@ public class MenuScreen implements Screen {
     }
 
     private void checkJFrame() {
-        if (!frameworkMenu.getjFrameVisible()) {
+        if (frameworkMenu.getGenerated()) {
             ArrayList<Integer> numCharacters = frameworkMenu.getNumCharacters();
+            ArrayList<Integer> numCharacters2 = frameworkMenu.getNumCharacters2();
             int mapSize = frameworkMenu.getSizeMap();
             String mapType = frameworkMenu.getTypeMap();
-            game.setScreen(new GameScreen(batch, game, this, numCharacters, mapSize, mapType, screenWidthThird, screenHeightThird));
+            frameworkMenu.setGenerated(false);
+            game.setScreen(new GameScreen(batch, game, numCharacters, numCharacters2, mapSize, mapType, screenWidthThird, screenHeightThird));
         }
     }
 

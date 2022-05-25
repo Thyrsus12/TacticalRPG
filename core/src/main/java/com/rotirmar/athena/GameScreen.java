@@ -29,12 +29,10 @@ public class GameScreen implements Screen {
     private TilesOperations tilesOps;
 
     private FrameworkBackMenu frameworkBackMenu;
-    private MenuScreen menu;
 
-    public GameScreen(SpriteBatch batch, Game game, MenuScreen menu, ArrayList<Integer> numCharacters, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
+    public GameScreen(SpriteBatch batch, Game game, ArrayList<Integer> numCharacters, ArrayList<Integer> numCharacters2, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
         this.game = game;
         this.batch = batch;
-        this.menu = menu;
         this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
         cam.zoom = 0.3f;
         cam.position.y += 85;
@@ -42,10 +40,8 @@ public class GameScreen implements Screen {
 
         this.map = new TileMap(mapSize, mapType);
 
-        this.charactersOps = new CharactersOperations(numCharacters);
+        this.charactersOps = new CharactersOperations(numCharacters, numCharacters2, mapSize);
         this.tilesOps = new TilesOperations(map, charactersOps);
-
-        //frameworkBackMenu = new FrameworkBackMenu();
     }
 
     public void render(float delta) {
@@ -64,8 +60,6 @@ public class GameScreen implements Screen {
             character.render(batch);
         }
         batch.end();
-
-        //checkJFrame();
     }
 
     private void keyboardInput() {
@@ -83,10 +77,7 @@ public class GameScreen implements Screen {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
         } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            FrameworkMenu.jFrameVisible = true;
-            game.setScreen(menu);
-            //dispose();
-            //frameworkBackMenu.setVisible(true);
+            //TODO
         }
     }
 
@@ -104,15 +95,8 @@ public class GameScreen implements Screen {
         }
     }
 
-    private void checkJFrame() {
-        if (!frameworkBackMenu.getVisible()) {
-            game.setScreen(new MenuScreen(batch, game));
-        }
-    }
-
     @Override
     public void dispose() {
-        batch.dispose();
     }
 
     @Override

@@ -17,10 +17,11 @@ public class FrameworkMenu extends JFrame {
 
     private ArrayList<Integer> numCharacters, numCharacters2;
 
-    public static Boolean jFrameVisible = true;
+    public static Boolean generated = false;
 
     public FrameworkMenu() throws HeadlessException {
         setTitle("Arcadia");
+        setAlwaysOnTop(true);
         setBounds(500, 300, 600, 330);
         //Construction of central sheeting
         JPanel backgroundSheet = new JPanel();
@@ -69,18 +70,14 @@ public class FrameworkMenu extends JFrame {
             typeMap = laminateTypeMap.giveSelectionMap();
             sizeMap = laminateSizeMap.giveSelectionMap();
 
-            if (laminateCharacters1.checkNumCharacters()) {
+            if (laminateCharacters1.checkNumCharacters() && laminateCharacters2.checkNumCharacters()) {
                 numCharacters = laminateCharacters1.giveSelectionCharacter();
                 numCharacters2 = laminateCharacters2.giveSelectionCharacter();
-                if (jFrameVisible) {
-                    marco.setVisible(false);
-                    jFrameVisible = false;
-                }
+                marco.setVisible(false);
+                generated = true;
                 marco.dispose();
-                System.out.println(numCharacters2);
             } else {
-                JOptionPane.showMessageDialog(null, "Máximo de personajes 10");
-            }
+                JOptionPane.showMessageDialog(marco,"Máximo de personajes 10");}
         }
     }
 
@@ -88,12 +85,12 @@ public class FrameworkMenu extends JFrame {
         return typeMap;
     }
 
-    public Boolean getjFrameVisible() {
-        return jFrameVisible;
+    public Boolean getGenerated() {
+        return generated;
     }
 
-    public void setjFrameVisible(Boolean jFrameVisible) {
-        this.jFrameVisible = jFrameVisible;
+    public void setGenerated(Boolean jFrameVisible) {
+        this.generated = jFrameVisible;
     }
 
     public int getSizeMap() {
