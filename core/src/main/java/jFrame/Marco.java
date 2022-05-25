@@ -77,7 +77,6 @@ public class Marco extends JFrame {
                     visible = false;
                 }
                 marco.dispose();
-                System.out.println(numCharacters2);
             } else {
                 JOptionPane.showMessageDialog(null, "Máximo de personajes 10");
             }
