@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import jFrame.FrameworkBackMenu;
+import jFrame.FrameworkMenu;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
@@ -82,6 +83,7 @@ public class GameScreen implements Screen {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
         } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            FrameworkMenu.jFrameVisible = true;
             game.setScreen(menu);
             //dispose();
             //frameworkBackMenu.setVisible(true);

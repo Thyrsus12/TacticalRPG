@@ -17,7 +17,7 @@ public class FrameworkMenu extends JFrame {
 
     private ArrayList<Integer> numCharacters, numCharacters2;
 
-    private Boolean jFrameVisible = true;
+    public static Boolean jFrameVisible = true;
 
     public FrameworkMenu() throws HeadlessException {
         setTitle("Arcadia");
