@@ -1,10 +1,24 @@
-h i i i i i f f f f
-h i h f i h i f f i
-f i h i f i f i f i
-w i f f w i i i w f
-f f h f f f i f f f
-i f f f i f i f i h
-f i f i f f i i i i
-i i f f i f i f i f
-i i f i f i f f f f
-f h i i h i i i f i
+h h v v g g v g g g v v h v v g h g v h g v g n
+v n v h v g v v g h v n g h v v v v v v h g v g
+v g v v g g n v n g v g v g v v v g g n h g g v
+v h v g v v v v v v v g h v v h v n v g v v g g
+v n v v g v h g g v v v v v h v v n v v v v v n
+h n h v h v v g g v v h v g g g g g v v h v v v
+g n h v v h h g g h v v v g g g g v g g h g v v
+v v g h v g n v v n v g h g v g g g v v v v v g
+v g v w g g g w g w w v v w g g g w w w g v g g
+g v v v v h v g v v g v g g g v v g g g g v v g
+v g g v h v g v v g g g g v h v h v v g v g g v
+g v v v g v g h n h h g v g v g v v g v v g v v
+n v g g h v n h g g g g g h n v h g v v v g v n
+v n g g g g g g v h h v v g v v g g v g g v g g
+g h g g v v n n g v g g n n v v h g g v v h v g
+v v v v g h v v g g v g v g g g v n g g g n v g
+v v g n v g g h g h h v g h v g g v v v v g v h
+v v g h g v v v g h h n v h v g g g g n v g v v
+h v g v g v g g g v g g g n h g g v v g g h g v
+v v v v v v h n v g g n g v v g h g v v v g v g
+v g g g g g n v g h n v g g g v g g h v g g g g
+g v v v g v h h v v n v v h v n n v v v v h v g
+g n v g h v g v h v g v g v n g g v v v h v h v
+g v v v h v v v v g g g v v g v n h g v v g v v

@@ -34,14 +34,23 @@ public class GameScreen implements Screen {
         this.game = game;
         this.batch = batch;
         this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
-        cam.zoom = 0.3f;
-        cam.position.y += 85;
-        cam.position.x += 10;
+
+        camParamCalculator(mapSize);
 
         this.map = new TileMap(mapSize, mapType);
 
         this.charactersOps = new CharactersOperations(numCharacters, numCharacters2, mapSize);
         this.tilesOps = new TilesOperations(map, charactersOps);
+    }
+
+    private void camParamCalculator(int mapSize) {
+        float zoom = 0.3f;
+        float x = 15f;
+        float y = 70f;
+
+        cam.zoom = (float) (zoom + 0.04 * (mapSize - 8));
+        cam.position.x += x + 0.5 * (mapSize - 8);
+        cam.position.y += y + 8 * (mapSize - 8);
     }
 
     public void render(float delta) {
