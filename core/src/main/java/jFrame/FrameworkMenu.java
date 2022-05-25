@@ -17,7 +17,7 @@ public class FrameworkMenu extends JFrame {
 
     private ArrayList<Integer> numCharacters, numCharacters2;
 
-    private Boolean visible = true;
+    private Boolean jFrameVisible = true;
 
     public FrameworkMenu() throws HeadlessException {
         setTitle("Arcadia");
@@ -72,9 +72,9 @@ public class FrameworkMenu extends JFrame {
             if (laminateCharacters1.checkNumCharacters()) {
                 numCharacters = laminateCharacters1.giveSelectionCharacter();
                 numCharacters2 = laminateCharacters2.giveSelectionCharacter();
-                if (visible) {
+                if (jFrameVisible) {
                     marco.setVisible(false);
-                    visible = false;
+                    jFrameVisible = false;
                 }
                 marco.dispose();
                 System.out.println(numCharacters2);
@@ -88,8 +88,12 @@ public class FrameworkMenu extends JFrame {
         return typeMap;
     }
 
-    public Boolean getVisible() {
-        return visible;
+    public Boolean getjFrameVisible() {
+        return jFrameVisible;
+    }
+
+    public void setjFrameVisible(Boolean jFrameVisible) {
+        this.jFrameVisible = jFrameVisible;
     }
 
     public int getSizeMap() {

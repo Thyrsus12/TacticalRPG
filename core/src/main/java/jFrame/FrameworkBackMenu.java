@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class FrameworkBackMenu extends JFrame {
     private LaminateBackMenu laminateBackMenu;
+    private boolean visible = true;
 
     public FrameworkBackMenu() throws HeadlessException {
         setBounds(850, 400, 200, 120);
@@ -33,6 +34,7 @@ public class FrameworkBackMenu extends JFrame {
         });
 
         no.addActionListener(new ActionButtonNo(this));
+        yes.addActionListener(new ActionButtonYes(this));
 
         exitMenu.add(yes);
         exitMenu.add(no);
@@ -55,4 +57,27 @@ public class FrameworkBackMenu extends JFrame {
             marco.dispose();
         }
     }
+
+    public class ActionButtonYes implements ActionListener {
+
+        FrameworkBackMenu marco;
+
+        public ActionButtonYes(FrameworkBackMenu marco) {
+            this.marco = marco;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (visible) {
+                marco.setVisible(false);
+                visible = false;
+            }
+            marco.dispose();
+        }
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
 }

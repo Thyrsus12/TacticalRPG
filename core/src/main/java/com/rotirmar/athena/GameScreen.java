@@ -4,6 +4,7 @@ import characters.Character;
 import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,8 +17,9 @@ import utilities.TilesOperations;
 
 import java.util.ArrayList;
 
-public class GameScreen extends ScreenAdapter {
+public class GameScreen implements Screen {
     private final SpriteBatch batch;
+    private final Game game;
     private final OrthographicCamera cam;
 
     private TileMap map;
@@ -26,9 +28,12 @@ public class GameScreen extends ScreenAdapter {
     private TilesOperations tilesOps;
 
     private FrameworkBackMenu frameworkBackMenu;
+    private MenuScreen menu;
 
-    public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
+    public GameScreen(SpriteBatch batch, Game game, MenuScreen menu, ArrayList<Integer> numCharacters, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
+        this.game = game;
         this.batch = batch;
+        this.menu = menu;
         this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
         cam.zoom = 0.3f;
         cam.position.y += 85;
@@ -39,7 +44,7 @@ public class GameScreen extends ScreenAdapter {
         this.charactersOps = new CharactersOperations(numCharacters);
         this.tilesOps = new TilesOperations(map, charactersOps);
 
-        frameworkBackMenu = new FrameworkBackMenu();
+        //frameworkBackMenu = new FrameworkBackMenu();
     }
 
     public void render(float delta) {
@@ -58,6 +63,8 @@ public class GameScreen extends ScreenAdapter {
             character.render(batch);
         }
         batch.end();
+
+        //checkJFrame();
     }
 
     private void keyboardInput() {
@@ -75,7 +82,9 @@ public class GameScreen extends ScreenAdapter {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
         } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            frameworkBackMenu.setVisible(true);
+            game.setScreen(menu);
+            //dispose();
+            //frameworkBackMenu.setVisible(true);
         }
     }
 
@@ -92,4 +101,41 @@ public class GameScreen extends ScreenAdapter {
             tilesOps.modifyTile(mapX, mapY);
         }
     }
+
+    private void checkJFrame() {
+        if (!frameworkBackMenu.getVisible()) {
+            game.setScreen(new MenuScreen(batch, game));
+        }
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void show() {
+
+    }
+
 }
