@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Marco extends JFrame {
+public class FrameworkMenu extends JFrame {
     private LaminateMapType laminateTypeMap;
     private LaminateMapSize laminateSizeMap;
     private LaminateCharacters laminateCharacters1;
@@ -19,7 +19,7 @@ public class Marco extends JFrame {
 
     private Boolean visible = true;
 
-    public Marco() throws HeadlessException {
+    public FrameworkMenu() throws HeadlessException {
         setTitle("Arcadia");
         setBounds(500, 300, 600, 330);
         //Construction of central sheeting
@@ -58,9 +58,9 @@ public class Marco extends JFrame {
 
     public class ActionGenerate implements ActionListener {
 
-        Marco marco;
+        FrameworkMenu marco;
 
-        public ActionGenerate(Marco marco) {
+        public ActionGenerate(FrameworkMenu marco) {
             this.marco = marco;
         }
 
