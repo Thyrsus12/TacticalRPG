@@ -20,8 +20,8 @@ public class CreditsScreen implements Screen {
         this.screenHeightThird = screenHeightThird;
         this.game = game;
         this.menuScreen = menuScreen;
-        credits = new Texture("creditos-cani-blue.png");
-        button = new Texture("b4.png");
+        credits = new Texture("credits/credits-blue.png");
+        button = new Texture("credits/b4.png");
     }
 
     @Override
