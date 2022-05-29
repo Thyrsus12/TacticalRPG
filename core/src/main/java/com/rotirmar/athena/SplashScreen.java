@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.awt.*;
+
 public class SplashScreen implements Screen {
 
     private SpriteBatch batch;
@@ -22,6 +24,16 @@ public class SplashScreen implements Screen {
         this.game = game;
         logo = new Texture("logo-splash-screen.png");
         s = new Sprite(logo);
+
+        Toolkit display = Toolkit.getDefaultToolkit();
+        Dimension screenSize = display.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+
+        int screenWidthThird = (screenWidth / 3) * 2;
+        int screenHeightThird = (screenHeight / 3) * 2;
+
+        s.setBounds(0, 0, screenWidthThird, screenHeightThird);
     }
 
     @Override
@@ -33,6 +45,7 @@ public class SplashScreen implements Screen {
     public void render(float delta) {
         batch.begin();
         //batch.draw(s, 0, 0);
+        s.draw(batch);
         batch.end();
         processFade();
     }
