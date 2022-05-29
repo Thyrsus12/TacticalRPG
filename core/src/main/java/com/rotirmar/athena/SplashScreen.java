@@ -1,6 +1,8 @@
 package com.rotirmar.athena;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +16,9 @@ public class SplashScreen implements Screen {
     private Texture logo;
     private Sprite s;
 
+    int screenWidthThird;
+    int screenHeightThird;
+
     private boolean fadeInTerminated = false, teminated = false;
     private float a = 0;
     private float contTime = 0, timeWait = 5;
@@ -22,31 +27,33 @@ public class SplashScreen implements Screen {
     public SplashScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
         this.game = game;
-        logo = new Texture("logo-splash-screen.png");
-        s = new Sprite(logo);
 
         Toolkit display = Toolkit.getDefaultToolkit();
         Dimension screenSize = display.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
 
-        int screenWidthThird = (screenWidth / 3) * 2;
-        int screenHeightThird = (screenHeight / 3) * 2;
-
-        s.setBounds(0, 0, screenWidthThird, screenHeightThird);
+        screenWidthThird = (screenWidth / 3) * 2;
+        screenHeightThird = (screenHeight / 3) * 2;
     }
 
     @Override
     public void show() {
-
+        logo = new Texture("logo-splash-screen.png");
+        s = new Sprite(logo);
+        s.setBounds(0, 0, screenWidthThird, screenHeightThird);
+        setTransparent(0);
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         batch.begin();
-        //batch.draw(s, 0, 0);
         s.draw(batch);
         batch.end();
+
         processFade();
     }
 
