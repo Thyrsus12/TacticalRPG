@@ -9,32 +9,35 @@ public class LaminateCharacters extends JPanel {
 
     public LaminateCharacters(String titulo, String[] options) {
         spinner = new ArrayList<>();
+
         setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), titulo));
-
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
 
         for (int i = 0; i < options.length; i++) {
             name = new JLabel(options[i]);
             add(name);
             spinner.add(new JSpinner(new SpinnerNumberModel(0, 0, 10, 1)));
-            //spinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
             add(spinner.get(i));
+        }
+    }
+
+    public Boolean checkNumCharacters() {
+        int totalCharacters = 0;
+        for (int i = 0; i < spinner.size(); i++) {
+            totalCharacters += (int) spinner.get(i).getValue();
+        }
+        if (totalCharacters > 10) {
+            return false;
+        } else {
+            return true;
         }
     }
 
     public ArrayList<Integer> giveSelectionCharacter() {
         ArrayList<Integer> numCharacters = new ArrayList<>();
-        int totalCharacters = 0;
         for (int i = 0; i < spinner.size(); i++) {
             numCharacters.add((int) spinner.get(i).getValue());
-            totalCharacters += (int) spinner.get(i).getValue();
         }
-        if (totalCharacters <= 10) {
-            return numCharacters;
-        } else {
-            JOptionPane.showMessageDialog(null, "El numero maximo de personajes es 10");
-            return null;
-        }
+        return numCharacters;
     }
 }

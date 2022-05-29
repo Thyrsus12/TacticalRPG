@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import jFrame.Marco;
+import jFrame.FrameworkMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,86 +15,106 @@ import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
 
-    public static int BUTTON_HEIGHT;
-    public static int BUTTON_WIDTH;
+    private final SpriteBatch batch;
+    private final Game game;
 
-    private SpriteBatch batch;
-    private Game game;
-    private Texture newMap;
-    private Texture continu;
-    private Texture credits;
-    private Marco menu;
-    private Texture backImage;
-    private Animation animation;
-    private float time = 0f;
     private int screenWidthThird;
     private int screenHeightThird;
+
+    private Texture btnNewMap;
+    private Texture btnResume;
+    private Texture btnCredits;
+    public static int buttonWidth;
+    public static int buttonHeight;
+
+    private FrameworkMenu frameworkMenu;
+
+    private Animation animation;
+    private float time = 0f;
 
     public MenuScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
         this.game = game;
-        newMap = new Texture("b1.png");
-        continu = new Texture("b2.png");
-        credits = new Texture("b3.png");
-        menu = new Marco();
-        Toolkit miPantalla = Toolkit.getDefaultToolkit();
-        Dimension screenSize = miPantalla.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
-        screenHeightThird = (screenHeight / 3) * 2;
-        screenWidthThird = (screenWidth / 3) * 2;
-        //Cada boton ocupa 6.8% de alto y un 33.4% de la pantalla. Se hace una regla de tres para calcular su tamaño segun la pantalla actual
-        BUTTON_HEIGHT = (int) (screenHeightThird * 0.068f);
-        BUTTON_WIDTH = (int) (screenWidthThird * 0.334f);
 
-        backImage = new Texture("fondo-menu.png");
+        screenWidthThird = getWindowSize("width");
+        screenHeightThird = getWindowSize("height");
+
+        btnNewMap = new Texture("menu/b1.png");
+        btnResume = new Texture("menu/b2.png");
+        btnCredits = new Texture("menu/b3.png");
+        //Each button occupies 6.8% of the screen height and 33.4% of the screen width. A rule of three is made to calculate its size according to the actual screen size
+        buttonHeight = (int) (screenHeightThird * 0.068f);
+        buttonWidth = (int) (screenWidthThird * 0.334f);
+
+        frameworkMenu = new FrameworkMenu(screenWidthThird / 2 * 3, screenHeightThird / 2 * 3);
+
+        Texture backImage = new Texture("menu/menu-background.png");
         makeAnimation(backImage);
     }
 
-    @Override
-    public void show() {
-
+    private int getWindowSize(String option) {
+        Toolkit display = Toolkit.getDefaultToolkit();
+        Dimension screenSize = display.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+        int result = 0;
+        switch (option) {
+            case "width":
+                result = (screenWidth / 3) * 2;
+                break;
+            case "height":
+                result = (screenHeight / 3) * 2;
+                break;
+        }
+        return result;
     }
 
     @Override
     public void render(float delta) {
-        time += Gdx.graphics.getDeltaTime(); //Time until the last render
-        TextureRegion currentFrame = (TextureRegion) animation.getKeyFrame(time, true);
         batch.begin();
-        batch.draw(currentFrame, 0, 0, screenWidthThird, screenHeightThird);
-        batch.draw(newMap, screenWidthThird / 3f, screenHeightThird / 1.55f, BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(continu, screenWidthThird / 3f, screenHeightThird / 1.8f, BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(credits, screenWidthThird / 3f, screenHeightThird / 2.15f, BUTTON_WIDTH, BUTTON_HEIGHT);
-
+        batch.draw(getCurrentFrame(), 0, 0, screenWidthThird, screenHeightThird);
+        batch.draw(btnNewMap, screenWidthThird / 3f, screenHeightThird / 1.55f, buttonWidth, buttonHeight);
+        batch.draw(btnResume, screenWidthThird / 3f, screenHeightThird / 1.8f, buttonWidth, buttonHeight);
+        batch.draw(btnCredits, screenWidthThird / 3f, screenHeightThird / 2.15f, buttonWidth, buttonHeight);
         batch.end();
 
         mouseInput();
 
-        if (!menu.getVisible()) {
-            ArrayList<Integer> numCharacters = menu.getNumCharacters();
-            int mapSize = menu.getSizeMap();
-            String mapType = menu.getTypeMap();
-            game.setScreen(new GameScreen(batch, numCharacters, mapSize, mapType));
+        checkJFrame();
+    }
+
+    private TextureRegion getCurrentFrame() {
+        time += Gdx.graphics.getDeltaTime(); //Time until the last render
+        return (TextureRegion) animation.getKeyFrame(time, true);
+    }
+
+    private void checkJFrame() {
+        if (frameworkMenu.getGenerated()) {
+            ArrayList<Integer> numCharacters = frameworkMenu.getNumCharacters();
+            ArrayList<Integer> numCharacters2 = frameworkMenu.getNumCharacters2();
+            int mapSize = frameworkMenu.getSizeMap();
+            String mapType = frameworkMenu.getTypeMap();
+            frameworkMenu.setGenerated(false);
+            game.setScreen(new GameScreen(batch, game, numCharacters, numCharacters2, mapSize, mapType, screenWidthThird, screenHeightThird));
         }
     }
 
-    //EL 0,0 de las coordenadas del raton estan arriba a la izquierda
+    //The 0,0 of the mouse coordinates are at the top left
     private void mouseInput() {
-        int clickX, clickY;
-        clickX = Gdx.input.getX();
-        clickY = Gdx.input.getY();
+        int clickX = Gdx.input.getX();
+        int clickY = Gdx.input.getY();
         if (Gdx.input.justTouched()) {
-            //Las coordenadas del eje X del boton empieza en su izquierda y termina en su izquiera mas la anchura del boton
-            if (clickX > screenWidthThird / 3f && clickX < screenWidthThird / 3f + BUTTON_WIDTH) {
-                /*Como las posiciones son las que se utilizan para pintar empiezan abajo-izquierda y las del raton empiezan arriba-izquierda
-                 * para recoger clicks hayq ue invertirlas restando al total(altura pantalla) donde las quieres poner (posicion donde se pintan)*/
-                if (clickY > (screenHeightThird - (screenHeightThird / 1.55f + BUTTON_HEIGHT)) && clickY < (screenHeightThird - (screenHeightThird / 1.55f))) {
-                    menu.setVisible(true);
-                    menu.setResizable(false);
-                    menu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                } else if (clickY > (screenHeightThird - (screenHeightThird / 1.8f + BUTTON_HEIGHT)) && clickY < (screenHeightThird - (screenHeightThird / 1.8f))) {
-                    System.out.println("Continuar");
-                } else if (clickY > (screenHeightThird - (screenHeightThird / 2.15f + BUTTON_HEIGHT)) && clickY < (screenHeightThird - (screenHeightThird / 2.15f))) {
+            //The coordinates of the X-axis of the button start at its left and end at its left plus the width of the button
+            if (clickX > screenWidthThird / 3f && clickX < screenWidthThird / 3f + buttonWidth) {
+                /*As the positions are the ones used for painting, they start at the bottom-left and the mouse positions start at the top-left
+                to collect clicks you have to invert them subtracting to the total (screen height) where you want to put them (position where they are painted)*/
+                if (clickY > (screenHeightThird - (screenHeightThird / 1.55f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 1.55f))) {
+                    frameworkMenu.setVisible(true);
+                    frameworkMenu.setResizable(false);
+                    frameworkMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                } else if (clickY > (screenHeightThird - (screenHeightThird / 1.8f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 1.8f))) {
+
+                } else if (clickY > (screenHeightThird - (screenHeightThird / 2.15f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 2.15f))) {
                     game.setScreen(new CreditsScreen(batch, screenWidthThird, screenHeightThird, game, this));
                 }
             }
@@ -108,12 +128,20 @@ public class MenuScreen implements Screen {
         for (int i = 0; i < frames; i++) {
             regionMovement[i] = tmp[0][i];
         }
-        animation = new Animation(0.3f, regionMovement);
+        animation = new Animation(0.8f, regionMovement);
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
+
+    @Override
+    public void show() {
     }
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
@@ -126,9 +154,5 @@ public class MenuScreen implements Screen {
 
     @Override
     public void hide() {
-    }
-
-    @Override
-    public void dispose() {
     }
 }

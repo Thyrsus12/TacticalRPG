@@ -4,44 +4,53 @@ import characters.Character;
 import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import jFrame.FrameworkBackMenu;
+import jFrame.FrameworkMenu;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
 import utilities.TilesOperations;
 
-import java.awt.*;
 import java.util.ArrayList;
 
-public class GameScreen extends ScreenAdapter {
-    private SpriteBatch batch;
-    private OrthographicCamera cam;
+public class GameScreen implements Screen {
+    private final SpriteBatch batch;
+    private final Game game;
+    private final OrthographicCamera cam;
 
     private TileMap map;
 
     private CharactersOperations charactersOps;
     private TilesOperations tilesOps;
 
-    public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, int mapSize, String mapType) {
+    private FrameworkBackMenu frameworkBackMenu;
+
+    public GameScreen(SpriteBatch batch, Game game, ArrayList<Integer> numCharacters, ArrayList<Integer> numCharacters2, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
+        this.game = game;
         this.batch = batch;
-        Toolkit miPantalla = Toolkit.getDefaultToolkit();
-        Dimension screenSize = miPantalla.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
-        this.cam = new OrthographicCamera((screenWidth / 3) * 2, (screenHeight / 3) * 2);
-        cam.zoom = 0.3f;
-        cam.position.y += 85;
-        cam.position.x += 10;
+        this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
+
+        camParamCalculator(mapSize);
 
         this.map = new TileMap(mapSize, mapType);
 
-        this.charactersOps = new CharactersOperations(numCharacters);
+        this.charactersOps = new CharactersOperations(numCharacters, numCharacters2, mapSize);
         this.tilesOps = new TilesOperations(map, charactersOps);
+    }
 
+    private void camParamCalculator(int mapSize) {
+        float zoom = 0.3f;
+        float x = 15f;
+        float y = 70f;
 
+        cam.zoom = (float) (zoom + 0.04 * (mapSize - 8));
+        cam.position.x += x + 0.5 * (mapSize - 8);
+        cam.position.y += y + 8 * (mapSize - 8);
     }
 
     public void render(float delta) {
@@ -50,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
 
         batch.setProjectionMatrix(cam.combined);
 
-        camInput();
+        keyboardInput();
         cam.update();
         mouseInput();
 
@@ -59,11 +68,10 @@ public class GameScreen extends ScreenAdapter {
         for (Character character : charactersOps.getCharacters()) {
             character.render(batch);
         }
-
         batch.end();
     }
 
-    private void camInput() {
+    private void keyboardInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             cam.position.x -= 1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -77,6 +85,8 @@ public class GameScreen extends ScreenAdapter {
         } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            //TODO
         }
     }
 
@@ -93,4 +103,34 @@ public class GameScreen extends ScreenAdapter {
             tilesOps.modifyTile(mapX, mapY);
         }
     }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void show() {
+
+    }
+
 }

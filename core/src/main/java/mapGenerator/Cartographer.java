@@ -7,7 +7,6 @@ import java.util.Random;
 
 public class Cartographer {
     Random r = new Random();
-    String map;
     Integer mapSize = TileMap.mapSize;
 
     public void writeMap(String mapType) {
@@ -20,7 +19,6 @@ public class Cartographer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public String generateRandomMap() {
@@ -39,7 +37,8 @@ public class Cartographer {
 
     public String writeSnowMap() {
         String snowMap = "";
-        int river = r.nextInt(mapSize) - 1;
+
+        int river = riverPosGenerator();
 
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
@@ -67,7 +66,8 @@ public class Cartographer {
 
     public String writeLavaMap() {
         String lavaMap = "";
-        int river = r.nextInt(mapSize) - 1;
+
+        int river = riverPosGenerator();
 
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
@@ -95,7 +95,8 @@ public class Cartographer {
 
     public String writeGrassMap() {
         String grassMap = "";
-        int river = r.nextInt(mapSize) - 1;
+
+        int river = riverPosGenerator();
 
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
@@ -127,7 +128,8 @@ public class Cartographer {
 
     public String writeDesertMap() {
         String desertMap = "";
-        int river = r.nextInt(mapSize) - 1;
+
+        int river = riverPosGenerator();
 
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
@@ -151,6 +153,14 @@ public class Cartographer {
                 desertMap = desertMap.concat("\n");
         }
         return desertMap;
+    }
+
+    private int riverPosGenerator() {
+        int river = r.nextInt(mapSize) - 1;
+        while (river >= 0 && river < 2 || river <= mapSize - 1 && river > mapSize - 3) {
+            river = r.nextInt(mapSize) - 1;
+        }
+        return river;
     }
 
     private void selectType(String mapType, BufferedWriter bufferedWriter) {
@@ -194,5 +204,4 @@ public class Cartographer {
         }
         return mockMap;
     }
-
 }
