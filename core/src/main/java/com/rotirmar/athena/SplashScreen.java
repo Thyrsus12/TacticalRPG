@@ -10,6 +10,7 @@ public class SplashScreen implements Screen {
     private SpriteBatch batch;
     private Game game;
     private Texture logo;
+    private Sprite s;
 
     private boolean fadeInTerminated = false, teminated = false;
     private float a = 0;
@@ -19,7 +20,8 @@ public class SplashScreen implements Screen {
     public SplashScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
         this.game = game;
-        logo = new Texture("");
+        logo = new Texture("logo-splash-screen.png");
+        s = new Sprite(logo);
     }
 
     @Override
@@ -30,8 +32,9 @@ public class SplashScreen implements Screen {
     @Override
     public void render(float delta) {
         batch.begin();
-        batch.draw(logo, 0, 0);
+        //batch.draw(s, 0, 0);
         batch.end();
+        processFade();
     }
 
     private void processFade() {
@@ -51,7 +54,7 @@ public class SplashScreen implements Screen {
                 }
             }
         }
-        //fund.setTransparent(a);
+        setTransparent(a);
 
         if (teminated) {
             contTimeTerminated += 0.1f;
@@ -59,6 +62,10 @@ public class SplashScreen implements Screen {
                 game.setScreen(new MenuScreen(batch, game));
             }
         }
+    }
+
+    public void setTransparent(float a) {
+        s.setAlpha(a);
     }
 
     @Override
