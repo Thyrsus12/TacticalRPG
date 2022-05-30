@@ -26,7 +26,6 @@ public class TilesOperations {
 
     private Character c;
     private String startCharPos;
-    private String startTilePos;
     private int charArrayIndex;
 
     public TilesOperations(TileMap map, CharactersOperations charactersOps) {
@@ -50,31 +49,27 @@ public class TilesOperations {
         LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
 
         for (Tile t : tileLinkedList) {
+            //Check if is the clicked tile
             if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY) {
 
                 String stringPos = (mapX + 1) + "," + (mapY + 1);
-                startTilePos = mapX + "," + mapY;
 
                 //Check if tile clicked contains a character
                 if (equivalences.containsKey(stringPos) && !characterSelected) {
-
-                    startCharPos = stringPos;
-                    charArrayIndex = equivalences.get(startCharPos);
-                    c = characters.get(charArrayIndex);
+                    c = findChar(stringPos);
                     movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
+
                     characterSelected = true;
 
                 } else if (equivalences.containsKey(stringPos) && characterSelected) {
                     turnBlueBack(tileLinkedList);
 
-                    startCharPos = stringPos;
-                    charArrayIndex = equivalences.get(startCharPos);
-                    c = characters.get(charArrayIndex);
+                    c = findChar(stringPos);
                     movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
 
                 } else if (!equivalences.containsKey(stringPos) && characterSelected) {
                     if (possibleTilesToMove.contains(TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY))) {
-                        //Move the character and make it tile inaccessible
+                        //Move the character and make its tile inaccessible
                         charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
                         t.setOccupied(true);
 
@@ -83,24 +78,23 @@ public class TilesOperations {
                         charactersOps.updateHashMap(startCharPos, targetPos, charArrayIndex);
 
                         //Make the previous occupied tile accessible
-                        /*int oldOccupiedTileIndex = TileMap.cordsToIndexEquivalence.get(startTilePos);
-                        Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
-                        oldOccupiedTile.setOccupied(false);*/
                         oldTile.setOccupied(false);
 
-                        //Eliminate the blue tiles because you have unchecked the character's tile.
-                        turnBlueBack(tileLinkedList);
-                        characterSelected = false;
-                    } else {
-                        turnBlueBack(tileLinkedList);
-                        characterSelected = false;
-
                     }
+                    //Eliminate the blue tiles because you have unchecked the character's tile.
+                    turnBlueBack(tileLinkedList);
+                    characterSelected = false;
                 }
                 newClickOps(tileLinkedList, t, cont);
             }
             cont++;
         }
+    }
+
+    private Character findChar(String stringPos) {
+        startCharPos = stringPos;
+        charArrayIndex = equivalences.get(startCharPos);
+        return characters.get(charArrayIndex);
     }
 
     private void newClickOps(LinkedList<Tile> tileLinkedList, Tile t, int cont) {
