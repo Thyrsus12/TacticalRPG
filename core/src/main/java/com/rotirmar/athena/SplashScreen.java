@@ -19,7 +19,7 @@ public class SplashScreen implements Screen {
     int screenWidthThird;
     int screenHeightThird;
 
-    private boolean fadeInTerminated = false, teminated = false;
+    private boolean fadeInTerminated = false, terminated = false;
     private float a = 0;
     private float contTime = 0, timeWait = 5;
     private float contTimeTerminated = 0, timeTerminated = 5;
@@ -70,13 +70,13 @@ public class SplashScreen implements Screen {
                 a -= 0.01f;
                 if (a < 0) {
                     a = 0;
-                    teminated = true;
+                    terminated = true;
                 }
             }
         }
         setTransparent(a);
 
-        if (teminated) {
+        if (terminated) {
             contTimeTerminated += 0.1f;
             if (contTimeTerminated > timeTerminated) {
                 game.setScreen(new MenuScreen(batch, game));
