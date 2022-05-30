@@ -50,61 +50,93 @@ public class TilesOperations {
         LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
 
         for (Tile t : tileLinkedList) {
-            //Check if tile clicked contains a character
-            String stringPos = (mapX + 1) + "," + (mapY + 1);
-            if (equivalences.containsKey(stringPos) && !characterSelected) {
-                startCharPos = stringPos;
+            if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY) {
+
+                String stringPos = (mapX + 1) + "," + (mapY + 1);
                 startTilePos = mapX + "," + mapY;
-                charArrayIndex = equivalences.get(startCharPos);
-                c = characters.get(charArrayIndex);
-                movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
-                characterSelected = true;
 
-            }
+                //Check if tile clicked contains a character
+                if (equivalences.containsKey(stringPos) && !characterSelected) {
 
-            /**If !characterSelected*/
-            if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected() && !characterSelected) {
-                //Set true isSelected to tile clicked
-                t.setSelected(true);
+                    startCharPos = stringPos;
+                    charArrayIndex = equivalences.get(startCharPos);
+                    c = characters.get(charArrayIndex);
+                    movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
+                    characterSelected = true;
 
-                //Checking a new Tile unchecks the previous one.
-                oldTileChecker(tileLinkedList);
+                    /**PAQUETE*/
+                    //Checking a new Tile unchecks the previous one.
+                    oldTileChecker(tileLinkedList);
+                    //Fill with the current tile
+                    oldTileFiller(t, cont);
+                    //Set true isSelected to tile clicked
+                    t.setSelected(true);
 
-                //Fill with the current tile
-                oldTileFiller(t, cont);
+                } else if (equivalences.containsKey(stringPos) && characterSelected) {
+                    turnBlueBack(tileLinkedList);
 
-                /**If characterSelected*/
-            } else if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY && !t.getSelected() && characterSelected) {
+                    /**PAQUETE*/
+                    //Checking a new Tile unchecks the previous one.
+                    oldTileChecker(tileLinkedList);
+                    //Fill with the current tile
+                    oldTileFiller(t, cont);
+                    //Set true isSelected to tile clicked
+                    t.setSelected(true);
 
-                //If click in blue tile
-                if (possibleTilesToMove.contains(TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY))) {
+                    startCharPos = stringPos;
+                    charArrayIndex = equivalences.get(startCharPos);
+                    c = characters.get(charArrayIndex);
+                    movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
 
-                    //Move the character and make it tile inaccessible
-                    charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
-                    t.setOccupied(true);
+                } else if (!equivalences.containsKey(stringPos) && !characterSelected) {
+                    /**PAQUETE*/
+                    //Checking a new Tile unchecks the previous one.
+                    oldTileChecker(tileLinkedList);
+                    //Fill with the current tile
+                    oldTileFiller(t, cont);
+                    //Set true isSelected to tile clicked
+                    t.setSelected(true);
 
-                    //Update characters HasMap
-                    String targetPos = mapX + "," + mapY;
-                    charactersOps.updateHashMap(startCharPos, targetPos, charArrayIndex);
+                } else if (!equivalences.containsKey(stringPos) && characterSelected) {
+                    if (possibleTilesToMove.contains(TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY))) {
+                        //Move the character and make it tile inaccessible
+                        charactersOps.moveCharacter(mapX += 1, mapY += 1, c);
+                        t.setOccupied(true);
 
-                    //Make the previous occupied tile accessible
-                    int oldOccupiedTileIndex = TileMap.cordsToIndexEquivalence.get(startTilePos);
-                    Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
-                    oldOccupiedTile.setOccupied(false);
+                        //Update characters HasMap
+                        String targetPos = mapX + "," + mapY;
+                        charactersOps.updateHashMap(startCharPos, targetPos, charArrayIndex);
+
+                        //Make the previous occupied tile accessible
+                        /*int oldOccupiedTileIndex = TileMap.cordsToIndexEquivalence.get(startTilePos);
+                        Tile oldOccupiedTile = tileLinkedList.get(oldOccupiedTileIndex);
+                        oldOccupiedTile.setOccupied(false);*/
+                        oldTile.setOccupied(false);
+
+                        /**PAQUETE*/
+                        //Checking a new Tile unchecks the previous one.
+                        oldTileChecker(tileLinkedList);
+                        //Fill with the current tile
+                        oldTileFiller(t, cont);
+                        //Set true isSelected to tile clicked
+                        t.setSelected(true);
+
+                        //Eliminate the blue tiles because you have unchecked the character's tile.
+                        turnBlueBack(tileLinkedList);
+                        characterSelected = false;
+                    } else {
+                        turnBlueBack(tileLinkedList);
+                        characterSelected = false;
+
+                        /**PAQUETE*/
+                        //Checking a new Tile unchecks the previous one.
+                        oldTileChecker(tileLinkedList);
+                        //Fill with the current tile
+                        oldTileFiller(t, cont);
+                        //Set true isSelected to tile clicked
+                        t.setSelected(true);
+                    }
                 }
-
-                //Set true isSelected to tile clicked
-                t.setSelected(true);
-
-                //Checking a new Tile unchecks the previous one.
-                oldTileChecker(tileLinkedList);
-
-                //Fill with the current tile
-                oldTileFiller(t, cont);
-
-                //Eliminate the blue tiles because you have unchecked the character's tile.
-                turnBlueBack(tileLinkedList);
-                characterSelected = false;
             }
             cont++;
         }
