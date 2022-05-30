@@ -64,38 +64,13 @@ public class TilesOperations {
                     movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
                     characterSelected = true;
 
-                    /**PAQUETE*/
-                    //Checking a new Tile unchecks the previous one.
-                    oldTileChecker(tileLinkedList);
-                    //Fill with the current tile
-                    oldTileFiller(t, cont);
-                    //Set true isSelected to tile clicked
-                    t.setSelected(true);
-
                 } else if (equivalences.containsKey(stringPos) && characterSelected) {
                     turnBlueBack(tileLinkedList);
-
-                    /**PAQUETE*/
-                    //Checking a new Tile unchecks the previous one.
-                    oldTileChecker(tileLinkedList);
-                    //Fill with the current tile
-                    oldTileFiller(t, cont);
-                    //Set true isSelected to tile clicked
-                    t.setSelected(true);
 
                     startCharPos = stringPos;
                     charArrayIndex = equivalences.get(startCharPos);
                     c = characters.get(charArrayIndex);
                     movementPossibilitiesPainter(mapX, mapY, c.getMovementCapacity(), tileLinkedList);
-
-                } else if (!equivalences.containsKey(stringPos) && !characterSelected) {
-                    /**PAQUETE*/
-                    //Checking a new Tile unchecks the previous one.
-                    oldTileChecker(tileLinkedList);
-                    //Fill with the current tile
-                    oldTileFiller(t, cont);
-                    //Set true isSelected to tile clicked
-                    t.setSelected(true);
 
                 } else if (!equivalences.containsKey(stringPos) && characterSelected) {
                     if (possibleTilesToMove.contains(TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY))) {
@@ -113,14 +88,6 @@ public class TilesOperations {
                         oldOccupiedTile.setOccupied(false);*/
                         oldTile.setOccupied(false);
 
-                        /**PAQUETE*/
-                        //Checking a new Tile unchecks the previous one.
-                        oldTileChecker(tileLinkedList);
-                        //Fill with the current tile
-                        oldTileFiller(t, cont);
-                        //Set true isSelected to tile clicked
-                        t.setSelected(true);
-
                         //Eliminate the blue tiles because you have unchecked the character's tile.
                         turnBlueBack(tileLinkedList);
                         characterSelected = false;
@@ -128,30 +95,25 @@ public class TilesOperations {
                         turnBlueBack(tileLinkedList);
                         characterSelected = false;
 
-                        /**PAQUETE*/
-                        //Checking a new Tile unchecks the previous one.
-                        oldTileChecker(tileLinkedList);
-                        //Fill with the current tile
-                        oldTileFiller(t, cont);
-                        //Set true isSelected to tile clicked
-                        t.setSelected(true);
                     }
                 }
+                newClickOps(tileLinkedList, t, cont);
             }
             cont++;
         }
     }
 
-    private void oldTileChecker(LinkedList<Tile> tileLinkedList) {
+    private void newClickOps(LinkedList<Tile> tileLinkedList, Tile t, int cont) {
+        //Check if there is an old tile, if yes: set it unselected
         if (oldTile != null) {
             oldTile.setSelected(false);
             tileLinkedList.set(oldPosition, oldTile);
         }
-    }
-
-    private void oldTileFiller(Tile t, int cont) {
+        //Fill old tile whit current
         oldTile = t;
         oldPosition = cont;
+        //Set selected the tile just clicked
+        t.setSelected(true);
     }
 
     private void turnBlueBack(LinkedList<Tile> tileLinkedList) {
