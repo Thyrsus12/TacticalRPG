@@ -79,8 +79,8 @@ public class TilesOperations {
 
                         //Make the previous occupied tile accessible
                         oldTile.setOccupied(false);
-
                     }
+
                     //Eliminate the blue tiles because you have unchecked the character's tile.
                     turnBlueBack(tileLinkedList);
                     characterSelected = false;
