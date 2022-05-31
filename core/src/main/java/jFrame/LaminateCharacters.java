@@ -1,20 +1,26 @@
 package jFrame;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LaminateCharacters extends JPanel {
     private JLabel name;
     private ArrayList<JSpinner> spinner;
+    private Image image;
 
-    public LaminateCharacters(String titulo, String[] options) {
+    public LaminateCharacters(String titulo, ImageIcon[] options) {
         spinner = new ArrayList<>();
-
         setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), titulo));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        name = new JLabel();
 
         for (int i = 0; i < options.length; i++) {
-            name = new JLabel(options[i]);
+
+            name.setIcon(options[i]);
             add(name);
             spinner.add(new JSpinner(new SpinnerNumberModel(0, 0, 10, 1)));
             add(spinner.get(i));
