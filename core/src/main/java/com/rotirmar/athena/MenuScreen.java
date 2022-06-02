@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import jFrame.FrameworkMenu;
+import utilities.SaveGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
@@ -112,7 +114,18 @@ public class MenuScreen implements Screen {
                     frameworkMenu.setResizable(false);
                     frameworkMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 } else if (clickY > (screenHeightThird - (screenHeightThird / 1.8f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 1.8f))) {
-
+                    try {
+                        String rute =  new File("").getAbsolutePath() + "/assets/characters.dat";
+                        ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(rute));
+                        SaveGame saveGame = (SaveGame) inputStream.readObject();
+                        game.setScreen(new GameScreen(batch, game, saveGame.getCharacters(), saveGame.getMapSize(), saveGame.getMapType(), screenWidthThird, screenHeightThird));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 } else if (clickY > (screenHeightThird - (screenHeightThird / 2.15f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 2.15f))) {
                     game.setScreen(new CreditsScreen(batch, screenWidthThird, screenHeightThird, game, this));
                 }

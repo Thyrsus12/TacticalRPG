@@ -1,6 +1,6 @@
 package utilities;
 
-import characters.Character;
+import characters.Charact;
 import characters.CharactersOperations;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import mapTileByTile.Tile;
@@ -21,10 +21,10 @@ public class TilesOperations {
     private Tile oldTile;
 
     private CharactersOperations charactersOps;
-    private LinkedList<Character> characters;
+    private LinkedList<Charact> characts;
     private HashMap<String, Integer> equivalences;
 
-    private Character c;
+    private Charact c;
     private String startCharPos;
     private int charArrayIndex;
 
@@ -36,7 +36,7 @@ public class TilesOperations {
         this.oldTile = null;
 
         this.charactersOps = charactersOps;
-        this.characters = charactersOps.getCharacters();
+        this.characts = charactersOps.getCharacters();
         this.equivalences = charactersOps.getCharacterPosEquivalence();
         setInaccessibleInitialTiles();
     }
@@ -91,10 +91,10 @@ public class TilesOperations {
         }
     }
 
-    private Character findChar(String stringPos) {
+    private Charact findChar(String stringPos) {
         startCharPos = stringPos;
         charArrayIndex = equivalences.get(startCharPos);
-        return characters.get(charArrayIndex);
+        return characts.get(charArrayIndex);
     }
 
     private void newClickOps(LinkedList<Tile> tileLinkedList, Tile t, int cont) {
@@ -126,7 +126,7 @@ public class TilesOperations {
     private void setInaccessibleInitialTiles() {
         int mapX, mapY;
         // Get the character pos
-        for (Character c : characters) {
+        for (Charact c : characts) {
             //Transform it to tile pos
             mapX = (int) c.getCharMapPos().x - 1;
             mapY = (int) c.getCharMapPos().y - 1;

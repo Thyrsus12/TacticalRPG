@@ -8,20 +8,26 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import mapTileByTile.Tile;
 
-public class Character {
+import java.io.Serializable;
+
+public class Charact implements Serializable {
+    private final String type;
     private final Texture t;
+
     private TextureRegion[] regionMovement;
     private Animation animation;
     private float time = 0f;
 
 
     private Vector2 charMapPos;
+
     private Vector2 charWorldPos;
 
     private Integer movementCapacity;
 
-    public Character(Texture t, Vector2 charMapPos, int movementCapacity) {
-        this.t = t;
+    public Charact(String type, Vector2 charMapPos, int movementCapacity) {
+        this.type = type;
+        this.t = new Texture(type);
         this.charMapPos = charMapPos;
         this.charWorldPos = calculateWorldPos(charMapPos);
         this.movementCapacity = movementCapacity;
@@ -52,6 +58,10 @@ public class Character {
         batch.draw(currentFrame, charWorldPos.x, charWorldPos.y);
     }
 
+    public String getType() {
+        return type;
+    }
+
     public Vector2 getCharMapPos() {
         return charMapPos;
     }
@@ -62,6 +72,9 @@ public class Character {
 
     public void setCharMapPos(Vector2 charMapPos) {
         this.charMapPos = charMapPos;
+    }
+    public Vector2 getCharWorldPos() {
+        return charWorldPos;
     }
 
     public void setCharWorldPos(Vector2 charWorldPos) {

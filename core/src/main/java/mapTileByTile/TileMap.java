@@ -16,6 +16,7 @@ import java.util.Random;
 public class TileMap {
 
     public static int mapSize;
+    public static String mapType;
     public static int world_map_size;
 
     public static HashMap<String, Integer> cordsToIndexEquivalence;
@@ -28,23 +29,40 @@ public class TileMap {
     //private String[][] mapLayer1;
     //public int[] selector = {6, 6};
 
+    public TileMap(int mapSize, String mapType, String state) {
+        if (state.equals("continue")) {
+            TileMap.mapSize = mapSize;
+            TileMap.mapType = mapType;
+            world_map_size = mapSize - 1;
+            cordsToIndexEquivalence = new HashMap<>();
+            cartographer = new Cartographer();
+            tileLinkedList = new LinkedList<>();
+            mapLayer0 = new String[this.mapSize][this.mapSize];
 
-    public TileMap(int mapSize, String mapType) {
-        TileMap.mapSize = mapSize;
-        world_map_size = mapSize - 1;
-        cordsToIndexEquivalence = new HashMap<>();
-        cartographer = new Cartographer();
-        tileLinkedList = new LinkedList<>();
-        mapLayer0 = new String[this.mapSize][this.mapSize];
-        //layer1 = new LinkedList<Tile>();
-        //mapLayer1 = new String[7][7];
+            try {
+                fillMap();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("FILL MAP FILLED");
+            }
+        } else {
+            TileMap.mapSize = mapSize;
+            TileMap.mapType = mapType;
+            world_map_size = mapSize - 1;
+            cordsToIndexEquivalence = new HashMap<>();
+            cartographer = new Cartographer();
+            tileLinkedList = new LinkedList<>();
+            mapLayer0 = new String[this.mapSize][this.mapSize];
+            //layer1 = new LinkedList<Tile>();
+            //mapLayer1 = new String[7][7];
 
-        try {
-            cartographer.writeMap(mapType);
-            fillMap();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("FILL MAP FILLED");
+            try {
+                cartographer.writeMap(mapType);
+                fillMap();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("FILL MAP FILLED");
+            }
         }
     }
 

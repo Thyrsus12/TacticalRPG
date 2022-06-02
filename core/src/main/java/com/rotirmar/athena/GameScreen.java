@@ -1,22 +1,25 @@
 package com.rotirmar.athena;
 
-import characters.Character;
+import characters.Charact;
 import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import jFrame.FrameworkBackMenu;
-import jFrame.FrameworkMenu;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
+import utilities.AuxCharacter;
+import utilities.SaveGame;
 import utilities.TilesOperations;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class GameScreen implements Screen {
     private final SpriteBatch batch;
@@ -37,9 +40,22 @@ public class GameScreen implements Screen {
 
         camParamCalculator(mapSize);
 
-        this.map = new TileMap(mapSize, mapType);
+        this.map = new TileMap(mapSize, mapType, "new");
 
         this.charactersOps = new CharactersOperations(numCharacters, numCharacters2, mapSize);
+        this.tilesOps = new TilesOperations(map, charactersOps);
+    }
+
+    public GameScreen(SpriteBatch batch, Game game, LinkedList<AuxCharacter> characts, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
+        this.game = game;
+        this.batch = batch;
+        this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
+
+        camParamCalculator(mapSize);
+
+        this.map = new TileMap(mapSize, mapType, "continue");
+
+        this.charactersOps = new CharactersOperations(characts);
         this.tilesOps = new TilesOperations(map, charactersOps);
     }
 
@@ -65,8 +81,8 @@ public class GameScreen implements Screen {
 
         batch.begin();
         map.render(batch);
-        for (Character character : charactersOps.getCharacters()) {
-            character.render(batch);
+        for (Charact charact : charactersOps.getCharacters()) {
+            charact.render(batch);
         }
         batch.end();
     }
@@ -86,8 +102,22 @@ public class GameScreen implements Screen {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
         } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            //TODO
+            try {
+                saveGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
+    }
+
+    private void saveGame() throws IOException {
+        String rute =  new File("").getAbsolutePath() + "/assets/characters.dat";
+        ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(rute));
+        SaveGame saveGame = new SaveGame(CharactersOperations.characts, TileMap.mapSize, TileMap.mapType);
+        outputStream.writeObject(saveGame);
+        outputStream.close();
+
     }
 
     public void mouseInput() {
