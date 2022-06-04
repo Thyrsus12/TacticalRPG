@@ -1,6 +1,6 @@
 package utilities;
 
-import characters.Charact;
+import characters.Character;
 import characters.CharactersOperations;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import mapTileByTile.Tile;
@@ -21,10 +21,10 @@ public class TilesOperations {
     private Tile oldTile;
 
     private CharactersOperations charactersOps;
-    private LinkedList<Charact> characts;
+    private LinkedList<Character> characters;
     private HashMap<String, Integer> equivalences;
 
-    private Charact c;
+    private Character c;
     private String startCharPos;
     private int charArrayIndex;
 
@@ -36,9 +36,26 @@ public class TilesOperations {
         this.oldTile = null;
 
         this.charactersOps = charactersOps;
-        this.characts = charactersOps.getCharacters();
+        this.characters = charactersOps.getCharacters();
         this.equivalences = charactersOps.getCharacterPosEquivalence();
         setInaccessibleInitialTiles();
+    }
+
+    /**
+     * Only at startup does the program traverse the character array and set its tiles as inaccessible.
+     */
+    private void setInaccessibleInitialTiles() {
+        int mapX, mapY;
+        // Get the character pos
+        for (Character c : characters) {
+            //Transform it to tile pos
+            mapX = (int) c.getCharMapPos().x - 1;
+            mapY = (int) c.getCharMapPos().y - 1;
+            //Search and modify the tile
+            int tileArrayPos = TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY);
+            LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
+            tileLinkedList.get(tileArrayPos).setOccupied(true);
+        }
     }
 
     /**
@@ -91,50 +108,10 @@ public class TilesOperations {
         }
     }
 
-    private Charact findChar(String stringPos) {
+    private Character findChar(String stringPos) {
         startCharPos = stringPos;
         charArrayIndex = equivalences.get(startCharPos);
-        return characts.get(charArrayIndex);
-    }
-
-    private void newClickOps(LinkedList<Tile> tileLinkedList, Tile t, int cont) {
-        //Check if there is an old tile, if yes: set it unselected
-        if (oldTile != null) {
-            oldTile.setSelected(false);
-            tileLinkedList.set(oldPosition, oldTile);
-        }
-        //Fill old tile whit current
-        oldTile = t;
-        oldPosition = cont;
-        //Set selected the tile just clicked
-        t.setSelected(true);
-    }
-
-    private void turnBlueBack(LinkedList<Tile> tileLinkedList) {
-        Tile t;
-        int cont = 0;
-        for (Integer index : possibleTilesToMove) {
-            t = tileLinkedList.get(index);
-            t.setTexture(beforeTheBlueTiles.get(cont));
-            cont++;
-        }
-    }
-
-    /**
-     * Only at startup does the program traverse the character array and set its tiles as inaccessible.
-     */
-    private void setInaccessibleInitialTiles() {
-        int mapX, mapY;
-        // Get the character pos
-        for (Charact c : characts) {
-            //Transform it to tile pos
-            mapX = (int) c.getCharMapPos().x - 1;
-            mapY = (int) c.getCharMapPos().y - 1;
-            //Search and modify the tile
-            int tileArrayPos = TileMap.cordsToIndexEquivalence.get(mapX + "," + mapY);
-            LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
-            tileLinkedList.get(tileArrayPos).setOccupied(true);
-        }
+        return characters.get(charArrayIndex);
     }
 
     /**
@@ -235,7 +212,7 @@ public class TilesOperations {
         }
     }
 
-    public boolean cordValidator(int x, int y, int min, int max) {
+    private boolean cordValidator(int x, int y, int min, int max) {
         boolean isValid = false;
         if (x >= min && x <= max && y >= min && y <= max) {
             isValid = true;
@@ -243,4 +220,26 @@ public class TilesOperations {
         return isValid;
     }
 
+    private void turnBlueBack(LinkedList<Tile> tileLinkedList) {
+        Tile t;
+        int cont = 0;
+        for (Integer index : possibleTilesToMove) {
+            t = tileLinkedList.get(index);
+            t.setTexture(beforeTheBlueTiles.get(cont));
+            cont++;
+        }
+    }
+
+    private void newClickOps(LinkedList<Tile> tileLinkedList, Tile t, int cont) {
+        //Check if there is an old tile, if yes: set it unselected
+        if (oldTile != null) {
+            oldTile.setSelected(false);
+            tileLinkedList.set(oldPosition, oldTile);
+        }
+        //Fill old tile whit current
+        oldTile = t;
+        oldPosition = cont;
+        //Set selected the tile just clicked
+        t.setSelected(true);
+    }
 }

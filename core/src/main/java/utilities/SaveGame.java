@@ -1,36 +1,33 @@
 package utilities;
 
-import characters.Charact;
+import characters.Character;
 
 import java.io.Serializable;
 import java.util.LinkedList;
 
 public class SaveGame implements Serializable {
-    LinkedList<AuxCharacter> characters = new LinkedList<>();
+    LinkedList<SimpleCharacter> simpleCharacters = new LinkedList<>();
     Integer mapSize;
     String mapType;
 
-    public SaveGame(LinkedList<Charact> characters, Integer mapSize, String mapType) {
+    public SaveGame(LinkedList<Character> characters, Integer mapSize, String mapType) {
+        generateSimpleCharacters(characters);
         this.mapSize = mapSize;
         this.mapType = mapType;
-
-        generateCharacters(characters);
     }
 
-    private void generateCharacters(LinkedList<Charact> characters) {
-        for (Charact c: characters) {
-            this.characters.add(new AuxCharacter(c.getType(), c.getCharMapPos(), c.getMovementCapacity()));
+    private void generateSimpleCharacters(LinkedList<Character> characters) {
+        for (Character c: characters) {
+            this.simpleCharacters.add(new SimpleCharacter(c.getType(), c.getCharMapPos(), c.getMovementCapacity()));
         }
     }
 
-    public LinkedList<AuxCharacter> getCharacters() {
-        return characters;
+    public LinkedList<SimpleCharacter> getSimpleCharacters() {
+        return simpleCharacters;
     }
-
     public Integer getMapSize() {
         return mapSize;
     }
-
     public String getMapType() {
         return mapType;
     }

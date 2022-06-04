@@ -15,16 +15,15 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
-
     private final SpriteBatch batch;
     private final Game game;
 
     private int screenWidthThird;
     private int screenHeightThird;
 
-    private Texture btnNewMap;
-    private Texture btnResume;
-    private Texture btnCredits;
+    private final Texture btnNewMap;
+    private final Texture btnResume;
+    private final Texture btnCredits;
     public static int buttonWidth;
     public static int buttonHeight;
 
@@ -70,6 +69,16 @@ public class MenuScreen implements Screen {
         return result;
     }
 
+    private void makeAnimation(Texture t) {
+        int frames = t.getWidth() / 1920;
+        TextureRegion[][] tmp = TextureRegion.split(t, t.getWidth() / frames, t.getHeight());
+        TextureRegion[] regionMovement = new TextureRegion[frames];
+        for (int i = 0; i < frames; i++) {
+            regionMovement[i] = tmp[0][i];
+        }
+        animation = new Animation(0.8f, regionMovement);
+    }
+
     @Override
     public void render(float delta) {
         batch.begin();
@@ -79,9 +88,8 @@ public class MenuScreen implements Screen {
         batch.draw(btnCredits, screenWidthThird / 3f, screenHeightThird / 2.15f, buttonWidth, buttonHeight);
         batch.end();
 
-        mouseInput();
-
         checkJFrame();
+        mouseInput();
     }
 
     private TextureRegion getCurrentFrame() {
@@ -96,7 +104,7 @@ public class MenuScreen implements Screen {
             int mapSize = frameworkMenu.getSizeMap();
             String mapType = frameworkMenu.getTypeMap();
             frameworkMenu.setGenerated(false);
-            game.setScreen(new GameScreen(batch, game, numCharacters, numCharacters2, mapSize, mapType, screenWidthThird, screenHeightThird));
+            game.setScreen(new GameScreen(batch, numCharacters, numCharacters2, mapSize, mapType, screenWidthThird, screenHeightThird));
         }
     }
 
@@ -115,15 +123,15 @@ public class MenuScreen implements Screen {
                     frameworkMenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 } else if (clickY > (screenHeightThird - (screenHeightThird / 1.8f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 1.8f))) {
                     try {
-                        String rute =  new File("").getAbsolutePath() + "/assets/characters.dat";
+                        //Find the savedFile and generate a new GameScreen whit it
+                        String rute = new File("").getAbsolutePath() + "/assets/characters.dat";
                         ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(rute));
                         SaveGame saveGame = (SaveGame) inputStream.readObject();
-                        game.setScreen(new GameScreen(batch, game, saveGame.getCharacters(), saveGame.getMapSize(), saveGame.getMapType(), screenWidthThird, screenHeightThird));
+                        game.setScreen(new GameScreen(batch, saveGame.getSimpleCharacters(), saveGame.getMapSize(), saveGame.getMapType(), screenWidthThird, screenHeightThird));
                     } catch (FileNotFoundException e) {
+                        JOptionPane.showMessageDialog(null, "No hay partida guardada");
                         e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
+                    } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 } else if (clickY > (screenHeightThird - (screenHeightThird / 2.15f + buttonHeight)) && clickY < (screenHeightThird - (screenHeightThird / 2.15f))) {
@@ -133,16 +141,6 @@ public class MenuScreen implements Screen {
         }
     }
 
-    private void makeAnimation(Texture t) {
-        int frames = t.getWidth() / 1920;
-        TextureRegion[][] tmp = TextureRegion.split(t, t.getWidth() / frames, t.getHeight());
-        TextureRegion[] regionMovement = new TextureRegion[frames];
-        for (int i = 0; i < frames; i++) {
-            regionMovement[i] = tmp[0][i];
-        }
-        animation = new Animation(0.8f, regionMovement);
-    }
-
     @Override
     public void dispose() {
         batch.dispose();
@@ -150,21 +148,26 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
+
     }
 
     @Override
     public void resize(int width, int height) {
+
     }
 
     @Override
     public void pause() {
+
     }
 
     @Override
     public void resume() {
+
     }
 
     @Override
     public void hide() {
+
     }
 }

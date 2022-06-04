@@ -1,6 +1,6 @@
 package com.rotirmar.athena;
 
-import characters.Charact;
+import characters.Character;
 import characters.CharactersOperations;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,21 +9,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import jFrame.FrameworkBackMenu;
 import mapTileByTile.Tile;
 import mapTileByTile.TileMap;
-import utilities.AuxCharacter;
+import utilities.SimpleCharacter;
 import utilities.SaveGame;
 import utilities.TilesOperations;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class GameScreen implements Screen {
     private final SpriteBatch batch;
-    private final Game game;
     private final OrthographicCamera cam;
 
     private TileMap map;
@@ -31,13 +29,9 @@ public class GameScreen implements Screen {
     private CharactersOperations charactersOps;
     private TilesOperations tilesOps;
 
-    private FrameworkBackMenu frameworkBackMenu;
-
-    public GameScreen(SpriteBatch batch, Game game, ArrayList<Integer> numCharacters, ArrayList<Integer> numCharacters2, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
-        this.game = game;
+    public GameScreen(SpriteBatch batch, ArrayList<Integer> numCharacters, ArrayList<Integer> numCharacters2, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
         this.batch = batch;
         this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
-
         camParamCalculator(mapSize);
 
         this.map = new TileMap(mapSize, mapType, "new");
@@ -46,16 +40,14 @@ public class GameScreen implements Screen {
         this.tilesOps = new TilesOperations(map, charactersOps);
     }
 
-    public GameScreen(SpriteBatch batch, Game game, LinkedList<AuxCharacter> characts, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
-        this.game = game;
+    public GameScreen(SpriteBatch batch, LinkedList<SimpleCharacter> savedCharacters, int mapSize, String mapType, int screenWidthThird, int screenHeightThird) {
         this.batch = batch;
         this.cam = new OrthographicCamera(screenWidthThird, screenHeightThird);
-
         camParamCalculator(mapSize);
 
         this.map = new TileMap(mapSize, mapType, "continue");
 
-        this.charactersOps = new CharactersOperations(characts);
+        this.charactersOps = new CharactersOperations(savedCharacters);
         this.tilesOps = new TilesOperations(map, charactersOps);
     }
 
@@ -81,8 +73,8 @@ public class GameScreen implements Screen {
 
         batch.begin();
         map.render(batch);
-        for (Charact charact : charactersOps.getCharacters()) {
-            charact.render(batch);
+        for (Character character : charactersOps.getCharacters()) {
+            character.render(batch);
         }
         batch.end();
     }
@@ -101,9 +93,10 @@ public class GameScreen implements Screen {
         } else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (cam.zoom > 0.1)
                 cam.zoom -= 0.01;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             try {
                 saveGame();
+                JOptionPane.showMessageDialog(null, "Partida guardada");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -112,12 +105,11 @@ public class GameScreen implements Screen {
     }
 
     private void saveGame() throws IOException {
-        String rute =  new File("").getAbsolutePath() + "/assets/characters.dat";
+        String rute = new File("").getAbsolutePath() + "/assets/characters.dat";
         ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(rute));
-        SaveGame saveGame = new SaveGame(CharactersOperations.characts, TileMap.mapSize, TileMap.mapType);
+        SaveGame saveGame = new SaveGame(charactersOps.getCharacters(), TileMap.mapSize, TileMap.mapType);
         outputStream.writeObject(saveGame);
         outputStream.close();
-
     }
 
     public void mouseInput() {
@@ -136,6 +128,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+
     }
 
     @Override
