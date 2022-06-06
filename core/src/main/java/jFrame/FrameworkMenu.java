@@ -12,6 +12,13 @@ public class FrameworkMenu extends JFrame {
     private LaminateCharacters laminateCharacters1;
     private LaminateCharacters laminateCharacters2;
 
+    private static final String CHIMERA = "assets/characters/chimera1.png";
+    private static final String MAGICIAN = "assets/characters/magicianblue.png";
+    private static final String MEDUSA = "assets/characters/medusa1.png";
+    private static final String HOPLITE = "assets/characters/hopliteblue.png";
+    private static final String ARCHER = "assets/characters/archerblue.png";
+    private static final String HYDRA = "assets/characters/hydra1.png";
+
     private String typeMap;
     private int sizeMap;
 
@@ -31,8 +38,9 @@ public class FrameworkMenu extends JFrame {
 
         String typeMap[] = {"Aleatorio", "Pradera", "Lava", "Nieve", "Desierto"};
         String sizeMap[] = {"8", "16", "24"};
-        ImageIcon characters[] = {new ImageIcon(),new ImageIcon(),new ImageIcon(),new ImageIcon(),new ImageIcon(),new ImageIcon()};
-        ImageIcon characters2[] = {new ImageIcon(),new ImageIcon(),new ImageIcon(),new ImageIcon(),new ImageIcon(),new ImageIcon()};
+
+        String characters[] = {HOPLITE,MAGICIAN,ARCHER,MEDUSA,HYDRA,CHIMERA};
+        String characters2[] = {HOPLITE,MAGICIAN,ARCHER,MEDUSA,HYDRA,CHIMERA};
 
         laminateTypeMap = new LaminateMapType("Tipo mapa", typeMap);
         laminateSizeMap = new LaminateMapSize("Tamaño mapa", sizeMap);
