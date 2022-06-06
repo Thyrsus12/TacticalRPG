@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class TilesOperations {
     private TileMap map;
-
+    LinkedList<Tile> tileLinkedList;
     private Boolean characterSelected;
     private ArrayList<Integer> possibleTilesToMove;
     private ArrayList<TextureRegion> beforeTheBlueTiles;
@@ -28,8 +28,11 @@ public class TilesOperations {
     private String startCharPos;
     private int charArrayIndex;
 
+    String stringPos;
+
     public TilesOperations(TileMap map, CharactersOperations charactersOps) {
         this.map = map;
+        tileLinkedList = map.getTileLinkedList();
         this.characterSelected = false;
         this.possibleTilesToMove = new ArrayList<>();
         this.beforeTheBlueTiles = new ArrayList<>();
@@ -63,13 +66,12 @@ public class TilesOperations {
      */
     public void modifyTile(int mapX, int mapY) {
         int cont = 0;
-        LinkedList<Tile> tileLinkedList = map.getTileLinkedList();
 
         for (Tile t : tileLinkedList) {
             //Check if is the clicked tile
             if (t.getTileMapPos().x == mapX && t.getTileMapPos().y == mapY) {
 
-                String stringPos = (mapX + 1) + "," + (mapY + 1);
+                stringPos = (mapX + 1) + "," + (mapY + 1);
 
                 //Check if tile clicked contains a character
                 if (equivalences.containsKey(stringPos) && !characterSelected) {
@@ -241,5 +243,22 @@ public class TilesOperations {
         oldPosition = cont;
         //Set selected the tile just clicked
         t.setSelected(true);
+    }
+
+    public void deleteCharacter() {
+        if (characterSelected) {
+            //remove character from array
+            characters.remove(c);
+            //update the array and HasMap in CharactersOperations class
+            charactersOps.setCharacters(characters);
+            charactersOps.fillEquivalences();
+            //get the updated HasMap
+            equivalences = charactersOps.getCharacterPosEquivalence();
+
+            turnBlueBack(tileLinkedList);
+            characterSelected = false;
+            oldTile.setOccupied(false);
+        }
+
     }
 }

@@ -17,14 +17,12 @@ public class CharactersOperations {
         characters = new LinkedList<>();
         fillCharacters(numCharacters, "blue", mapSize);
         fillCharacters(numCharacters2, "red", mapSize);
-        this.characterPosEquivalence = new HashMap<>();
         fillEquivalences();
     }
 
     public CharactersOperations(LinkedList<SimpleCharacter> savedCharacters) {
         characters = new LinkedList<>();
         parseCharacters(savedCharacters);
-        this.characterPosEquivalence = new HashMap<>();
         fillEquivalences();
     }
 
@@ -46,11 +44,11 @@ public class CharactersOperations {
             for (int j = 0; j < i; j++) {
                 switch (cont) {
                     case 0:
-                        characters.add(new Character("characters/" + team + "Magician.png",  new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character("characters/" + team + "Magician.png", new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                     case 1:
-                        characters.add(new Character("characters/" + team + "Archer.png",  new Vector2(spawnPosX, spawnPosY), 2));
+                        characters.add(new Character("characters/" + team + "Archer.png", new Vector2(spawnPosX, spawnPosY), 2));
                         spawnPosY += 2;
                         break;
                     case 2:
@@ -83,8 +81,9 @@ public class CharactersOperations {
         }
     }
 
-    private void fillEquivalences() {
+    public void fillEquivalences() {
         int cont = 0, mapX, mapY;
+        characterPosEquivalence = new HashMap<>();
         for (Character character : characters) {
             mapX = (int) character.getCharMapPos().x;
             mapY = (int) character.getCharMapPos().y;
@@ -113,6 +112,10 @@ public class CharactersOperations {
 
     public LinkedList<Character> getCharacters() {
         return characters;
+    }
+
+    public void setCharacters(LinkedList<Character> characters) {
+        this.characters = characters;
     }
 
     public HashMap<String, Integer> getCharacterPosEquivalence() {

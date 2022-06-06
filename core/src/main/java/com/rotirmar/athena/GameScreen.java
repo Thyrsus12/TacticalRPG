@@ -101,6 +101,8 @@ public class GameScreen implements Screen {
                 e.printStackTrace();
             }
 
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            tilesOps.deleteCharacter();
         }
     }
 
