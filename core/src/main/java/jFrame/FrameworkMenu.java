@@ -12,6 +12,13 @@ public class FrameworkMenu extends JFrame {
     private LaminateCharacters laminateCharacters1;
     private LaminateCharacters laminateCharacters2;
 
+    private static final String CHIMERA = "assets/characters/chimera1.png";
+    private static final String MAGICIAN = "assets/characters/magicianblue.png";
+    private static final String MEDUSA = "assets/characters/medusa1.png";
+    private static final String HOPLITE = "assets/characters/hopliteblue.png";
+    private static final String ARCHER = "assets/characters/archerblue.png";
+    private static final String HYDRA = "assets/characters/hydra1.png";
+
     private String typeMap;
     private int sizeMap;
 
@@ -22,8 +29,8 @@ public class FrameworkMenu extends JFrame {
     public FrameworkMenu(int screenWidth, int screenHeight) throws HeadlessException {
         setTitle("Arcadia");
         setAlwaysOnTop(true);
-        int width = (int) (screenWidth / 1.9);
-        int height = (int) (screenHeight / 1.9);
+        int width = (int) (screenWidth / 2);
+        int height = (int) (screenHeight / 2);
         setBounds(screenWidth / 4, screenHeight / 4, width, height);
         //Construction of central sheeting
         JPanel backgroundSheet = new JPanel();
@@ -31,12 +38,14 @@ public class FrameworkMenu extends JFrame {
 
         String typeMap[] = {"Aleatorio", "Pradera", "Lava", "Nieve", "Desierto"};
         String sizeMap[] = {"8", "16", "24"};
-        String characters[] = {"Mago", "Arquero", "Hoplita", "Medusa", "Quimera", "Hidra"};
+
+        String characters[] = {HOPLITE,MAGICIAN,ARCHER,MEDUSA,HYDRA,CHIMERA};
+        String characters2[] = {HOPLITE,MAGICIAN,ARCHER,MEDUSA,HYDRA,CHIMERA};
 
         laminateTypeMap = new LaminateMapType("Tipo mapa", typeMap);
         laminateSizeMap = new LaminateMapSize("Tamaño mapa", sizeMap);
         laminateCharacters1 = new LaminateCharacters("Equipo1", characters);
-        laminateCharacters2 = new LaminateCharacters("Equipo2", characters);
+        laminateCharacters2 = new LaminateCharacters("Equipo2", characters2);
 
         setLayout(new BorderLayout());
 

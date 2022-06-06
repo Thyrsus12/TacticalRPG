@@ -1,21 +1,23 @@
 package jFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class LaminateCharacters extends JPanel {
-    private JLabel name;
+    private JLabel labelIcon;
     private ArrayList<JSpinner> spinner;
+    private Image image;
 
     public LaminateCharacters(String titulo, String[] options) {
         spinner = new ArrayList<>();
-
         setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), titulo));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        labelIcon = new JLabel();
 
         for (int i = 0; i < options.length; i++) {
-            name = new JLabel(options[i]);
-            add(name);
+            labelIcon = new JLabel(new ImageIcon(options[i]));
+            add(labelIcon);
             spinner.add(new JSpinner(new SpinnerNumberModel(0, 0, 10, 1)));
             add(spinner.get(i));
         }
