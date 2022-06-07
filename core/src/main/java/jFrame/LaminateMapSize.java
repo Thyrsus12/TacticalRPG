@@ -12,7 +12,7 @@ public class LaminateMapSize extends JPanel {
         spinner = new JSpinner(new SpinnerNumberModel(10, 8, 24, 1));
         add(spinner);
 
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 25; i++) {
             add(new JLabel(" "));
         }
     }

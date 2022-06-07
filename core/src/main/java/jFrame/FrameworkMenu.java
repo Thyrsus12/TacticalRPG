@@ -18,9 +18,9 @@ public class FrameworkMenu extends JFrame {
     private static final String BLUEHOPLITE = "assets/characters/hopliteblue.png";
     private static final String BLUEARCHER = "assets/characters/archerblue.png";
     private static final String HYDRA = "assets/characters/hydra1.png";
-    private static final String REDARCHER = "assets/characters/hydra1.png";
-    private static final String REDMAGICIAN = "assets/characters/hydra1.png";
-    private static final String REDHOPLITE = "assets/characters/hydra1.png";
+    private static final String REDARCHER = "assets/characters/archerred.png";
+    private static final String REDMAGICIAN = "assets/characters/magicianred.png";
+    private static final String REDHOPLITE = "assets/characters/hoplitered.png";
 
     private String typeMap;
     private int sizeMap;

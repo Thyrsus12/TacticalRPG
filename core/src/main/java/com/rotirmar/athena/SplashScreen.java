@@ -21,8 +21,8 @@ public class SplashScreen implements Screen {
 
     private boolean fadeInTerminated = false, terminated = false;
     private float a = 0;
-    private float contTime = 0, timeWait = 5;
-    private float contTimeTerminated = 0, timeTerminated = 5;
+    private float contTime = 0, timeWait = 1;
+    private float contTimeTerminated = 0, timeTerminated = 1;
 
     public SplashScreen(SpriteBatch batch, Game game) {
         this.batch = batch;
@@ -59,7 +59,7 @@ public class SplashScreen implements Screen {
 
     private void processFade() {
         if (!fadeInTerminated) {
-            a += 0.01f;
+            a += 0.03f;
             if (a > 1) {
                 a = 1;
                 fadeInTerminated = true;
@@ -67,7 +67,7 @@ public class SplashScreen implements Screen {
         } else {
             contTime += 0.05f;
             if (contTime > timeWait) {
-                a -= 0.01f;
+                a -= 0.03f;
                 if (a < 0) {
                     a = 0;
                     terminated = true;
