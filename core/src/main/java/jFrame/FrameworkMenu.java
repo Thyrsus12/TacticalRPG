@@ -13,11 +13,14 @@ public class FrameworkMenu extends JFrame {
     private LaminateCharacters laminateCharacters2;
 
     private static final String CHIMERA = "assets/characters/chimera1.png";
-    private static final String MAGICIAN = "assets/characters/magicianblue.png";
+    private static final String BLUEMAGICIAN = "assets/characters/magicianblue.png";
     private static final String MEDUSA = "assets/characters/medusa1.png";
-    private static final String HOPLITE = "assets/characters/hopliteblue.png";
-    private static final String ARCHER = "assets/characters/archerblue.png";
+    private static final String BLUEHOPLITE = "assets/characters/hopliteblue.png";
+    private static final String BLUEARCHER = "assets/characters/archerblue.png";
     private static final String HYDRA = "assets/characters/hydra1.png";
+    private static final String REDARCHER = "assets/characters/hydra1.png";
+    private static final String REDMAGICIAN = "assets/characters/hydra1.png";
+    private static final String REDHOPLITE = "assets/characters/hydra1.png";
 
     private String typeMap;
     private int sizeMap;
@@ -39,8 +42,8 @@ public class FrameworkMenu extends JFrame {
         String typeMap[] = {"Aleatorio", "Pradera", "Lava", "Nieve", "Desierto"};
         String sizeMap[] = {"8", "16", "24"};
 
-        String characters[] = {HOPLITE,MAGICIAN,ARCHER,MEDUSA,HYDRA,CHIMERA};
-        String characters2[] = {HOPLITE,MAGICIAN,ARCHER,MEDUSA,HYDRA,CHIMERA};
+        String characters[] = {BLUEHOPLITE,BLUEMAGICIAN,BLUEARCHER,MEDUSA,HYDRA,CHIMERA};
+        String characters2[] = {REDHOPLITE,REDMAGICIAN,REDARCHER,MEDUSA,HYDRA,CHIMERA};
 
         laminateTypeMap = new LaminateMapType("Tipo mapa", typeMap);
         laminateSizeMap = new LaminateMapSize("Tamaño mapa", sizeMap);
