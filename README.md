@@ -1,4 +1,4 @@
-##ARCADIA 
+#ARCADIA 
 
 **Arcadia** is a project developed in Java using **LibGDX**. It is a pseudo-random isometric map generator designed to be used mainly in role-playing games. The application generates, according to the user's taste, pixel art maps that can be choosen from several biomes in which different characters are represented. This characters are painted with sprites and they can be moved around the map according to a customizable movement.
 
