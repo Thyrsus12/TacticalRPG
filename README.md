@@ -1,29 +1,13 @@
-# Arcadia
+##ARCADIA 
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff).
+**Arcadia** is a project developed in Java using **LibGDX**. It is a pseudo-random isometric map generator designed to be used mainly in role-playing games. The application generates, according to the user's taste, pixel art maps that can be choosen from several biomes in which different characters are represented. This characters are painted with sprites and they can be moved around the map according to a customizable movement.
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+LibGDX is a framework designed to develop games in several scenarios that offers high creative freedom. Although the environment has some indispensable logics (mainly those related to rendering and the application execution loop), the class structure and the methods that are developed, as well as the entire graphic and visual section depend on the developers. 
 
-## Gradle
+The application is programmed entirely in Java and is designed to run on desktop. The basic flow of the application consists of creating new maps and loading the previous existing map for later use. The whole project is rendered through existing LibGDX channels and methods.
 
-This project uses [Gradle](http://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+Most of the time we have invested in Arcadia reside in its programmatic part, but there have also been other tasks in which we have also being working. This is the case of the design section, that we have considered crucial for an application like this. The textures of the maps are modified and adapted, and the characters are created practically from scratch. The menu and credits are also a product of our own creation.
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `android:lint`: performs Android project validation.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+The following programs make up the software we have used for the creation of this project. We have used IntelliJ for programming, Git and Github for version control, Aseprite, GIMP and Krita for design and drawing, Tiled for support with maps and patterns, HackNPlan for internal organization and Discord and Telegram for communication issues. We must mention Stackoverflow as the place we have turned to for questions and errors.
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+In short, Arcadia is a program that fulfills two fundamental objectives. On the one hand, our application offers role-players a software in which they can reference their games and campaigns. On the other hand, it is graphically friendly, simple and intuitive. Anyone can use it without previous knowledge. Given that we are living a renaissance of tabletop and role-playing games, and that we find more and more software available to support players, we consider that a contribution like ours can be useful and bring new elements to the currently existing options. The humble demonstration that this can be true is reflected in the amount of forks on Github that we have obtained during the development of the project.
