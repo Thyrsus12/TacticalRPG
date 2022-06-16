@@ -96,7 +96,6 @@ public class GameScreen implements Screen {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             try {
                 saveGame();
-                JOptionPane.showMessageDialog(null, "Partida guardada");
             } catch (IOException e) {
                 e.printStackTrace();
             }
