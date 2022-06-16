@@ -129,7 +129,7 @@ public class MenuScreen implements Screen {
                         SaveGame saveGame = (SaveGame) inputStream.readObject();
                         game.setScreen(new GameScreen(batch, saveGame.getSimpleCharacters(), saveGame.getMapSize(), saveGame.getMapType(), screenWidthThird, screenHeightThird));
                     } catch (FileNotFoundException e) {
-                        JOptionPane.showMessageDialog(null, "No hay partida guardada");
+                        //JOptionPane.showMessageDialog(null, "No hay partida guardada");
                         e.printStackTrace();
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
